@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import CustomerForm from "@/components/CustomerForm";
-import { BookUser } from "lucide-react";
+import { Link } from "react-router-dom";
+import { BookUser, FileSpreadsheet } from "lucide-react";
 
 const Index = () => {
   const [showForm, setShowForm] = useState(false);
@@ -11,11 +12,19 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <header className="bg-white shadow-sm py-6">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-blue-700 flex items-center">
             <BookUser className="mr-2" />
             Customer Database
           </h1>
+          {!showForm && (
+            <Link to="/customers">
+              <Button variant="outline" className="flex items-center">
+                <FileSpreadsheet className="mr-2" size={16} />
+                View All Customers
+              </Button>
+            </Link>
+          )}
         </div>
       </header>
       
@@ -28,13 +37,23 @@ const Index = () => {
                 Add new customers to your database by filling out a simple multi-step form.
                 The information will be organized into 5 logical sections to make data entry easy.
               </p>
-              <Button 
-                size="lg" 
-                className="bg-blue-600 hover:bg-blue-700"
-                onClick={() => setShowForm(true)}
-              >
-                Add New Customer
-              </Button>
+              <div className="flex gap-4 justify-center">
+                <Button 
+                  size="lg" 
+                  className="bg-blue-600 hover:bg-blue-700"
+                  onClick={() => setShowForm(true)}
+                >
+                  Add New Customer
+                </Button>
+                <Link to="/customers">
+                  <Button 
+                    size="lg" 
+                    variant="outline"
+                  >
+                    View All Customers
+                  </Button>
+                </Link>
+              </div>
             </Card>
           </div>
         ) : (

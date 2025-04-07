@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ChevronRight, Check, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import ArquitecturaForm from "@/components/form-steps/ArquitecturaForm";
 import ContactInfoForm from "@/components/form-steps/ContactInfoForm";
 import AddressInfoForm from "@/components/form-steps/AddressInfoForm";
@@ -17,6 +18,7 @@ interface CustomerFormProps {
 
 const CustomerForm = ({ onCancel }: CustomerFormProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     // Arquitectura Info
@@ -126,13 +128,20 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
   const handleSubmit = () => {
     console.log("Submitting customer data:", formData);
     
+    const existingCustomers = localStorage.getItem("customers") 
+      ? JSON.parse(localStorage.getItem("customers") as string) 
+      : [];
+    
+    const updatedCustomers = [...existingCustomers, formData];
+    localStorage.setItem("customers", JSON.stringify(updatedCustomers));
+    
     toast({
       title: "Customer added successfully!",
       description: `${formData.customerName || "Customer"} has been added to the database.`,
       variant: "default",
     });
     
-    onCancel();
+    navigate("/customers");
   };
 
   const renderStepContent = () => {

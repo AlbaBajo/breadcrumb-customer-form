@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -25,10 +24,10 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
     antiguedad: "",
     
     // Snowflake Info
-    snowflakeEdition: "",
-    snowflakeRegion: "",
-    snowflakeWarehouse: "",
-    snowflakeSize: "",
+    tipoLicencia: "",
+    cloud: "",
+    tallaje: "",
+    comments: "",
     
     // Section fields
     section2Field1: "",
@@ -125,13 +124,12 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
   };
 
   const handleSubmit = () => {
-    // In a real application, this would save the data to a database
     console.log("Submitting customer data:", formData);
     
     toast({
       title: "Customer added successfully!",
       description: `${formData.customerName || "Customer"} has been added to the database.`,
-      variant: "default", // Changed from "success" to "default" to fix the TypeScript error
+      variant: "default",
     });
     
     onCancel();

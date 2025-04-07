@@ -1,9 +1,17 @@
-
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
 
 interface ArquitecturaFormProps {
   data: any;
@@ -11,8 +19,12 @@ interface ArquitecturaFormProps {
 }
 
 const ArquitecturaForm = ({ data, onUpdate }: ArquitecturaFormProps) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    onUpdate({ [name]: value });
+  };
+
+  const handleSelectChange = (name: string, value: string) => {
     onUpdate({ [name]: value });
   };
 
@@ -77,43 +89,80 @@ const ArquitecturaForm = ({ data, onUpdate }: ArquitecturaFormProps) => {
         <CollapsibleContent className="p-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-4">
             <div className="space-y-2">
-              <Label htmlFor="snowflakeEdition">Edition</Label>
-              <Input
-                id="snowflakeEdition"
-                name="snowflakeEdition"
-                placeholder="Enter Snowflake edition"
-                value={data.snowflakeEdition || ""}
-                onChange={handleChange}
-              />
+              <Label htmlFor="tipoLicencia">Tipo Licencia</Label>
+              <Select 
+                value={data.tipoLicencia || ""} 
+                onValueChange={(value) => handleSelectChange("tipoLicencia", value)}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select license type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Standard">Standard</SelectItem>
+                  <SelectItem value="Enterprise">Enterprise</SelectItem>
+                  <SelectItem value="BusinessCritical">Business Critical</SelectItem>
+                  <SelectItem value="VPS">VPS</SelectItem>
+                  <SelectItem value="Desconocido">Desconocido</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
+            
             <div className="space-y-2">
-              <Label htmlFor="snowflakeRegion">Region</Label>
-              <Input
-                id="snowflakeRegion"
-                name="snowflakeRegion"
-                placeholder="Enter Snowflake region"
-                value={data.snowflakeRegion || ""}
-                onChange={handleChange}
-              />
+              <Label htmlFor="cloud">Cloud</Label>
+              <Select 
+                value={data.cloud || ""} 
+                onValueChange={(value) => handleSelectChange("cloud", value)}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select cloud provider" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="AWS">AWS</SelectItem>
+                  <SelectItem value="Google">Google</SelectItem>
+                  <SelectItem value="AZURE">AZURE</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="snowflakeWarehouse">Warehouse</Label>
-              <Input
-                id="snowflakeWarehouse"
-                name="snowflakeWarehouse"
-                placeholder="Enter Snowflake warehouse"
-                value={data.snowflakeWarehouse || ""}
-                onChange={handleChange}
-              />
+            
+            <div className="space-y-2 col-span-2">
+              <Label htmlFor="tallaje">Tallaje</Label>
+              <RadioGroup 
+                value={data.tallaje || ""} 
+                onValueChange={(value) => handleSelectChange("tallaje", value)}
+                className="flex space-x-4"
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="XS" id="tallaje-xs" />
+                  <Label htmlFor="tallaje-xs">XS</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="S" id="tallaje-s" />
+                  <Label htmlFor="tallaje-s">S</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="M" id="tallaje-m" />
+                  <Label htmlFor="tallaje-m">M</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="L" id="tallaje-l" />
+                  <Label htmlFor="tallaje-l">L</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="XL" id="tallaje-xl" />
+                  <Label htmlFor="tallaje-xl">XL</Label>
+                </div>
+              </RadioGroup>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="snowflakeSize">Size</Label>
-              <Input
-                id="snowflakeSize"
-                name="snowflakeSize"
-                placeholder="Enter Snowflake size"
-                value={data.snowflakeSize || ""}
+            
+            <div className="space-y-2 col-span-2">
+              <Label htmlFor="comments">Comments</Label>
+              <Textarea
+                id="comments"
+                name="comments"
+                placeholder="Add any additional comments"
+                value={data.comments || ""}
                 onChange={handleChange}
+                className="min-h-[100px]"
               />
             </div>
           </div>

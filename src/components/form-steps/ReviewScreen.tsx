@@ -1,6 +1,6 @@
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { User, Calendar, List, Cloud, Radio, MessageSquare } from "lucide-react";
 
 interface ReviewScreenProps {
   data: any;
@@ -19,43 +19,36 @@ const ReviewScreen = ({ data }: ReviewScreenProps) => {
 
       <Card className="border-blue-200">
         <CardContent className="pt-6">
-          <h4 className="font-medium text-blue-700 mb-3">Basic Information</h4>
+          <h4 className="font-medium text-blue-700 mb-3">Arquitectura</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
             <div className="flex justify-between py-1">
-              <span className="font-medium">Name:</span>
-              <span className="text-gray-600">{data.firstName} {data.lastName}</span>
+              <span className="font-medium flex items-center"><User size={16} className="mr-2" /> Customer Name:</span>
+              <span className="text-gray-600">{data.customerName || "N/A"}</span>
             </div>
             <div className="flex justify-between py-1">
-              <span className="font-medium">Email:</span>
-              <span className="text-gray-600">{data.email}</span>
+              <span className="font-medium flex items-center"><Calendar size={16} className="mr-2" /> Antiguedad:</span>
+              <span className="text-gray-600">{data.antiguedad || "N/A"}</span>
+            </div>
+          </div>
+
+          <Separator className="my-4" />
+          <h5 className="font-medium text-blue-600 mb-3">Edition Snowflake</h5>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+            <div className="flex justify-between py-1">
+              <span className="font-medium flex items-center"><List size={16} className="mr-2" /> Tipo Licencia:</span>
+              <span className="text-gray-600">{data.tipoLicencia || "N/A"}</span>
             </div>
             <div className="flex justify-between py-1">
-              <span className="font-medium">Date of Birth:</span>
-              <span className="text-gray-600">{data.dateOfBirth}</span>
+              <span className="font-medium flex items-center"><Cloud size={16} className="mr-2" /> Cloud:</span>
+              <span className="text-gray-600">{data.cloud || "N/A"}</span>
             </div>
             <div className="flex justify-between py-1">
-              <span className="font-medium">Gender:</span>
-              <span className="text-gray-600">{data.gender}</span>
+              <span className="font-medium flex items-center"><Radio size={16} className="mr-2" /> Tallaje:</span>
+              <span className="text-gray-600">{data.tallaje || "N/A"}</span>
             </div>
-            <div className="flex justify-between py-1">
-              <span className="font-medium">Nationality:</span>
-              <span className="text-gray-600">{data.nationality}</span>
-            </div>
-            <div className="flex justify-between py-1">
-              <span className="font-medium">ID Number:</span>
-              <span className="text-gray-600">{data.idNumber}</span>
-            </div>
-            <div className="flex justify-between py-1">
-              <span className="font-medium">Occupation:</span>
-              <span className="text-gray-600">{data.occupation}</span>
-            </div>
-            <div className="flex justify-between py-1">
-              <span className="font-medium">Company:</span>
-              <span className="text-gray-600">{data.company}</span>
-            </div>
-            <div className="flex justify-between py-1">
-              <span className="font-medium">Job Title:</span>
-              <span className="text-gray-600">{data.title}</span>
+            <div className="flex justify-between py-1 col-span-2">
+              <span className="font-medium flex items-center"><MessageSquare size={16} className="mr-2" /> Comments:</span>
+              <span className="text-gray-600">{data.comments || "N/A"}</span>
             </div>
           </div>
         </CardContent>

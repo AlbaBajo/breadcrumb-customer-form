@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { ChevronRight, Check, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import BasicInfoForm from "@/components/form-steps/BasicInfoForm";
+import ArquitecturaForm from "@/components/form-steps/ArquitecturaForm";
 import ContactInfoForm from "@/components/form-steps/ContactInfoForm";
 import AddressInfoForm from "@/components/form-steps/AddressInfoForm";
 import BusinessInfoForm from "@/components/form-steps/BusinessInfoForm";
@@ -20,17 +20,31 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    // Basic Info
-    firstName: "",
-    lastName: "",
-    email: "",
-    dateOfBirth: "",
-    gender: "",
-    nationality: "",
-    idNumber: "",
-    occupation: "",
-    company: "",
-    title: "",
+    // Arquitectura Info
+    customerName: "",
+    antiguedad: "",
+    
+    // Snowflake Info
+    snowflakeEdition: "",
+    snowflakeRegion: "",
+    snowflakeWarehouse: "",
+    snowflakeSize: "",
+    
+    // Section fields
+    section2Field1: "",
+    section2Field2: "",
+    section3Field1: "",
+    section3Field2: "",
+    section4Field1: "",
+    section4Field2: "",
+    section5Field1: "",
+    section5Field2: "",
+    section6Field1: "",
+    section6Field2: "",
+    section7Field1: "",
+    section7Field2: "",
+    section8Field1: "",
+    section8Field2: "",
     
     // Contact Info
     phoneNumber: "",
@@ -84,7 +98,7 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
   });
 
   const steps = [
-    { id: 1, name: "Basic Info" },
+    { id: 1, name: "Arquitectura" },
     { id: 2, name: "Contact Info" },
     { id: 3, name: "Address" },
     { id: 4, name: "Business Info" },
@@ -116,8 +130,8 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
     
     toast({
       title: "Customer added successfully!",
-      description: `${formData.firstName} ${formData.lastName} has been added to the database.`,
-      variant: "success",
+      description: `${formData.customerName || "Customer"} has been added to the database.`,
+      variant: "default", // Changed from "success" to "default" to fix the TypeScript error
     });
     
     onCancel();
@@ -126,7 +140,7 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
-        return <BasicInfoForm data={formData} onUpdate={handleFormUpdate} />;
+        return <ArquitecturaForm data={formData} onUpdate={handleFormUpdate} />;
       case 2:
         return <ContactInfoForm data={formData} onUpdate={handleFormUpdate} />;
       case 3:

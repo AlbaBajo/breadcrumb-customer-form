@@ -1,8 +1,10 @@
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Checkbox } from "@/components/ui/checkbox";
 import { 
   Select,
   SelectContent,
@@ -28,16 +30,31 @@ const ArquitecturaForm = ({ data, onUpdate }: ArquitecturaFormProps) => {
     onUpdate({ [name]: value });
   };
 
+  const handleCheckboxChange = (name: string, checked: boolean) => {
+    onUpdate({ [name]: checked });
+  };
+
+  const handleMultiSelectChange = (name: string, value: string, checked: boolean) => {
+    const currentValues = data[name] ? [...data[name]] : [];
+    
+    if (checked) {
+      if (!currentValues.includes(value)) {
+        onUpdate({ [name]: [...currentValues, value] });
+      }
+    } else {
+      onUpdate({ [name]: currentValues.filter((item: string) => item !== value) });
+    }
+  };
+
   // Initialize open state for each section
   const [openSections, setOpenSections] = useState({
     snowflake: true,
-    section2: false,
-    section3: false,
-    section4: false,
-    section5: false,
-    section6: false,
-    section7: false,
-    section8: false,
+    dataIngestion: false,
+    explotacionDato: false,
+    orquestacion: false,
+    visualization: false,
+    advancedAnalytics: false,
+    government: false,
   });
 
   const toggleSection = (section: keyof typeof openSections) => {
@@ -169,224 +186,384 @@ const ArquitecturaForm = ({ data, onUpdate }: ArquitecturaFormProps) => {
         </CollapsibleContent>
       </Collapsible>
 
-      {/* Section 2 */}
-      <Collapsible open={openSections.section2} onOpenChange={() => toggleSection("section2")} className="border rounded-md p-2">
+      {/* Section 2 - Data Ingestion */}
+      <Collapsible open={openSections.dataIngestion} onOpenChange={() => toggleSection("dataIngestion")} className="border rounded-md p-2">
         <CollapsibleTrigger className="flex items-center justify-between w-full p-2 font-medium text-left">
-          <span>Section 2</span>
-          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.section2 ? "transform rotate-180" : ""}`} />
+          <span>Data Ingestion</span>
+          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.dataIngestion ? "transform rotate-180" : ""}`} />
         </CollapsibleTrigger>
         <CollapsibleContent className="p-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-4">
-            <div className="space-y-2">
-              <Label htmlFor="section2Field1">Field 1</Label>
-              <Input
-                id="section2Field1"
-                name="section2Field1"
-                placeholder="Enter field 1"
-                value={data.section2Field1 || ""}
-                onChange={handleChange}
-              />
+            {/* Left Column: From Sources to DL */}
+            <div className="space-y-4">
+              <h4 className="font-medium text-md">From Sources to DL</h4>
+
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="sourcesToDLSDG"
+                  checked={data.sourcesToDLSDG || false}
+                  onCheckedChange={(checked) => handleCheckboxChange("sourcesToDLSDG", checked as boolean)}
+                />
+                <Label htmlFor="sourcesToDLSDG">SDG</Label>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Tech ETL</Label>
+                <div className="space-y-2 border p-3 rounded-md max-h-[200px] overflow-y-auto">
+                  {[
+                    "Databricks", "Talend", "Data Factory", "Informatica (IICS)", 
+                    "Confluent", "Kestra", "Aecorsoft", "Streamsets", 
+                    "Capstorm", "Custom Python Scripts", "Glue Jobs", "Qlik Replicate"
+                  ].map((tech) => (
+                    <div key={`sourcesToDLTechETL-${tech}`} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`sourcesToDLTechETL-${tech}`}
+                        checked={(data.sourcesToDLTechETL || []).includes(tech)}
+                        onCheckedChange={(checked) => 
+                          handleMultiSelectChange("sourcesToDLTechETL", tech, checked as boolean)
+                        }
+                      />
+                      <Label htmlFor={`sourcesToDLTechETL-${tech}`}>{tech}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="storageDL">Storage DL</Label>
+                <Select 
+                  value={data.storageDL || ""} 
+                  onValueChange={(value) => handleSelectChange("storageDL", value)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select storage type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="AWS S3">AWS S3</SelectItem>
+                    <SelectItem value="ADLS">ADLS</SelectItem>
+                    <SelectItem value="Confluent">Confluent</SelectItem>
+                    <SelectItem value="Snowflake">Snowflake</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="sourcesToDLComments">Comments</Label>
+                <Textarea
+                  id="sourcesToDLComments"
+                  name="sourcesToDLComments"
+                  placeholder="Add any additional comments"
+                  value={data.sourcesToDLComments || ""}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
+
+            {/* Right Column: From DL to DWH */}
+            <div className="space-y-4">
+              <h4 className="font-medium text-md">From DL to DWH</h4>
+
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="dlToDWHSDG"
+                  checked={data.dlToDWHSDG || false}
+                  onCheckedChange={(checked) => handleCheckboxChange("dlToDWHSDG", checked as boolean)}
+                />
+                <Label htmlFor="dlToDWHSDG">SDG</Label>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Tech ETL</Label>
+                <div className="space-y-2 border p-3 rounded-md max-h-[200px] overflow-y-auto">
+                  {[
+                    "Databricks", "Talend", "Data Factory", "Informatica (IICS)", 
+                    "Confluent", "Kestra", "Aecorsoft", "Streamsets", 
+                    "Capstorm", "Custom Python Scripts", "Glue Jobs", "Qlik Replicate"
+                  ].map((tech) => (
+                    <div key={`dlToDWHTechETL-${tech}`} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`dlToDWHTechETL-${tech}`}
+                        checked={(data.dlToDWHTechETL || []).includes(tech)}
+                        onCheckedChange={(checked) => 
+                          handleMultiSelectChange("dlToDWHTechETL", tech, checked as boolean)
+                        }
+                      />
+                      <Label htmlFor={`dlToDWHTechETL-${tech}`}>{tech}</Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="storageDWH">Storage DWH</Label>
+                <Select 
+                  value={data.storageDWH || ""} 
+                  onValueChange={(value) => handleSelectChange("storageDWH", value)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select storage type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="AWS S3">AWS S3</SelectItem>
+                    <SelectItem value="ADLS">ADLS</SelectItem>
+                    <SelectItem value="Confluent">Confluent</SelectItem>
+                    <SelectItem value="Snowflake">Snowflake</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="dataModel">Data Model</Label>
+                <Select 
+                  value={data.dataModel || ""} 
+                  onValueChange={(value) => handleSelectChange("dataModel", value)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select data model" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Kimball">Kimball</SelectItem>
+                    <SelectItem value="Data Vault">Data Vault</SelectItem>
+                    <SelectItem value="Tablones">Tablones</SelectItem>
+                    <SelectItem value="Desconocido">Desconocido</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="dlToDWHComments">Comments</Label>
+                <Textarea
+                  id="dlToDWHComments"
+                  name="dlToDWHComments"
+                  placeholder="Add any additional comments"
+                  value={data.dlToDWHComments || ""}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
+
+      {/* Section 3 - Explotación del Dato */}
+      <Collapsible open={openSections.explotacionDato} onOpenChange={() => toggleSection("explotacionDato")} className="border rounded-md p-2">
+        <CollapsibleTrigger className="flex items-center justify-between w-full p-2 font-medium text-left">
+          <span>Explotación del Dato</span>
+          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.explotacionDato ? "transform rotate-180" : ""}`} />
+        </CollapsibleTrigger>
+        <CollapsibleContent className="p-2">
+          <div className="grid grid-cols-1 gap-y-4 pt-4">
             <div className="space-y-2">
-              <Label htmlFor="section2Field2">Field 2</Label>
-              <Input
-                id="section2Field2"
-                name="section2Field2"
-                placeholder="Enter field 2"
-                value={data.section2Field2 || ""}
+              <Label>Capa Explotación diseñada en Snowflake (Data Model - Tablones)</Label>
+              <div className="space-y-2 border p-3 rounded-md max-h-[200px] overflow-y-auto">
+                {["Modelo Estrella", "Tablones", "Data Model", "Otro"].map((option) => (
+                  <div key={`capaExplotacion-${option}`} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`capaExplotacion-${option}`}
+                      checked={(data.capaExplotacion || []).includes(option)}
+                      onCheckedChange={(checked) => 
+                        handleMultiSelectChange("capaExplotacion", option, checked as boolean)
+                      }
+                    />
+                    <Label htmlFor={`capaExplotacion-${option}`}>{option}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="explotacionDatoComments">Comments</Label>
+              <Textarea
+                id="explotacionDatoComments"
+                name="explotacionDatoComments"
+                placeholder="Add any additional comments"
+                value={data.explotacionDatoComments || ""}
                 onChange={handleChange}
+                className="min-h-[100px]"
               />
             </div>
           </div>
         </CollapsibleContent>
       </Collapsible>
 
-      {/* Section 3 */}
-      <Collapsible open={openSections.section3} onOpenChange={() => toggleSection("section3")} className="border rounded-md p-2">
+      {/* Section 4 - Orquestación */}
+      <Collapsible open={openSections.orquestacion} onOpenChange={() => toggleSection("orquestacion")} className="border rounded-md p-2">
         <CollapsibleTrigger className="flex items-center justify-between w-full p-2 font-medium text-left">
-          <span>Section 3</span>
-          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.section3 ? "transform rotate-180" : ""}`} />
+          <span>Orquestación</span>
+          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.orquestacion ? "transform rotate-180" : ""}`} />
         </CollapsibleTrigger>
         <CollapsibleContent className="p-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-4">
+          <div className="grid grid-cols-1 gap-y-4 pt-4">
             <div className="space-y-2">
-              <Label htmlFor="section3Field1">Field 1</Label>
-              <Input
-                id="section3Field1"
-                name="section3Field1"
-                placeholder="Enter field 1"
-                value={data.section3Field1 || ""}
-                onChange={handleChange}
-              />
+              <Label>Tech</Label>
+              <div className="space-y-2 border p-3 rounded-md max-h-[200px] overflow-y-auto">
+                {["Talend", "Kestra", "Airflow", "ADF", "GitLab", "EC2", "Snowflake", "Otro"].map((tech) => (
+                  <div key={`orquestacionTech-${tech}`} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`orquestacionTech-${tech}`}
+                      checked={(data.orquestacionTech || []).includes(tech)}
+                      onCheckedChange={(checked) => 
+                        handleMultiSelectChange("orquestacionTech", tech, checked as boolean)
+                      }
+                    />
+                    <Label htmlFor={`orquestacionTech-${tech}`}>{tech}</Label>
+                  </div>
+                ))}
+              </div>
             </div>
+            
             <div className="space-y-2">
-              <Label htmlFor="section3Field2">Field 2</Label>
-              <Input
-                id="section3Field2"
-                name="section3Field2"
-                placeholder="Enter field 2"
-                value={data.section3Field2 || ""}
+              <Label htmlFor="orquestacionComments">Comments</Label>
+              <Textarea
+                id="orquestacionComments"
+                name="orquestacionComments"
+                placeholder="Add any additional comments"
+                value={data.orquestacionComments || ""}
                 onChange={handleChange}
+                className="min-h-[100px]"
               />
             </div>
           </div>
         </CollapsibleContent>
       </Collapsible>
 
-      {/* Section 4 */}
-      <Collapsible open={openSections.section4} onOpenChange={() => toggleSection("section4")} className="border rounded-md p-2">
+      {/* Section 5 - Visualization */}
+      <Collapsible open={openSections.visualization} onOpenChange={() => toggleSection("visualization")} className="border rounded-md p-2">
         <CollapsibleTrigger className="flex items-center justify-between w-full p-2 font-medium text-left">
-          <span>Section 4</span>
-          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.section4 ? "transform rotate-180" : ""}`} />
+          <span>Visualization</span>
+          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.visualization ? "transform rotate-180" : ""}`} />
         </CollapsibleTrigger>
         <CollapsibleContent className="p-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-4">
+          <div className="grid grid-cols-1 gap-y-4 pt-4">
             <div className="space-y-2">
-              <Label htmlFor="section4Field1">Field 1</Label>
+              <Label>Tech</Label>
+              <div className="space-y-2 border p-3 rounded-md max-h-[200px] overflow-y-auto">
+                {["Power", "Qlik", "Tableau", "MicroStrategy", "Otro"].map((tech) => (
+                  <div key={`visualizationTech-${tech}`} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`visualizationTech-${tech}`}
+                      checked={(data.visualizationTech || []).includes(tech)}
+                      onCheckedChange={(checked) => 
+                        handleMultiSelectChange("visualizationTech", tech, checked as boolean)
+                      }
+                    />
+                    <Label htmlFor={`visualizationTech-${tech}`}>{tech}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="ratioDashboardsSnowflake">Ratio de dashboards leen de Snowflake</Label>
               <Input
-                id="section4Field1"
-                name="section4Field1"
-                placeholder="Enter field 1"
-                value={data.section4Field1 || ""}
+                id="ratioDashboardsSnowflake"
+                name="ratioDashboardsSnowflake"
+                placeholder="Enter ratio"
+                value={data.ratioDashboardsSnowflake || ""}
                 onChange={handleChange}
               />
             </div>
+            
             <div className="space-y-2">
-              <Label htmlFor="section4Field2">Field 2</Label>
-              <Input
-                id="section4Field2"
-                name="section4Field2"
-                placeholder="Enter field 2"
-                value={data.section4Field2 || ""}
+              <Label htmlFor="visualizationComments">Comments</Label>
+              <Textarea
+                id="visualizationComments"
+                name="visualizationComments"
+                placeholder="Add any additional comments"
+                value={data.visualizationComments || ""}
                 onChange={handleChange}
+                className="min-h-[100px]"
               />
             </div>
           </div>
         </CollapsibleContent>
       </Collapsible>
 
-      {/* Section 5 */}
-      <Collapsible open={openSections.section5} onOpenChange={() => toggleSection("section5")} className="border rounded-md p-2">
+      {/* Section 6 - Advanced Analytics */}
+      <Collapsible open={openSections.advancedAnalytics} onOpenChange={() => toggleSection("advancedAnalytics")} className="border rounded-md p-2">
         <CollapsibleTrigger className="flex items-center justify-between w-full p-2 font-medium text-left">
-          <span>Section 5</span>
-          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.section5 ? "transform rotate-180" : ""}`} />
+          <span>Advanced Analytics</span>
+          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.advancedAnalytics ? "transform rotate-180" : ""}`} />
         </CollapsibleTrigger>
         <CollapsibleContent className="p-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-4">
-            <div className="space-y-2">
-              <Label htmlFor="section5Field1">Field 1</Label>
-              <Input
-                id="section5Field1"
-                name="section5Field1"
-                placeholder="Enter field 1"
-                value={data.section5Field1 || ""}
-                onChange={handleChange}
+          <div className="grid grid-cols-1 gap-y-4 pt-4">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="isDoingSomething"
+                checked={data.isDoingSomething || false}
+                onCheckedChange={(checked) => handleCheckboxChange("isDoingSomething", checked as boolean)}
               />
+              <Label htmlFor="isDoingSomething">¿Están hacienda algo?</Label>
             </div>
+            
             <div className="space-y-2">
-              <Label htmlFor="section5Field2">Field 2</Label>
-              <Input
-                id="section5Field2"
-                name="section5Field2"
-                placeholder="Enter field 2"
-                value={data.section5Field2 || ""}
+              <Label>Tech</Label>
+              <div className="space-y-2 border p-3 rounded-md max-h-[200px] overflow-y-auto">
+                {["Databricks", "ML Flow", "Snowflake", "Sagemaker", "Datalku", "Otro"].map((tech) => (
+                  <div key={`advancedAnalyticsTech-${tech}`} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`advancedAnalyticsTech-${tech}`}
+                      checked={(data.advancedAnalyticsTech || []).includes(tech)}
+                      onCheckedChange={(checked) => 
+                        handleMultiSelectChange("advancedAnalyticsTech", tech, checked as boolean)
+                      }
+                    />
+                    <Label htmlFor={`advancedAnalyticsTech-${tech}`}>{tech}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="advancedAnalyticsComments">Comments</Label>
+              <Textarea
+                id="advancedAnalyticsComments"
+                name="advancedAnalyticsComments"
+                placeholder="Add any additional comments"
+                value={data.advancedAnalyticsComments || ""}
                 onChange={handleChange}
+                className="min-h-[100px]"
               />
             </div>
           </div>
         </CollapsibleContent>
       </Collapsible>
 
-      {/* Section 6 */}
-      <Collapsible open={openSections.section6} onOpenChange={() => toggleSection("section6")} className="border rounded-md p-2">
+      {/* Section 7 - Government */}
+      <Collapsible open={openSections.government} onOpenChange={() => toggleSection("government")} className="border rounded-md p-2">
         <CollapsibleTrigger className="flex items-center justify-between w-full p-2 font-medium text-left">
-          <span>Section 6</span>
-          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.section6 ? "transform rotate-180" : ""}`} />
+          <span>Government</span>
+          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.government ? "transform rotate-180" : ""}`} />
         </CollapsibleTrigger>
         <CollapsibleContent className="p-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-4">
+          <div className="grid grid-cols-1 gap-y-4 pt-4">
             <div className="space-y-2">
-              <Label htmlFor="section6Field1">Field 1</Label>
-              <Input
-                id="section6Field1"
-                name="section6Field1"
-                placeholder="Enter field 1"
-                value={data.section6Field1 || ""}
-                onChange={handleChange}
-              />
+              <Label>Tech</Label>
+              <div className="space-y-2 border p-3 rounded-md max-h-[200px] overflow-y-auto">
+                {["Informatica", "Collibra", "Collate", "Purview", "Herramienta interna Cellnex", "Snowflake", "DBT", "Truedat", "Otro"].map((tech) => (
+                  <div key={`governmentTech-${tech}`} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`governmentTech-${tech}`}
+                      checked={(data.governmentTech || []).includes(tech)}
+                      onCheckedChange={(checked) => 
+                        handleMultiSelectChange("governmentTech", tech, checked as boolean)
+                      }
+                    />
+                    <Label htmlFor={`governmentTech-${tech}`}>{tech}</Label>
+                  </div>
+                ))}
+              </div>
             </div>
+            
             <div className="space-y-2">
-              <Label htmlFor="section6Field2">Field 2</Label>
-              <Input
-                id="section6Field2"
-                name="section6Field2"
-                placeholder="Enter field 2"
-                value={data.section6Field2 || ""}
+              <Label htmlFor="governmentComments">Comments</Label>
+              <Textarea
+                id="governmentComments"
+                name="governmentComments"
+                placeholder="Add any additional comments"
+                value={data.governmentComments || ""}
                 onChange={handleChange}
-              />
-            </div>
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
-
-      {/* Section 7 */}
-      <Collapsible open={openSections.section7} onOpenChange={() => toggleSection("section7")} className="border rounded-md p-2">
-        <CollapsibleTrigger className="flex items-center justify-between w-full p-2 font-medium text-left">
-          <span>Section 7</span>
-          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.section7 ? "transform rotate-180" : ""}`} />
-        </CollapsibleTrigger>
-        <CollapsibleContent className="p-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-4">
-            <div className="space-y-2">
-              <Label htmlFor="section7Field1">Field 1</Label>
-              <Input
-                id="section7Field1"
-                name="section7Field1"
-                placeholder="Enter field 1"
-                value={data.section7Field1 || ""}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="section7Field2">Field 2</Label>
-              <Input
-                id="section7Field2"
-                name="section7Field2"
-                placeholder="Enter field 2"
-                value={data.section7Field2 || ""}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
-
-      {/* Section 8 */}
-      <Collapsible open={openSections.section8} onOpenChange={() => toggleSection("section8")} className="border rounded-md p-2">
-        <CollapsibleTrigger className="flex items-center justify-between w-full p-2 font-medium text-left">
-          <span>Section 8</span>
-          <ChevronDown className={`h-5 w-5 transition-transform ${openSections.section8 ? "transform rotate-180" : ""}`} />
-        </CollapsibleTrigger>
-        <CollapsibleContent className="p-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 pt-4">
-            <div className="space-y-2">
-              <Label htmlFor="section8Field1">Field 1</Label>
-              <Input
-                id="section8Field1"
-                name="section8Field1"
-                placeholder="Enter field 1"
-                value={data.section8Field1 || ""}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="section8Field2">Field 2</Label>
-              <Input
-                id="section8Field2"
-                name="section8Field2"
-                placeholder="Enter field 2"
-                value={data.section8Field2 || ""}
-                onChange={handleChange}
+                className="min-h-[100px]"
               />
             </div>
           </div>

@@ -17,10 +17,9 @@
       </div>
     </div>
     
-    <!-- Snowflake Section -->
-    <div class="section-header collapsible">
-      <span>Edition Snowflake</span>
-      <span class="chevron">▼</span>
+    <!-- Snowflake Section - Non-collapsible -->
+    <div class="section-header">
+      <h4 class="mb-3">Edition Snowflake</h4>
     </div>
     <div class="content">
       <div class="row mt-3">
@@ -79,12 +78,11 @@
       </div>
     </div>
     
-    <!-- Data Ingestion Section -->
-    <div class="section-header collapsible mt-4">
-      <span>Data Ingestion</span>
-      <span class="chevron">▼</span>
+    <!-- Data Ingestion Section - Non-collapsible -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">Data Ingestion</h4>
     </div>
-    <div class="content hidden">
+    <div class="content">
       <div class="container-fluid mt-3">
         <div class="row">
           <!-- Left Column: From Sources to DL -->
@@ -101,14 +99,8 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label">Tech ETL</label>
-                <div class="border p-2 rounded" style="max-height: 150px; overflow-y: auto;">
-                  <?php $techOptions = ["Databricks", "Talend", "Data Factory", "Informatica (IICS)", "Confluent", "Kestra", "Aecorsoft", "Streamsets", "Capstorm", "Custom Python Scripts", "Glue Jobs", "Qlik Replicate"]; ?>
-                  <? for($i = 0; $i < count($techOptions); $i++) { ?>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="sourcesToDLTechETL<?= $i ?>" name="sourcesToDLTechETL" value="<?= $techOptions[$i] ?>">
-                    <label class="form-check-label" for="sourcesToDLTechETL<?= $i ?>"><?= $techOptions[$i] ?></label>
-                  </div>
-                  <? } ?>
+                <div class="border p-2 rounded" style="max-height: 150px; overflow-y: auto;" id="sourcesToDLTechETLContainer">
+                  <!-- Tech ETL checkboxes will be dynamically added here -->
                 </div>
               </div>
               
@@ -157,14 +149,8 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label">Tech ETL</label>
-                <div class="border p-2 rounded" style="max-height: 150px; overflow-y: auto;">
-                  <?php $techOptions = ["Databricks", "Talend", "Data Factory", "Informatica (IICS)", "Confluent", "Kestra", "Aecorsoft", "Streamsets", "Capstorm", "Custom Python Scripts", "Glue Jobs", "Qlik Replicate"]; ?>
-                  <? for($i = 0; $i < count($techOptions); $i++) { ?>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="dlToDWHTechETL<?= $i ?>" name="dlToDWHTechETL" value="<?= $techOptions[$i] ?>">
-                    <label class="form-check-label" for="dlToDWHTechETL<?= $i ?>"><?= $techOptions[$i] ?></label>
-                  </div>
-                  <? } ?>
+                <div class="border p-2 rounded" style="max-height: 150px; overflow-y: auto;" id="dlToDWHTechETLContainer">
+                  <!-- Tech ETL checkboxes will be dynamically added here -->
                 </div>
               </div>
               
@@ -189,32 +175,16 @@
       </div>
     </div>
     
-    <!-- Explotación del Dato Section -->
-    <div class="section-header collapsible mt-4">
-      <span>Explotación del Dato</span>
-      <span class="chevron">▼</span>
+    <!-- Explotación del Dato Section - Non-collapsible -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">Explotación del Dato</h4>
     </div>
-    <div class="content hidden">
+    <div class="content">
       <div class="row mt-3">
         <div class="col-md-6 mb-3">
           <label class="form-label">Capa Explotación diseñada en Snowflake (Data Model - Tablones)</label>
-          <div class="border p-2 rounded mb-3">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="capaModeloEstrella" name="capaExplotacion" value="Modelo Estrella">
-              <label class="form-check-label" for="capaModeloEstrella">Modelo Estrella</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="capaTablones" name="capaExplotacion" value="Tablones">
-              <label class="form-check-label" for="capaTablones">Tablones</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="capaDataModel" name="capaExplotacion" value="Data Model">
-              <label class="form-check-label" for="capaDataModel">Data Model</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="capaOtro" name="capaExplotacion" value="Otro">
-              <label class="form-check-label" for="capaOtro">Otro</label>
-            </div>
+          <div class="border p-2 rounded mb-3" id="capaExplotacionContainer">
+            <!-- Capa Explotacion checkboxes will be dynamically added here -->
           </div>
         </div>
         
@@ -225,48 +195,16 @@
       </div>
     </div>
     
-    <!-- Orquestación Section -->
-    <div class="section-header collapsible mt-4">
-      <span>Orquestación</span>
-      <span class="chevron">▼</span>
+    <!-- Orquestación Section - Non-collapsible -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">Orquestación</h4>
     </div>
-    <div class="content hidden">
+    <div class="content">
       <div class="row mt-3">
         <div class="col-md-6 mb-3">
           <label class="form-label">Tech</label>
-          <div class="border p-2 rounded mb-3">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="orqTalend" name="orquestacionTech" value="Talend">
-              <label class="form-check-label" for="orqTalend">Talend</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="orqKestra" name="orquestacionTech" value="Kestra">
-              <label class="form-check-label" for="orqKestra">Kestra</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="orqAirflow" name="orquestacionTech" value="Airflow">
-              <label class="form-check-label" for="orqAirflow">Airflow</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="orqADF" name="orquestacionTech" value="ADF">
-              <label class="form-check-label" for="orqADF">ADF</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="orqGitLab" name="orquestacionTech" value="GitLab">
-              <label class="form-check-label" for="orqGitLab">GitLab</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="orqEC2" name="orquestacionTech" value="EC2">
-              <label class="form-check-label" for="orqEC2">EC2</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="orqSnowflake" name="orquestacionTech" value="Snowflake">
-              <label class="form-check-label" for="orqSnowflake">Snowflake</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="orqOtro" name="orquestacionTech" value="Otro">
-              <label class="form-check-label" for="orqOtro">Otro</label>
-            </div>
+          <div class="border p-2 rounded mb-3" id="orquestacionTechContainer">
+            <!-- Orquestacion Tech checkboxes will be dynamically added here -->
           </div>
         </div>
         
@@ -277,36 +215,16 @@
       </div>
     </div>
     
-    <!-- Visualization Section -->
-    <div class="section-header collapsible mt-4">
-      <span>Visualization</span>
-      <span class="chevron">▼</span>
+    <!-- Visualization Section - Non-collapsible -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">Visualization</h4>
     </div>
-    <div class="content hidden">
+    <div class="content">
       <div class="row mt-3">
         <div class="col-md-6 mb-3">
           <label class="form-label">Tech</label>
-          <div class="border p-2 rounded mb-3">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="visPower" name="visualizationTech" value="Power">
-              <label class="form-check-label" for="visPower">Power</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="visQlik" name="visualizationTech" value="Qlik">
-              <label class="form-check-label" for="visQlik">Qlik</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="visTableau" name="visualizationTech" value="Tableau">
-              <label class="form-check-label" for="visTableau">Tableau</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="visMicroStrategy" name="visualizationTech" value="MicroStrategy">
-              <label class="form-check-label" for="visMicroStrategy">MicroStrategy</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="visOtro" name="visualizationTech" value="Otro">
-              <label class="form-check-label" for="visOtro">Otro</label>
-            </div>
+          <div class="border p-2 rounded mb-3" id="visualizationTechContainer">
+            <!-- Visualization Tech checkboxes will be dynamically added here -->
           </div>
           
           <div class="mb-3">
@@ -322,12 +240,11 @@
       </div>
     </div>
     
-    <!-- Advanced Analytics Section -->
-    <div class="section-header collapsible mt-4">
-      <span>Advanced Analytics</span>
-      <span class="chevron">▼</span>
+    <!-- Advanced Analytics Section - Non-collapsible -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">Advanced Analytics</h4>
     </div>
-    <div class="content hidden">
+    <div class="content">
       <div class="row mt-3">
         <div class="col-md-6 mb-3">
           <div class="form-check mb-3">
@@ -336,31 +253,8 @@
           </div>
           
           <label class="form-label">Tech</label>
-          <div class="border p-2 rounded mb-3">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="aaDatabricks" name="advancedAnalyticsTech" value="Databricks">
-              <label class="form-check-label" for="aaDatabricks">Databricks</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="aaMLFlow" name="advancedAnalyticsTech" value="ML Flow">
-              <label class="form-check-label" for="aaMLFlow">ML Flow</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="aaSnowflake" name="advancedAnalyticsTech" value="Snowflake">
-              <label class="form-check-label" for="aaSnowflake">Snowflake</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="aaSagemaker" name="advancedAnalyticsTech" value="Sagemaker">
-              <label class="form-check-label" for="aaSagemaker">Sagemaker</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="aaDatalku" name="advancedAnalyticsTech" value="Datalku">
-              <label class="form-check-label" for="aaDatalku">Datalku</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="aaOtro" name="advancedAnalyticsTech" value="Otro">
-              <label class="form-check-label" for="aaOtro">Otro</label>
-            </div>
+          <div class="border p-2 rounded mb-3" id="advancedAnalyticsTechContainer">
+            <!-- Advanced Analytics Tech checkboxes will be dynamically added here -->
           </div>
         </div>
         
@@ -371,52 +265,16 @@
       </div>
     </div>
     
-    <!-- Government Section -->
-    <div class="section-header collapsible mt-4">
-      <span>Government</span>
-      <span class="chevron">▼</span>
+    <!-- Government Section - Non-collapsible -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">Government</h4>
     </div>
-    <div class="content hidden">
+    <div class="content">
       <div class="row mt-3">
         <div class="col-md-6 mb-3">
           <label class="form-label">Tech</label>
-          <div class="border p-2 rounded mb-3">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="govInformatica" name="governmentTech" value="Informatica">
-              <label class="form-check-label" for="govInformatica">Informatica</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="govCollibra" name="governmentTech" value="Collibra">
-              <label class="form-check-label" for="govCollibra">Collibra</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="govCollate" name="governmentTech" value="Collate">
-              <label class="form-check-label" for="govCollate">Collate</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="govPurview" name="governmentTech" value="Purview">
-              <label class="form-check-label" for="govPurview">Purview</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="govHerramientaInterna" name="governmentTech" value="Herramienta interna Cellnex">
-              <label class="form-check-label" for="govHerramientaInterna">Herramienta interna Cellnex</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="govSnowflake" name="governmentTech" value="Snowflake">
-              <label class="form-check-label" for="govSnowflake">Snowflake</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="govDBT" name="governmentTech" value="DBT">
-              <label class="form-check-label" for="govDBT">DBT</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="govTruedat" name="governmentTech" value="Truedat">
-              <label class="form-check-label" for="govTruedat">Truedat</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="govOtro" name="governmentTech" value="Otro">
-              <label class="form-check-label" for="govOtro">Otro</label>
-            </div>
+          <div class="border p-2 rounded mb-3" id="governmentTechContainer">
+            <!-- Government Tech checkboxes will be dynamically added here -->
           </div>
         </div>
         
@@ -430,55 +288,40 @@
 </div>
 
 <script>
-  // Initialize collapsible sections
+  // Initialize form with dynamic checkboxes
   document.addEventListener('DOMContentLoaded', function() {
-    const collapsibles = document.querySelectorAll('.collapsible');
-    
-    collapsibles.forEach(collapsible => {
-      collapsible.addEventListener('click', function() {
-        this.classList.toggle('active');
-        const content = this.nextElementSibling;
-        if (content.classList.contains('hidden')) {
-          content.classList.remove('hidden');
-        } else {
-          content.classList.add('hidden');
-        }
-      });
-    });
-  });
-  
-  // Fix for PHP-style loops since Apps Script doesn't support PHP
-  document.addEventListener('DOMContentLoaded', function() {
-    // Replace <?php and <?= tags with proper HTML content for checkboxes
+    // Define checkbox options for different sections
     const techETLOptions = ["Databricks", "Talend", "Data Factory", "Informatica (IICS)", "Confluent", "Kestra", "Aecorsoft", "Streamsets", "Capstorm", "Custom Python Scripts", "Glue Jobs", "Qlik Replicate"];
+    const capaExplotacionOptions = ["Modelo Estrella", "Tablones", "Data Model", "Otro"];
+    const orquestacionTechOptions = ["Talend", "Kestra", "Airflow", "ADF", "GitLab", "EC2", "Snowflake", "Otro"];
+    const visualizationTechOptions = ["Power", "Qlik", "Tableau", "MicroStrategy", "Otro"];
+    const advancedAnalyticsTechOptions = ["Databricks", "ML Flow", "Snowflake", "Sagemaker", "Datalku", "Otro"];
+    const governmentTechOptions = ["Informatica", "Collibra", "Collate", "Purview", "Herramienta interna Cellnex", "Snowflake", "DBT", "Truedat", "Otro"];
     
-    // For Sources to DL Tech ETL
-    let sourcesContainer = document.querySelector("[id^='sourcesToDLTechETL']").closest('.border');
-    sourcesContainer.innerHTML = '';
+    // Helper function to create checkboxes
+    function createCheckboxes(containerId, options, name) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      
+      options.forEach((option, index) => {
+        const checkboxDiv = document.createElement('div');
+        checkboxDiv.className = 'form-check';
+        checkboxDiv.innerHTML = `
+          <input class="form-check-input" type="checkbox" id="${name}${index}" name="${name}" value="${option}">
+          <label class="form-check-label" for="${name}${index}">${option}</label>
+        `;
+        container.appendChild(checkboxDiv);
+      });
+    }
     
-    techETLOptions.forEach((option, index) => {
-      const checkboxDiv = document.createElement('div');
-      checkboxDiv.className = 'form-check';
-      checkboxDiv.innerHTML = `
-        <input class="form-check-input" type="checkbox" id="sourcesToDLTechETL${index}" name="sourcesToDLTechETL" value="${option}">
-        <label class="form-check-label" for="sourcesToDLTechETL${index}">${option}</label>
-      `;
-      sourcesContainer.appendChild(checkboxDiv);
-    });
-    
-    // For DL to DWH Tech ETL
-    let dlToDWHContainer = document.querySelector("[id^='dlToDWHTechETL']").closest('.border');
-    dlToDWHContainer.innerHTML = '';
-    
-    techETLOptions.forEach((option, index) => {
-      const checkboxDiv = document.createElement('div');
-      checkboxDiv.className = 'form-check';
-      checkboxDiv.innerHTML = `
-        <input class="form-check-input" type="checkbox" id="dlToDWHTechETL${index}" name="dlToDWHTechETL" value="${option}">
-        <label class="form-check-label" for="dlToDWHTechETL${index}">${option}</label>
-      `;
-      dlToDWHContainer.appendChild(checkboxDiv);
-    });
+    // Create checkboxes for all sections
+    createCheckboxes('sourcesToDLTechETLContainer', techETLOptions, 'sourcesToDLTechETL');
+    createCheckboxes('dlToDWHTechETLContainer', techETLOptions, 'dlToDWHTechETL');
+    createCheckboxes('capaExplotacionContainer', capaExplotacionOptions, 'capaExplotacion');
+    createCheckboxes('orquestacionTechContainer', orquestacionTechOptions, 'orquestacionTech');
+    createCheckboxes('visualizationTechContainer', visualizationTechOptions, 'visualizationTech');
+    createCheckboxes('advancedAnalyticsTechContainer', advancedAnalyticsTechOptions, 'advancedAnalyticsTech');
+    createCheckboxes('governmentTechContainer', governmentTechOptions, 'governmentTech');
   });
   
   // Helper function to collect form data
@@ -552,3 +395,4 @@
     return isValid;
   }
 </script>
+

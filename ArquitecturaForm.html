@@ -1,0 +1,82 @@
+
+<div class="form-section">
+  <h3 class="mb-3">Arquitectura</h3>
+  <p class="text-muted mb-4">Enter the customer architecture details</p>
+  
+  <form id="arquitecturaForm">
+    <!-- Required fields at the top -->
+    <div class="row mb-4">
+      <div class="col-md-6 mb-3">
+        <label for="customerName" class="form-label required-field">Customer Name</label>
+        <input type="text" class="form-control" id="customerName" placeholder="Enter customer name" required>
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="antiguedad" class="form-label required-field">Antiguedad</label>
+        <input type="text" class="form-control" id="antiguedad" placeholder="Enter antiguedad" required>
+      </div>
+    </div>
+    
+    <!-- Snowflake Section -->
+    <div class="form-section">
+      <div class="section-header collapsible">
+        <span>Edition Snowflake</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="content">
+        <div class="row mt-3">
+          <div class="col-md-6 mb-3">
+            <label for="tipoLicencia" class="form-label">Tipo Licencia</label>
+            <select class="form-select" id="tipoLicencia">
+              <option value="" selected>Select license type</option>
+              <option value="Standard">Standard</option>
+              <option value="Enterprise">Enterprise</option>
+              <option value="BusinessCritical">Business Critical</option>
+              <option value="VPS">VPS</option>
+              <option value="Desconocido">Desconocido</option>
+            </select>
+          </div>
+          
+          <div class="col-md-6 mb-3">
+            <label for="cloud" class="form-label">Cloud</label>
+            <select class="form-select" id="cloud">
+              <option value="" selected>Select cloud provider</option>
+              <option value="AWS">AWS</option>
+              <option value="Google">Google</option>
+              <option value="AZURE">AZURE</option>
+            </select>
+          </div>
+          
+          <div class="col-md-12 mb-3">
+            <label class="form-label d-block">Tallaje</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="tallaje" id="tallajeXS" value="XS">
+              <label class="form-check-label" for="tallajeXS">XS</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="tallaje" id="tallajeS" value="S">
+              <label class="form-check-label" for="tallajeS">S</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="tallaje" id="tallajeM" value="M">
+              <label class="form-check-label" for="tallajeM">M</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="tallaje" id="tallajeL" value="L">
+              <label class="form-check-label" for="tallajeL">L</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="tallaje" id="tallajeXL" value="XL">
+              <label class="form-check-label" for="tallajeXL">XL</label>
+            </div>
+          </div>
+          
+          <div class="col-md-12 mb-3">
+            <label for="comments" class="form-label">Comments</label>
+            <textarea class="form-control" id="comments" rows="3" placeholder="Add any additional comments"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

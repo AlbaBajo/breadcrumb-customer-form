@@ -18,65 +18,537 @@
     </div>
     
     <!-- Snowflake Section -->
-    <div class="form-section">
-      <div class="section-header collapsible">
-        <span>Edition Snowflake</span>
-        <span class="chevron">▼</span>
+    <div class="section-header collapsible">
+      <span>Edition Snowflake</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="content">
+      <div class="row mt-3">
+        <div class="col-md-4 mb-3">
+          <label for="tipoLicencia" class="form-label">Tipo Licencia</label>
+          <select class="form-select" id="tipoLicencia">
+            <option value="" selected>Select license type</option>
+            <option value="Standard">Standard</option>
+            <option value="Enterprise">Enterprise</option>
+            <option value="BusinessCritical">Business Critical</option>
+            <option value="VPS">VPS</option>
+            <option value="Desconocido">Desconocido</option>
+          </select>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label for="cloud" class="form-label">Cloud</label>
+          <select class="form-select" id="cloud">
+            <option value="" selected>Select cloud provider</option>
+            <option value="AWS">AWS</option>
+            <option value="Google">Google</option>
+            <option value="AZURE">AZURE</option>
+          </select>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label d-block">Tallaje</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="tallaje" id="tallajeXS" value="XS">
+            <label class="form-check-label" for="tallajeXS">XS</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="tallaje" id="tallajeS" value="S">
+            <label class="form-check-label" for="tallajeS">S</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="tallaje" id="tallajeM" value="M">
+            <label class="form-check-label" for="tallajeM">M</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="tallaje" id="tallajeL" value="L">
+            <label class="form-check-label" for="tallajeL">L</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="tallaje" id="tallajeXL" value="XL">
+            <label class="form-check-label" for="tallajeXL">XL</label>
+          </div>
+        </div>
       </div>
-      <div class="content">
-        <div class="row mt-3">
+      
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label for="comments" class="form-label">Comments</label>
+          <textarea class="form-control" id="comments" rows="3" placeholder="Add any additional comments"></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Data Ingestion Section -->
+    <div class="section-header collapsible mt-4">
+      <span>Data Ingestion</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="content hidden">
+      <div class="container-fluid mt-3">
+        <div class="row">
+          <!-- Left Column: From Sources to DL -->
           <div class="col-md-6 mb-3">
-            <label for="tipoLicencia" class="form-label">Tipo Licencia</label>
-            <select class="form-select" id="tipoLicencia">
-              <option value="" selected>Select license type</option>
-              <option value="Standard">Standard</option>
-              <option value="Enterprise">Enterprise</option>
-              <option value="BusinessCritical">Business Critical</option>
-              <option value="VPS">VPS</option>
-              <option value="Desconocido">Desconocido</option>
-            </select>
+            <h5>From Sources to DL</h5>
+            
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="sourcesToDLSDG">
+                <label class="form-check-label" for="sourcesToDLSDG">SDG</label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Tech ETL</label>
+                <div class="border p-2 rounded" style="max-height: 150px; overflow-y: auto;">
+                  <?php $techOptions = ["Databricks", "Talend", "Data Factory", "Informatica (IICS)", "Confluent", "Kestra", "Aecorsoft", "Streamsets", "Capstorm", "Custom Python Scripts", "Glue Jobs", "Qlik Replicate"]; ?>
+                  <? for($i = 0; $i < count($techOptions); $i++) { ?>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="sourcesToDLTechETL<?= $i ?>" name="sourcesToDLTechETL" value="<?= $techOptions[$i] ?>">
+                    <label class="form-check-label" for="sourcesToDLTechETL<?= $i ?>"><?= $techOptions[$i] ?></label>
+                  </div>
+                  <? } ?>
+                </div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label for="storageDL" class="form-label">Storage DL</label>
+                <select class="form-select" id="storageDL">
+                  <option value="" selected>Select storage</option>
+                  <option value="AWS S3">AWS S3</option>
+                  <option value="ADLS">ADLS</option>
+                  <option value="Confluent">Confluent</option>
+                  <option value="Snowflake">Snowflake</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="sourcesToDLComments" class="form-label">Comments</label>
+              <textarea class="form-control" id="sourcesToDLComments" rows="3" placeholder="Add any comments"></textarea>
+            </div>
           </div>
           
+          <!-- Right Column: From DL to DWH -->
           <div class="col-md-6 mb-3">
-            <label for="cloud" class="form-label">Cloud</label>
-            <select class="form-select" id="cloud">
-              <option value="" selected>Select cloud provider</option>
-              <option value="AWS">AWS</option>
-              <option value="Google">Google</option>
-              <option value="AZURE">AZURE</option>
-            </select>
+            <h5>From DL to DWH</h5>
+            
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="dlToDWHSDG">
+                  <label class="form-check-label" for="dlToDWHSDG">SDG</label>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <label for="dataModel" class="form-label">Data Model</label>
+                <select class="form-select" id="dataModel">
+                  <option value="" selected>Select data model</option>
+                  <option value="Kimball">Kimball</option>
+                  <option value="Data Vault">Data Vault</option>
+                  <option value="Tablones">Tablones</option>
+                  <option value="Desconocido">Desconocido</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Tech ETL</label>
+                <div class="border p-2 rounded" style="max-height: 150px; overflow-y: auto;">
+                  <?php $techOptions = ["Databricks", "Talend", "Data Factory", "Informatica (IICS)", "Confluent", "Kestra", "Aecorsoft", "Streamsets", "Capstorm", "Custom Python Scripts", "Glue Jobs", "Qlik Replicate"]; ?>
+                  <? for($i = 0; $i < count($techOptions); $i++) { ?>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="dlToDWHTechETL<?= $i ?>" name="dlToDWHTechETL" value="<?= $techOptions[$i] ?>">
+                    <label class="form-check-label" for="dlToDWHTechETL<?= $i ?>"><?= $techOptions[$i] ?></label>
+                  </div>
+                  <? } ?>
+                </div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label for="storageDWH" class="form-label">Storage DWH</label>
+                <select class="form-select" id="storageDWH">
+                  <option value="" selected>Select storage</option>
+                  <option value="AWS S3">AWS S3</option>
+                  <option value="ADLS">ADLS</option>
+                  <option value="Confluent">Confluent</option>
+                  <option value="Snowflake">Snowflake</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="dlToDWHComments" class="form-label">Comments</label>
+              <textarea class="form-control" id="dlToDWHComments" rows="3" placeholder="Add any comments"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Explotación del Dato Section -->
+    <div class="section-header collapsible mt-4">
+      <span>Explotación del Dato</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="content hidden">
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Capa Explotación diseñada en Snowflake (Data Model - Tablones)</label>
+          <div class="border p-2 rounded mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="capaModeloEstrella" name="capaExplotacion" value="Modelo Estrella">
+              <label class="form-check-label" for="capaModeloEstrella">Modelo Estrella</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="capaTablones" name="capaExplotacion" value="Tablones">
+              <label class="form-check-label" for="capaTablones">Tablones</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="capaDataModel" name="capaExplotacion" value="Data Model">
+              <label class="form-check-label" for="capaDataModel">Data Model</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="capaOtro" name="capaExplotacion" value="Otro">
+              <label class="form-check-label" for="capaOtro">Otro</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="explotacionDatoComments" class="form-label">Comments</label>
+          <textarea class="form-control" id="explotacionDatoComments" rows="5" placeholder="Add any comments"></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Orquestación Section -->
+    <div class="section-header collapsible mt-4">
+      <span>Orquestación</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="content hidden">
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Tech</label>
+          <div class="border p-2 rounded mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="orqTalend" name="orquestacionTech" value="Talend">
+              <label class="form-check-label" for="orqTalend">Talend</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="orqKestra" name="orquestacionTech" value="Kestra">
+              <label class="form-check-label" for="orqKestra">Kestra</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="orqAirflow" name="orquestacionTech" value="Airflow">
+              <label class="form-check-label" for="orqAirflow">Airflow</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="orqADF" name="orquestacionTech" value="ADF">
+              <label class="form-check-label" for="orqADF">ADF</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="orqGitLab" name="orquestacionTech" value="GitLab">
+              <label class="form-check-label" for="orqGitLab">GitLab</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="orqEC2" name="orquestacionTech" value="EC2">
+              <label class="form-check-label" for="orqEC2">EC2</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="orqSnowflake" name="orquestacionTech" value="Snowflake">
+              <label class="form-check-label" for="orqSnowflake">Snowflake</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="orqOtro" name="orquestacionTech" value="Otro">
+              <label class="form-check-label" for="orqOtro">Otro</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="orquestacionComments" class="form-label">Comments</label>
+          <textarea class="form-control" id="orquestacionComments" rows="5" placeholder="Add any comments"></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Visualization Section -->
+    <div class="section-header collapsible mt-4">
+      <span>Visualization</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="content hidden">
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Tech</label>
+          <div class="border p-2 rounded mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="visPower" name="visualizationTech" value="Power">
+              <label class="form-check-label" for="visPower">Power</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="visQlik" name="visualizationTech" value="Qlik">
+              <label class="form-check-label" for="visQlik">Qlik</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="visTableau" name="visualizationTech" value="Tableau">
+              <label class="form-check-label" for="visTableau">Tableau</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="visMicroStrategy" name="visualizationTech" value="MicroStrategy">
+              <label class="form-check-label" for="visMicroStrategy">MicroStrategy</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="visOtro" name="visualizationTech" value="Otro">
+              <label class="form-check-label" for="visOtro">Otro</label>
+            </div>
           </div>
           
-          <div class="col-md-12 mb-3">
-            <label class="form-label d-block">Tallaje</label>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="tallaje" id="tallajeXS" value="XS">
-              <label class="form-check-label" for="tallajeXS">XS</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="tallaje" id="tallajeS" value="S">
-              <label class="form-check-label" for="tallajeS">S</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="tallaje" id="tallajeM" value="M">
-              <label class="form-check-label" for="tallajeM">M</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="tallaje" id="tallajeL" value="L">
-              <label class="form-check-label" for="tallajeL">L</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="tallaje" id="tallajeXL" value="XL">
-              <label class="form-check-label" for="tallajeXL">XL</label>
-            </div>
+          <div class="mb-3">
+            <label for="ratioDashboardsSnowflake" class="form-label">Ratio de dashboards leen de Snowflake</label>
+            <input type="text" class="form-control" id="ratioDashboardsSnowflake" placeholder="Enter ratio">
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="visualizationComments" class="form-label">Comments</label>
+          <textarea class="form-control" id="visualizationComments" rows="5" placeholder="Add any comments"></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Advanced Analytics Section -->
+    <div class="section-header collapsible mt-4">
+      <span>Advanced Analytics</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="content hidden">
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="isDoingSomething">
+            <label class="form-check-label" for="isDoingSomething">¿Están hacienda algo?</label>
           </div>
           
-          <div class="col-md-12 mb-3">
-            <label for="comments" class="form-label">Comments</label>
-            <textarea class="form-control" id="comments" rows="3" placeholder="Add any additional comments"></textarea>
+          <label class="form-label">Tech</label>
+          <div class="border p-2 rounded mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="aaDatabricks" name="advancedAnalyticsTech" value="Databricks">
+              <label class="form-check-label" for="aaDatabricks">Databricks</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="aaMLFlow" name="advancedAnalyticsTech" value="ML Flow">
+              <label class="form-check-label" for="aaMLFlow">ML Flow</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="aaSnowflake" name="advancedAnalyticsTech" value="Snowflake">
+              <label class="form-check-label" for="aaSnowflake">Snowflake</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="aaSagemaker" name="advancedAnalyticsTech" value="Sagemaker">
+              <label class="form-check-label" for="aaSagemaker">Sagemaker</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="aaDatalku" name="advancedAnalyticsTech" value="Datalku">
+              <label class="form-check-label" for="aaDatalku">Datalku</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="aaOtro" name="advancedAnalyticsTech" value="Otro">
+              <label class="form-check-label" for="aaOtro">Otro</label>
+            </div>
           </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="advancedAnalyticsComments" class="form-label">Comments</label>
+          <textarea class="form-control" id="advancedAnalyticsComments" rows="5" placeholder="Add any comments"></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Government Section -->
+    <div class="section-header collapsible mt-4">
+      <span>Government</span>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="content hidden">
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Tech</label>
+          <div class="border p-2 rounded mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="govInformatica" name="governmentTech" value="Informatica">
+              <label class="form-check-label" for="govInformatica">Informatica</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="govCollibra" name="governmentTech" value="Collibra">
+              <label class="form-check-label" for="govCollibra">Collibra</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="govCollate" name="governmentTech" value="Collate">
+              <label class="form-check-label" for="govCollate">Collate</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="govPurview" name="governmentTech" value="Purview">
+              <label class="form-check-label" for="govPurview">Purview</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="govHerramientaInterna" name="governmentTech" value="Herramienta interna Cellnex">
+              <label class="form-check-label" for="govHerramientaInterna">Herramienta interna Cellnex</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="govSnowflake" name="governmentTech" value="Snowflake">
+              <label class="form-check-label" for="govSnowflake">Snowflake</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="govDBT" name="governmentTech" value="DBT">
+              <label class="form-check-label" for="govDBT">DBT</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="govTruedat" name="governmentTech" value="Truedat">
+              <label class="form-check-label" for="govTruedat">Truedat</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="govOtro" name="governmentTech" value="Otro">
+              <label class="form-check-label" for="govOtro">Otro</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="governmentComments" class="form-label">Comments</label>
+          <textarea class="form-control" id="governmentComments" rows="5" placeholder="Add any comments"></textarea>
         </div>
       </div>
     </div>
   </form>
 </div>
+
+<script>
+  // Initialize collapsible sections
+  document.addEventListener('DOMContentLoaded', function() {
+    const collapsibles = document.querySelectorAll('.collapsible');
+    
+    collapsibles.forEach(collapsible => {
+      collapsible.addEventListener('click', function() {
+        this.classList.toggle('active');
+        const content = this.nextElementSibling;
+        if (content.classList.contains('hidden')) {
+          content.classList.remove('hidden');
+        } else {
+          content.classList.add('hidden');
+        }
+      });
+    });
+  });
+  
+  // Fix for PHP-style loops since Apps Script doesn't support PHP
+  document.addEventListener('DOMContentLoaded', function() {
+    // Replace <?php and <?= tags with proper HTML content for checkboxes
+    const techETLOptions = ["Databricks", "Talend", "Data Factory", "Informatica (IICS)", "Confluent", "Kestra", "Aecorsoft", "Streamsets", "Capstorm", "Custom Python Scripts", "Glue Jobs", "Qlik Replicate"];
+    
+    // For Sources to DL Tech ETL
+    let sourcesContainer = document.querySelector("[id^='sourcesToDLTechETL']").closest('.border');
+    sourcesContainer.innerHTML = '';
+    
+    techETLOptions.forEach((option, index) => {
+      const checkboxDiv = document.createElement('div');
+      checkboxDiv.className = 'form-check';
+      checkboxDiv.innerHTML = `
+        <input class="form-check-input" type="checkbox" id="sourcesToDLTechETL${index}" name="sourcesToDLTechETL" value="${option}">
+        <label class="form-check-label" for="sourcesToDLTechETL${index}">${option}</label>
+      `;
+      sourcesContainer.appendChild(checkboxDiv);
+    });
+    
+    // For DL to DWH Tech ETL
+    let dlToDWHContainer = document.querySelector("[id^='dlToDWHTechETL']").closest('.border');
+    dlToDWHContainer.innerHTML = '';
+    
+    techETLOptions.forEach((option, index) => {
+      const checkboxDiv = document.createElement('div');
+      checkboxDiv.className = 'form-check';
+      checkboxDiv.innerHTML = `
+        <input class="form-check-input" type="checkbox" id="dlToDWHTechETL${index}" name="dlToDWHTechETL" value="${option}">
+        <label class="form-check-label" for="dlToDWHTechETL${index}">${option}</label>
+      `;
+      dlToDWHContainer.appendChild(checkboxDiv);
+    });
+  });
+  
+  // Helper function to collect form data
+  function collectArquitecturaData() {
+    const data = {
+      customerName: document.getElementById('customerName').value,
+      antiguedad: document.getElementById('antiguedad').value,
+      tipoLicencia: document.getElementById('tipoLicencia').value,
+      cloud: document.getElementById('cloud').value,
+      tallaje: document.querySelector('input[name="tallaje"]:checked')?.value || '',
+      comments: document.getElementById('comments').value,
+      
+      // Data Ingestion - Sources to DL
+      sourcesToDLSDG: document.getElementById('sourcesToDLSDG').checked,
+      sourcesToDLTechETL: Array.from(document.querySelectorAll('input[name="sourcesToDLTechETL"]:checked')).map(el => el.value),
+      storageDL: document.getElementById('storageDL').value,
+      sourcesToDLComments: document.getElementById('sourcesToDLComments').value,
+      
+      // Data Ingestion - DL to DWH
+      dlToDWHSDG: document.getElementById('dlToDWHSDG').checked,
+      dataModel: document.getElementById('dataModel').value,
+      dlToDWHTechETL: Array.from(document.querySelectorAll('input[name="dlToDWHTechETL"]:checked')).map(el => el.value),
+      storageDWH: document.getElementById('storageDWH').value,
+      dlToDWHComments: document.getElementById('dlToDWHComments').value,
+      
+      // Explotación del Dato
+      capaExplotacion: Array.from(document.querySelectorAll('input[name="capaExplotacion"]:checked')).map(el => el.value),
+      explotacionDatoComments: document.getElementById('explotacionDatoComments').value,
+      
+      // Orquestación
+      orquestacionTech: Array.from(document.querySelectorAll('input[name="orquestacionTech"]:checked')).map(el => el.value),
+      orquestacionComments: document.getElementById('orquestacionComments').value,
+      
+      // Visualization
+      visualizationTech: Array.from(document.querySelectorAll('input[name="visualizationTech"]:checked')).map(el => el.value),
+      ratioDashboardsSnowflake: document.getElementById('ratioDashboardsSnowflake').value,
+      visualizationComments: document.getElementById('visualizationComments').value,
+      
+      // Advanced Analytics
+      isDoingSomething: document.getElementById('isDoingSomething').checked,
+      advancedAnalyticsTech: Array.from(document.querySelectorAll('input[name="advancedAnalyticsTech"]:checked')).map(el => el.value),
+      advancedAnalyticsComments: document.getElementById('advancedAnalyticsComments').value,
+      
+      // Government
+      governmentTech: Array.from(document.querySelectorAll('input[name="governmentTech"]:checked')).map(el => el.value),
+      governmentComments: document.getElementById('governmentComments').value
+    };
+    
+    return data;
+  }
+  
+  // Function to validate required fields
+  function validateArquitecturaForm() {
+    let isValid = true;
+    
+    // Check required fields
+    if (!document.getElementById('customerName').value.trim()) {
+      document.getElementById('customerName').classList.add('is-invalid');
+      isValid = false;
+    } else {
+      document.getElementById('customerName').classList.remove('is-invalid');
+    }
+    
+    if (!document.getElementById('antiguedad').value.trim()) {
+      document.getElementById('antiguedad').classList.add('is-invalid');
+      isValid = false;
+    } else {
+      document.getElementById('antiguedad').classList.remove('is-invalid');
+    }
+    
+    return isValid;
+  }
+</script>

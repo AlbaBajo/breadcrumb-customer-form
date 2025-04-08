@@ -21,11 +21,18 @@ function getSheet() {
   // Create sheet if it doesn't exist
   if (!sheet) {
     sheet = ss.insertSheet('CustomerData');
-    // Add headers
+    // Add headers (extended for all the new fields)
     sheet.appendRow([
       'Customer Name', 'Antiguedad', 'Tipo Licencia', 'Cloud', 'Tallaje', 'Comments',
       'Phone Number', 'Mobile Number', 'Work Phone', 'Alternative Email', 'Preferred Contact Method',
-      'Company Name', 'Business Type', 'Industry', 'Annual Revenue', 'Number of Employees'
+      'Company Name', 'Business Type', 'Industry', 'Annual Revenue', 'Number of Employees',
+      'Sources To DL SDG', 'Sources To DL Tech ETL', 'Storage DL', 'Sources To DL Comments',
+      'DL To DWH SDG', 'Data Model', 'DL To DWH Tech ETL', 'Storage DWH', 'DL To DWH Comments',
+      'Capa Explotacion', 'Explotacion Dato Comments',
+      'Orquestacion Tech', 'Orquestacion Comments',
+      'Visualization Tech', 'Ratio Dashboards Snowflake', 'Visualization Comments',
+      'Is Doing Something', 'Advanced Analytics Tech', 'Advanced Analytics Comments',
+      'Government Tech', 'Government Comments'
     ]);
   }
   
@@ -36,6 +43,19 @@ function getSheet() {
 function saveCustomerData(formData) {
   try {
     const sheet = getSheet();
+    
+    // Process array fields to string
+    const processArrayField = (field) => {
+      if (Array.isArray(field) && field.length > 0) {
+        return field.join(', ');
+      }
+      return '';
+    };
+    
+    // Process boolean fields
+    const processBooleanField = (field) => {
+      return field ? 'Yes' : 'No';
+    };
     
     // Extract data from form object
     const rowData = [
@@ -54,7 +74,29 @@ function saveCustomerData(formData) {
       formData.businessType || '',
       formData.industry || '',
       formData.annualRevenue || '',
-      formData.numberOfEmployees || ''
+      formData.numberOfEmployees || '',
+      // New fields
+      processBooleanField(formData.sourcesToDLSDG),
+      processArrayField(formData.sourcesToDLTechETL),
+      formData.storageDL || '',
+      formData.sourcesToDLComments || '',
+      processBooleanField(formData.dlToDWHSDG),
+      formData.dataModel || '',
+      processArrayField(formData.dlToDWHTechETL),
+      formData.storageDWH || '',
+      formData.dlToDWHComments || '',
+      processArrayField(formData.capaExplotacion),
+      formData.explotacionDatoComments || '',
+      processArrayField(formData.orquestacionTech),
+      formData.orquestacionComments || '',
+      processArrayField(formData.visualizationTech),
+      formData.ratioDashboardsSnowflake || '',
+      formData.visualizationComments || '',
+      processBooleanField(formData.isDoingSomething),
+      processArrayField(formData.advancedAnalyticsTech),
+      formData.advancedAnalyticsComments || '',
+      processArrayField(formData.governmentTech),
+      formData.governmentComments || ''
     ];
     
     // Add data to sheet
@@ -97,4 +139,3 @@ function getAllCustomers() {
   
   return data;
 }
-

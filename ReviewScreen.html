@@ -39,6 +39,177 @@
           <span id="review-comments" class="ms-2">-</span>
         </div>
       </div>
+
+      <hr>
+      <h5 class="mb-3">Data Ingestion</h5>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <h6>From Sources to DL</h6>
+          <div class="mb-2">
+            <strong><i class="bi bi-check-square"></i> SDG:</strong>
+            <span id="review-sourcesToDLSDG" class="ms-2">-</span>
+          </div>
+          <div class="mb-2">
+            <strong><i class="bi bi-tools"></i> Tech ETL:</strong>
+            <span id="review-sourcesToDLTechETL" class="ms-2">-</span>
+          </div>
+          <div class="mb-2">
+            <strong><i class="bi bi-hdd"></i> Storage DL:</strong>
+            <span id="review-storageDL" class="ms-2">-</span>
+          </div>
+          <div class="mb-2">
+            <strong><i class="bi bi-chat"></i> Comments:</strong>
+            <span id="review-sourcesToDLComments" class="ms-2">-</span>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <h6>From DL to DWH</h6>
+          <div class="mb-2">
+            <strong><i class="bi bi-check-square"></i> SDG:</strong>
+            <span id="review-dlToDWHSDG" class="ms-2">-</span>
+          </div>
+          <div class="mb-2">
+            <strong><i class="bi bi-diagram-3"></i> Data Model:</strong>
+            <span id="review-dataModel" class="ms-2">-</span>
+          </div>
+          <div class="mb-2">
+            <strong><i class="bi bi-tools"></i> Tech ETL:</strong>
+            <span id="review-dlToDWHTechETL" class="ms-2">-</span>
+          </div>
+          <div class="mb-2">
+            <strong><i class="bi bi-hdd"></i> Storage DWH:</strong>
+            <span id="review-storageDWH" class="ms-2">-</span>
+          </div>
+          <div class="mb-2">
+            <strong><i class="bi bi-chat"></i> Comments:</strong>
+            <span id="review-dlToDWHComments" class="ms-2">-</span>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <h5 class="mb-3">Explotación del Dato</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong><i class="bi bi-layers"></i> Capa Explotación:</strong>
+          <span id="review-capaExplotacion" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong><i class="bi bi-chat"></i> Comments:</strong>
+          <span id="review-explotacionDatoComments" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <h5 class="mb-3">Orquestación</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong><i class="bi bi-tools"></i> Tech:</strong>
+          <span id="review-orquestacionTech" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong><i class="bi bi-chat"></i> Comments:</strong>
+          <span id="review-orquestacionComments" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <h5 class="mb-3">Visualization</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong><i class="bi bi-tools"></i> Tech:</strong>
+          <span id="review-visualizationTech" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong><i class="bi bi-pie-chart"></i> Ratio dashboards Snowflake:</strong>
+          <span id="review-ratioDashboardsSnowflake" class="ms-2">-</span>
+        </div>
+        <div class="col-md-12 mb-2">
+          <strong><i class="bi bi-chat"></i> Comments:</strong>
+          <span id="review-visualizationComments" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <h5 class="mb-3">Advanced Analytics</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong><i class="bi bi-check-square"></i> ¿Están hacienda algo?:</strong>
+          <span id="review-isDoingSomething" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong><i class="bi bi-tools"></i> Tech:</strong>
+          <span id="review-advancedAnalyticsTech" class="ms-2">-</span>
+        </div>
+        <div class="col-md-12 mb-2">
+          <strong><i class="bi bi-chat"></i> Comments:</strong>
+          <span id="review-advancedAnalyticsComments" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <h5 class="mb-3">Government</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong><i class="bi bi-tools"></i> Tech:</strong>
+          <span id="review-governmentTech" class="ms-2">-</span>
+        </div>
+        <div class="col-md-12 mb-2">
+          <strong><i class="bi bi-chat"></i> Comments:</strong>
+          <span id="review-governmentComments" class="ms-2">-</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+  // Function to populate the review screen
+  function populateReviewScreen() {
+    // Basic Info
+    document.getElementById('review-customerName').textContent = formData.customerName || 'N/A';
+    document.getElementById('review-antiguedad').textContent = formData.antiguedad || 'N/A';
+    
+    // Edition Snowflake
+    document.getElementById('review-tipoLicencia').textContent = formData.tipoLicencia || 'N/A';
+    document.getElementById('review-cloud').textContent = formData.cloud || 'N/A';
+    document.getElementById('review-tallaje').textContent = formData.tallaje || 'N/A';
+    document.getElementById('review-comments').textContent = formData.comments || 'N/A';
+    
+    // Data Ingestion - Sources to DL
+    document.getElementById('review-sourcesToDLSDG').textContent = formData.sourcesToDLSDG ? 'Yes' : 'No';
+    document.getElementById('review-sourcesToDLTechETL').textContent = formData.sourcesToDLTechETL?.length ? formData.sourcesToDLTechETL.join(', ') : 'N/A';
+    document.getElementById('review-storageDL').textContent = formData.storageDL || 'N/A';
+    document.getElementById('review-sourcesToDLComments').textContent = formData.sourcesToDLComments || 'N/A';
+    
+    // Data Ingestion - DL to DWH
+    document.getElementById('review-dlToDWHSDG').textContent = formData.dlToDWHSDG ? 'Yes' : 'No';
+    document.getElementById('review-dataModel').textContent = formData.dataModel || 'N/A';
+    document.getElementById('review-dlToDWHTechETL').textContent = formData.dlToDWHTechETL?.length ? formData.dlToDWHTechETL.join(', ') : 'N/A';
+    document.getElementById('review-storageDWH').textContent = formData.storageDWH || 'N/A';
+    document.getElementById('review-dlToDWHComments').textContent = formData.dlToDWHComments || 'N/A';
+    
+    // Explotación del Dato
+    document.getElementById('review-capaExplotacion').textContent = formData.capaExplotacion?.length ? formData.capaExplotacion.join(', ') : 'N/A';
+    document.getElementById('review-explotacionDatoComments').textContent = formData.explotacionDatoComments || 'N/A';
+    
+    // Orquestación
+    document.getElementById('review-orquestacionTech').textContent = formData.orquestacionTech?.length ? formData.orquestacionTech.join(', ') : 'N/A';
+    document.getElementById('review-orquestacionComments').textContent = formData.orquestacionComments || 'N/A';
+    
+    // Visualization
+    document.getElementById('review-visualizationTech').textContent = formData.visualizationTech?.length ? formData.visualizationTech.join(', ') : 'N/A';
+    document.getElementById('review-ratioDashboardsSnowflake').textContent = formData.ratioDashboardsSnowflake || 'N/A';
+    document.getElementById('review-visualizationComments').textContent = formData.visualizationComments || 'N/A';
+    
+    // Advanced Analytics
+    document.getElementById('review-isDoingSomething').textContent = formData.isDoingSomething ? 'Yes' : 'No';
+    document.getElementById('review-advancedAnalyticsTech').textContent = formData.advancedAnalyticsTech?.length ? formData.advancedAnalyticsTech.join(', ') : 'N/A';
+    document.getElementById('review-advancedAnalyticsComments').textContent = formData.advancedAnalyticsComments || 'N/A';
+    
+    // Government
+    document.getElementById('review-governmentTech').textContent = formData.governmentTech?.length ? formData.governmentTech.join(', ') : 'N/A';
+    document.getElementById('review-governmentComments').textContent = formData.governmentComments || 'N/A';
+  }
+</script>

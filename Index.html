@@ -4,6 +4,7 @@
   <head>
     <base target="_top">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -28,13 +29,14 @@
       .section-header {
         background-color: #f8f9fa;
         padding: 10px 15px;
-        margin: -20px -20px 20px -20px;
-        border-bottom: 1px solid #dee2e6;
-        border-radius: 8px 8px 0 0;
+        margin-bottom: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
         font-weight: bold;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        cursor: pointer;
       }
       .collapsible {
         cursor: pointer;
@@ -161,6 +163,14 @@
       // Navigation functions
       function nextStep() {
         // Validate current step if needed
+        if (currentStepIndex === 0) {
+          if (!validateArquitecturaForm()) {
+            alert('Please fill in all required fields.');
+            return;
+          }
+        }
+        
+        // Save data from current step
         saveCurrentStepData();
         
         // If we're on the last step, show the review instead
@@ -213,12 +223,9 @@
       function saveCurrentStepData() {
         switch (steps[currentStepIndex]) {
           case 'arquitecturaStep':
-            formData.customerName = document.getElementById('customerName').value;
-            formData.antiguedad = document.getElementById('antiguedad').value;
-            formData.tipoLicencia = document.getElementById('tipoLicencia').value;
-            formData.cloud = document.getElementById('cloud').value;
-            formData.tallaje = document.querySelector('input[name="tallaje"]:checked')?.value || '';
-            formData.comments = document.getElementById('comments').value;
+            // Use the collect data function from ArquitecturaForm
+            const arquitecturaData = collectArquitecturaData();
+            formData = {...formData, ...arquitecturaData};
             break;
             
           case 'contactStep':
@@ -237,19 +244,6 @@
             formData.numberOfEmployees = document.getElementById('numberOfEmployees').value;
             break;
         }
-      }
-      
-      // Function to populate the review screen
-      function populateReviewScreen() {
-        // Set customer info
-        document.getElementById('review-customerName').textContent = formData.customerName || 'N/A';
-        document.getElementById('review-antiguedad').textContent = formData.antiguedad || 'N/A';
-        
-        // Set snowflake edition info
-        document.getElementById('review-tipoLicencia').textContent = formData.tipoLicencia || 'N/A';
-        document.getElementById('review-cloud').textContent = formData.cloud || 'N/A';
-        document.getElementById('review-tallaje').textContent = formData.tallaje || 'N/A';
-        document.getElementById('review-comments').textContent = formData.comments || 'N/A';
       }
       
       // Submit form data
@@ -352,12 +346,30 @@
           collapsible.addEventListener('click', function() {
             this.classList.toggle('active');
             const content = this.nextElementSibling;
-            if (content.style.display === 'block') {
-              content.style.display = 'none';
+            if (content.classList.contains('hidden')) {
+              content.classList.remove('hidden');
             } else {
-              content.style.display = 'block';
+              content.classList.add('hidden');
+            }
+            
+            // Toggle chevron
+            const chevron = this.querySelector('.chevron');
+            if (chevron) {
+              if (content.classList.contains('hidden')) {
+                chevron.textContent = '▼';
+              } else {
+                chevron.textContent = '▲';
+              }
             }
           });
+        });
+        
+        // By default, only show the first section open
+        document.querySelectorAll('.section-header.collapsible:not(:first-of-type)').forEach(header => {
+          const content = header.nextElementSibling;
+          if (!content.classList.contains('hidden')) {
+            content.classList.add('hidden');
+          }
         });
       });
     </script>

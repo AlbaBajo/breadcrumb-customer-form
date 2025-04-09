@@ -164,33 +164,14 @@
     </div>
   </div>
   
-  <!-- Business Information Section -->
+  <!-- Aceleradores Section -->
   <div class="card mb-4">
     <div class="card-header bg-light">
-      <h4 class="mb-0">Business Information</h4>
+      <h4 class="mb-0">Aceleradores</h4>
     </div>
     <div class="card-body">
-      <div class="row">
-        <div class="col-md-6 mb-2">
-          <strong>Company Name:</strong>
-          <span id="review-companyName" class="ms-2">-</span>
-        </div>
-        <div class="col-md-6 mb-2">
-          <strong>Business Type:</strong>
-          <span id="review-businessType" class="ms-2">-</span>
-        </div>
-        <div class="col-md-6 mb-2">
-          <strong>Industry:</strong>
-          <span id="review-industry" class="ms-2">-</span>
-        </div>
-        <div class="col-md-6 mb-2">
-          <strong>Annual Revenue:</strong>
-          <span id="review-annualRevenue" class="ms-2">-</span>
-        </div>
-        <div class="col-md-6 mb-2">
-          <strong>Number of Employees:</strong>
-          <span id="review-numberOfEmployees" class="ms-2">-</span>
-        </div>
+      <div id="review-aceleradores-container">
+        <p class="text-muted">No se han agregado aceleradores</p>
       </div>
     </div>
   </div>
@@ -474,13 +455,6 @@
     document.getElementById('review-governmentTech').textContent = formData.governmentTech?.length ? formData.governmentTech.join(', ') : 'N/A';
     document.getElementById('review-governmentComments').textContent = formData.governmentComments || 'N/A';
     
-    // Business Information
-    document.getElementById('review-companyName').textContent = formData.companyName || 'N/A';
-    document.getElementById('review-businessType').textContent = formData.businessType || 'N/A';
-    document.getElementById('review-industry').textContent = formData.industry || 'N/A';
-    document.getElementById('review-annualRevenue').textContent = formData.annualRevenue || 'N/A';
-    document.getElementById('review-numberOfEmployees').textContent = formData.numberOfEmployees || 'N/A';
-    
     // Features
     // Data Integration section
     document.getElementById('review-sources').textContent = formData.sources?.length ? formData.sources.join(', ') : 'N/A';
@@ -538,5 +512,46 @@
     document.getElementById('review-workPhone').textContent = formData.workPhone || 'N/A';
     document.getElementById('review-alternativeEmail').textContent = formData.alternativeEmail || 'N/A';
     document.getElementById('review-preferredContactMethod').textContent = formData.preferredContactMethod || 'N/A';
+    
+    // Aceleradores
+    const aceleradoresContainer = document.getElementById('review-aceleradores-container');
+    
+    if (formData.aceleradores && formData.aceleradores.length > 0) {
+      let html = '<div class="table-responsive"><table class="table table-bordered table-sm">';
+      html += `<thead class="table-primary">
+        <tr>
+          <th>Artefacto</th>
+          <th>Objetivo</th>
+          <th>Desarrollo</th>
+          <th>Tecnologías</th>
+          <th>Categorías</th>
+        </tr>
+      </thead>
+      <tbody>`;
+      
+      formData.aceleradores.forEach((item, index) => {
+        const categorias = [];
+        if (item.dataIngestion) categorias.push('Data Ingestion');
+        if (item.dataTransformation) categorias.push('Data Transformation');
+        if (item.monitoring) categorias.push('Monitoring');
+        if (item.securitization) categorias.push('Securitization');
+        if (item.dataModeling) categorias.push('Data Modeling');
+        if (item.mlops) categorias.push('MLOps');
+        if (item.cicd) categorias.push('CICD');
+        
+        html += `<tr>
+          <td>${item.artefacto || 'N/A'}</td>
+          <td>${item.objetivo || 'N/A'}</td>
+          <td>${item.desarrollo || 'N/A'}</td>
+          <td>${(item.technology && item.technology.length) ? item.technology.join(', ') : 'N/A'}</td>
+          <td>${categorias.length ? categorias.join(', ') : 'N/A'}</td>
+        </tr>`;
+      });
+      
+      html += '</tbody></table></div>';
+      aceleradoresContainer.innerHTML = html;
+    } else {
+      aceleradoresContainer.innerHTML = '<p class="text-muted">No se han agregado aceleradores</p>';
+    }
   }
 </script>

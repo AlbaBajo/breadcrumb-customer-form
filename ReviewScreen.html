@@ -3,6 +3,7 @@
   <h3 class="mb-3">Review Information</h3>
   <p class="text-muted mb-4">Please review the entered information before submission</p>
   
+  <!-- Arquitectura Section -->
   <div class="card mb-4">
     <div class="card-header bg-light">
       <h4 class="mb-0">Arquitectura</h4>
@@ -162,6 +163,267 @@
       </div>
     </div>
   </div>
+  
+  <!-- Business Information Section -->
+  <div class="card mb-4">
+    <div class="card-header bg-light">
+      <h4 class="mb-0">Business Information</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>Company Name:</strong>
+          <span id="review-companyName" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Business Type:</strong>
+          <span id="review-businessType" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Industry:</strong>
+          <span id="review-industry" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Annual Revenue:</strong>
+          <span id="review-annualRevenue" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Number of Employees:</strong>
+          <span id="review-numberOfEmployees" class="ms-2">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Features Section -->
+  <div class="card mb-4">
+    <div class="card-header bg-light">
+      <h4 class="mb-0">Features</h4>
+    </div>
+    <div class="card-body">
+      <!-- Data Integration -->
+      <h5 class="mb-3">Data Integration</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>Sources:</strong>
+          <span id="review-sources" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>¿Se lee de SAP?:</strong>
+          <span id="review-readFromSAP" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Rango volumentrías:</strong>
+          <span id="review-rangeVolumentria" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>¿Qué formato de entrada tienen las fuentes?:</strong>
+          <span id="review-sourceFormat" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Uso de:</strong>
+          <span id="review-usage" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Uso de algún tipo específico de tablas:</strong>
+          <span id="review-specificTableTypes" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <!-- Query Processing -->
+      <h5 class="mb-3">Query Processing</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>¿Podemos administrar la plataforma?:</strong>
+          <span id="review-canAdminPlatform" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>¿Tiene un DWh por tipo procesamiento / capa?:</strong>
+          <span id="review-hasDwhByProcessing" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Operaciones Pushdown:</strong>
+          <span id="review-pushdownOperations" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Escalado Dinámico Activado:</strong>
+          <span id="review-dynamicScaling" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Multiclustering:</strong>
+          <span id="review-multiclustering" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <!-- ETL -->
+      <h5 class="mb-3">ETL</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>Uso de Notebooks:</strong>
+          <span id="review-notebooksUsage" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Uso de procedimientos almacenados:</strong>
+          <span id="review-storedProcedures" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Uso de CTE:</strong>
+          <span id="review-cteUsage" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Snowflake API:</strong>
+          <span id="review-snowflakeApi" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Snowpark:</strong>
+          <span id="review-snowpark" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <!-- Data Pipelines -->
+      <h5 class="mb-3">Data Pipelines</h5>
+      <div class="row">
+        <div class="col-md-4 mb-2">
+          <strong>Snowflake como Orquestador:</strong>
+          <span id="review-snowflakeOrchestrator" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Uso conector de Kafka:</strong>
+          <span id="review-kafkaConnector" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Uso de Snowpipe / Snowpipe Streaming:</strong>
+          <span id="review-snowpipe" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <!-- AI - ML -->
+      <h5 class="mb-3">AI - ML</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>Uso Cortex IA:</strong>
+          <span id="review-cortexIA" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Tipo Proyecto:</strong>
+          <span id="review-projectType" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Creación de Apps con Streamlit:</strong>
+          <span id="review-streamlitApps" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Entrenamiento con Snowpark:</strong>
+          <span id="review-snowparkTraining" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>¿Potencial de desarrollo a medio - corto plazo?:</strong>
+          <span id="review-developmentPotential" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <!-- Disaster Recovery -->
+      <h5 class="mb-3">Disaster Recovery</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>¿Se usa replicación de entornos para Alta Disponibilidad?:</strong>
+          <span id="review-environmentReplication" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Uso de Zero Copy Cloning:</strong>
+          <span id="review-zeroCopyCloning" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Uso del Time Travel:</strong>
+          <span id="review-timeTravel" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>¿Existe alguna estrategia de copiado de datos entre entornos?:</strong>
+          <span id="review-dataCopyStrategy" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <!-- Security -->
+      <h5 class="mb-3">Seguridad</h5>
+      <div class="row">
+        <div class="col-md-12 mb-2">
+          <strong>¿Existe un equipo de Infra en cliente encargado de fijar política de seguridad en Snowflake?:</strong>
+          <span id="review-infraTeamExists" class="ms-2">-</span>
+        </div>
+        
+        <!-- Controles - Red -->
+        <div class="col-md-12 mb-2">
+          <strong>Red - ¿Existe algún control a Nivel de Red?:</strong>
+          <span id="review-networkControls" class="ms-2">-</span>
+        </div>
+        
+        <!-- Controles - Acceso -->
+        <div class="col-md-6 mb-2">
+          <strong>Acceso - Se aplica gestión de roles:</strong>
+          <span id="review-rolesManagement" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Acceso - Existen políticas de enmascaramiento:</strong>
+          <span id="review-maskingPolicies" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Acceso - MFA activado:</strong>
+          <span id="review-mfaActive" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Acceso - Políticas de autenticación:</strong>
+          <span id="review-authPolicies" class="ms-2">-</span>
+        </div>
+        <div class="col-md-4 mb-2">
+          <strong>Acceso - Usuarios de servicio Auth:</strong>
+          <span id="review-serviceUsersAuth" class="ms-2">-</span>
+        </div>
+        
+        <!-- Controles - Encriptación -->
+        <div class="col-md-12 mb-2">
+          <strong>Encriptación - Se aplica alguna medida:</strong>
+          <span id="review-encryptionMeasures" class="ms-2">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Contact Information Section -->
+  <div class="card mb-4">
+    <div class="card-header bg-light">
+      <h4 class="mb-0">Contact Information</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>Phone Number:</strong>
+          <span id="review-phoneNumber" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Mobile Number:</strong>
+          <span id="review-mobileNumber" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Work Phone:</strong>
+          <span id="review-workPhone" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Alternative Email:</strong>
+          <span id="review-alternativeEmail" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Preferred Contact Method:</strong>
+          <span id="review-preferredContactMethod" class="ms-2">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -211,6 +473,70 @@
     // Government
     document.getElementById('review-governmentTech').textContent = formData.governmentTech?.length ? formData.governmentTech.join(', ') : 'N/A';
     document.getElementById('review-governmentComments').textContent = formData.governmentComments || 'N/A';
+    
+    // Business Information
+    document.getElementById('review-companyName').textContent = formData.companyName || 'N/A';
+    document.getElementById('review-businessType').textContent = formData.businessType || 'N/A';
+    document.getElementById('review-industry').textContent = formData.industry || 'N/A';
+    document.getElementById('review-annualRevenue').textContent = formData.annualRevenue || 'N/A';
+    document.getElementById('review-numberOfEmployees').textContent = formData.numberOfEmployees || 'N/A';
+    
+    // Features
+    // Data Integration section
+    document.getElementById('review-sources').textContent = formData.sources?.length ? formData.sources.join(', ') : 'N/A';
+    document.getElementById('review-readFromSAP').textContent = formData.readFromSAP ? 'Yes' : 'No';
+    document.getElementById('review-rangeVolumentria').textContent = formData.rangeVolumentria || 'N/A';
+    document.getElementById('review-sourceFormat').textContent = formData.sourceFormat || 'N/A';
+    document.getElementById('review-usage').textContent = formData.usage?.length ? formData.usage.join(', ') : 'N/A';
+    document.getElementById('review-specificTableTypes').textContent = formData.specificTableTypes || 'N/A';
+    
+    // Query Processing section
+    document.getElementById('review-canAdminPlatform').textContent = formData.canAdminPlatform || 'N/A';
+    document.getElementById('review-hasDwhByProcessing').textContent = formData.hasDwhByProcessing || 'N/A';
+    document.getElementById('review-pushdownOperations').textContent = formData.pushdownOperations || 'N/A';
+    document.getElementById('review-dynamicScaling').textContent = formData.dynamicScaling || 'N/A';
+    document.getElementById('review-multiclustering').textContent = formData.multiclustering || 'N/A';
+    
+    // ETL section
+    document.getElementById('review-notebooksUsage').textContent = formData.notebooksUsage || 'N/A';
+    document.getElementById('review-storedProcedures').textContent = formData.storedProcedures || 'N/A';
+    document.getElementById('review-cteUsage').textContent = formData.cteUsage || 'N/A';
+    document.getElementById('review-snowflakeApi').textContent = formData.snowflakeApi || 'N/A';
+    document.getElementById('review-snowpark').textContent = formData.snowpark || 'N/A';
+    
+    // Data Pipelines section
+    document.getElementById('review-snowflakeOrchestrator').textContent = formData.snowflakeOrchestrator || 'N/A';
+    document.getElementById('review-kafkaConnector').textContent = formData.kafkaConnector || 'N/A';
+    document.getElementById('review-snowpipe').textContent = formData.snowpipe || 'N/A';
+    
+    // AI - ML section
+    document.getElementById('review-cortexIA').textContent = formData.cortexIA || 'N/A';
+    document.getElementById('review-projectType').textContent = formData.projectType || 'N/A';
+    document.getElementById('review-streamlitApps').textContent = formData.streamlitApps || 'N/A';
+    document.getElementById('review-snowparkTraining').textContent = formData.snowparkTraining || 'N/A';
+    document.getElementById('review-developmentPotential').textContent = formData.developmentPotential || 'N/A';
+    
+    // Disaster Recovery section
+    document.getElementById('review-environmentReplication').textContent = formData.environmentReplication || 'N/A';
+    document.getElementById('review-zeroCopyCloning').textContent = formData.zeroCopyCloning || 'N/A';
+    document.getElementById('review-timeTravel').textContent = formData.timeTravel || 'N/A';
+    document.getElementById('review-dataCopyStrategy').textContent = formData.dataCopyStrategy || 'N/A';
+    
+    // Security section
+    document.getElementById('review-infraTeamExists').textContent = formData.infraTeamExists || 'N/A';
+    document.getElementById('review-networkControls').textContent = formData.networkControls || 'N/A';
+    document.getElementById('review-rolesManagement').textContent = formData.rolesManagement || 'N/A';
+    document.getElementById('review-maskingPolicies').textContent = formData.maskingPolicies || 'N/A';
+    document.getElementById('review-mfaActive').textContent = formData.mfaActive || 'N/A';
+    document.getElementById('review-authPolicies').textContent = formData.authPolicies || 'N/A';
+    document.getElementById('review-serviceUsersAuth').textContent = formData.serviceUsersAuth || 'N/A';
+    document.getElementById('review-encryptionMeasures').textContent = formData.encryptionMeasures || 'N/A';
+    
+    // Contact Information
+    document.getElementById('review-phoneNumber').textContent = formData.phoneNumber || 'N/A';
+    document.getElementById('review-mobileNumber').textContent = formData.mobileNumber || 'N/A';
+    document.getElementById('review-workPhone').textContent = formData.workPhone || 'N/A';
+    document.getElementById('review-alternativeEmail').textContent = formData.alternativeEmail || 'N/A';
+    document.getElementById('review-preferredContactMethod').textContent = formData.preferredContactMethod || 'N/A';
   }
 </script>
-

@@ -36,10 +36,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        cursor: pointer;
-      }
-      .collapsible {
-        cursor: pointer;
       }
       .content {
         display: block;
@@ -89,10 +85,13 @@
                 <a class="nav-link active" id="arquitectura-tab" data-bs-toggle="pill" href="#arquitecturaStep">Arquitectura</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-bs-toggle="pill" href="#contactStep">Contact Info</a>
+                <a class="nav-link" id="business-tab" data-bs-toggle="pill" href="#businessStep">Business Info</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="business-tab" data-bs-toggle="pill" href="#businessStep">Business Info</a>
+                <a class="nav-link" id="features-tab" data-bs-toggle="pill" href="#featuresStep">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-bs-toggle="pill" href="#contactStep">Contact Info</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="review-tab" data-bs-toggle="pill" href="#reviewStep">Review</a>
@@ -106,14 +105,19 @@
                 <?!= include('ArquitecturaForm'); ?>
               </div>
               
-              <!-- Contact Info Step -->
-              <div class="tab-pane fade" id="contactStep">
-                <?!= include('ContactInfoForm'); ?>
-              </div>
-              
               <!-- Business Info Step -->
               <div class="tab-pane fade" id="businessStep">
                 <?!= include('BusinessInfoForm'); ?>
+              </div>
+              
+              <!-- Features Step -->
+              <div class="tab-pane fade" id="featuresStep">
+                <?!= include('FeaturesForm'); ?>
+              </div>
+              
+              <!-- Contact Info Step -->
+              <div class="tab-pane fade" id="contactStep">
+                <?!= include('ContactInfoForm'); ?>
               </div>
               
               <!-- Review Step -->
@@ -157,8 +161,8 @@
       
       // Current step index
       let currentStepIndex = 0;
-      const steps = ['arquitecturaStep', 'contactStep', 'businessStep', 'reviewStep'];
-      const tabIds = ['arquitectura-tab', 'contact-tab', 'business-tab', 'review-tab'];
+      const steps = ['arquitecturaStep', 'businessStep', 'featuresStep', 'contactStep', 'reviewStep'];
+      const tabIds = ['arquitectura-tab', 'business-tab', 'features-tab', 'contact-tab', 'review-tab'];
       
       // Navigation functions
       function nextStep() {
@@ -228,20 +232,26 @@
             formData = {...formData, ...arquitecturaData};
             break;
             
-          case 'contactStep':
-            formData.phoneNumber = document.getElementById('phoneNumber').value;
-            formData.mobileNumber = document.getElementById('mobileNumber').value;
-            formData.workPhone = document.getElementById('workPhone').value;
-            formData.alternativeEmail = document.getElementById('alternativeEmail').value;
-            formData.preferredContactMethod = document.getElementById('preferredContactMethod').value;
+          case 'businessStep':
+            formData.companyName = document.getElementById('companyName')?.value || '';
+            formData.businessType = document.getElementById('businessType')?.value || '';
+            formData.industry = document.getElementById('industry')?.value || '';
+            formData.annualRevenue = document.getElementById('annualRevenue')?.value || '';
+            formData.numberOfEmployees = document.getElementById('numberOfEmployees')?.value || '';
+            break;
+
+          case 'featuresStep':
+            // Use the collect data function from FeaturesForm
+            const featuresData = collectFeaturesData();
+            formData = {...formData, ...featuresData};
             break;
             
-          case 'businessStep':
-            formData.companyName = document.getElementById('companyName').value;
-            formData.businessType = document.getElementById('businessType').value;
-            formData.industry = document.getElementById('industry').value;
-            formData.annualRevenue = document.getElementById('annualRevenue').value;
-            formData.numberOfEmployees = document.getElementById('numberOfEmployees').value;
+          case 'contactStep':
+            formData.phoneNumber = document.getElementById('phoneNumber')?.value || '';
+            formData.mobileNumber = document.getElementById('mobileNumber')?.value || '';
+            formData.workPhone = document.getElementById('workPhone')?.value || '';
+            formData.alternativeEmail = document.getElementById('alternativeEmail')?.value || '';
+            formData.preferredContactMethod = document.getElementById('preferredContactMethod')?.value || '';
             break;
         }
       }
@@ -340,37 +350,13 @@
           loadCustomerTable();
         });
         
-        // Set up collapsible sections
-        const collapsibles = document.querySelectorAll('.collapsible');
-        collapsibles.forEach(collapsible => {
-          collapsible.addEventListener('click', function() {
-            this.classList.toggle('active');
-            const content = this.nextElementSibling;
-            if (content.classList.contains('hidden')) {
-              content.classList.remove('hidden');
-            } else {
-              content.classList.add('hidden');
-            }
-            
-            // Toggle chevron
-            const chevron = this.querySelector('.chevron');
-            if (chevron) {
-              if (content.classList.contains('hidden')) {
-                chevron.textContent = '▼';
-              } else {
-                chevron.textContent = '▲';
-              }
-            }
+        // Initialize tooltips if there are any in the form
+        if (typeof bootstrap !== 'undefined' && typeof bootstrap.Tooltip !== 'undefined') {
+          var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+          tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
           });
-        });
-        
-        // By default, only show the first section open
-        document.querySelectorAll('.section-header.collapsible:not(:first-of-type)').forEach(header => {
-          const content = header.nextElementSibling;
-          if (!content.classList.contains('hidden')) {
-            content.classList.add('hidden');
-          }
-        });
+        }
       });
     </script>
   </body>

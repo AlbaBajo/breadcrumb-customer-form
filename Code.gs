@@ -32,7 +32,23 @@ function getSheet() {
       'Orquestacion Tech', 'Orquestacion Comments',
       'Visualization Tech', 'Ratio Dashboards Snowflake', 'Visualization Comments',
       'Is Doing Something', 'Advanced Analytics Tech', 'Advanced Analytics Comments',
-      'Government Tech', 'Government Comments'
+      'Government Tech', 'Government Comments',
+      // Features - Data Integration
+      'Sources', 'Read From SAP', 'Range Volumentria', 'Source Format', 'Usage', 'Specific Table Types',
+      // Features - Query Processing
+      'Can Admin Platform', 'Has Dwh By Processing', 'Pushdown Operations', 'Dynamic Scaling', 'Multiclustering',
+      // Features - ETL
+      'Notebooks Usage', 'Stored Procedures', 'CTE Usage', 'Snowflake API', 'Snowpark',
+      // Features - Data Pipelines
+      'Snowflake Orchestrator', 'Kafka Connector', 'Snowpipe',
+      // Features - AI ML
+      'Cortex IA', 'Project Type', 'Streamlit Apps', 'Snowpark Training', 'Development Potential',
+      // Features - Disaster Recovery
+      'Environment Replication', 'Zero Copy Cloning', 'Time Travel', 'Data Copy Strategy',
+      // Features - Security
+      'Infra Team Exists', 'Network Controls',
+      'Roles Management', 'Masking Policies', 'MFA Active', 'Auth Policies', 'Service Users Auth',
+      'Encryption Measures'
     ]);
   }
   
@@ -75,7 +91,7 @@ function saveCustomerData(formData) {
       formData.industry || '',
       formData.annualRevenue || '',
       formData.numberOfEmployees || '',
-      // New fields
+      // Arquitectura data fields
       processBooleanField(formData.sourcesToDLSDG),
       processArrayField(formData.sourcesToDLTechETL),
       formData.storageDL || '',
@@ -96,7 +112,57 @@ function saveCustomerData(formData) {
       processArrayField(formData.advancedAnalyticsTech),
       formData.advancedAnalyticsComments || '',
       processArrayField(formData.governmentTech),
-      formData.governmentComments || ''
+      formData.governmentComments || '',
+      
+      // Features - Data Integration
+      processArrayField(formData.sources),
+      processBooleanField(formData.readFromSAP),
+      formData.rangeVolumentria || '',
+      formData.sourceFormat || '',
+      processArrayField(formData.usage),
+      formData.specificTableTypes || '',
+      
+      // Features - Query Processing
+      formData.canAdminPlatform || '',
+      formData.hasDwhByProcessing || '',
+      formData.pushdownOperations || '',
+      formData.dynamicScaling || '',
+      formData.multiclustering || '',
+      
+      // Features - ETL
+      formData.notebooksUsage || '',
+      formData.storedProcedures || '',
+      formData.cteUsage || '',
+      formData.snowflakeApi || '',
+      formData.snowpark || '',
+      
+      // Features - Data Pipelines
+      formData.snowflakeOrchestrator || '',
+      formData.kafkaConnector || '',
+      formData.snowpipe || '',
+      
+      // Features - AI ML
+      formData.cortexIA || '',
+      formData.projectType || '',
+      formData.streamlitApps || '',
+      formData.snowparkTraining || '',
+      formData.developmentPotential || '',
+      
+      // Features - Disaster Recovery
+      formData.environmentReplication || '',
+      formData.zeroCopyCloning || '',
+      formData.timeTravel || '',
+      formData.dataCopyStrategy || '',
+      
+      // Features - Security
+      formData.infraTeamExists || '',
+      formData.networkControls || '',
+      formData.rolesManagement || '',
+      formData.maskingPolicies || '',
+      formData.mfaActive || '',
+      formData.authPolicies || '',
+      formData.serviceUsersAuth || '',
+      formData.encryptionMeasures || ''
     ];
     
     // Add data to sheet
@@ -139,4 +205,3 @@ function getAllCustomers() {
   
   return data;
 }
-

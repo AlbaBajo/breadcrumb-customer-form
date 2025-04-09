@@ -1,0 +1,793 @@
+
+<div class="form-section">
+  <h3 class="mb-3">Features</h3>
+  <p class="text-muted mb-4">Enter the features information</p>
+  
+  <form id="featuresForm">
+    <!-- Data Integration Section -->
+    <div class="section-header">
+      <h4 class="mb-3">Data Integration</h4>
+    </div>
+    <div class="content">
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Sources</label>
+          <div class="border p-2 rounded" id="sourcesContainer">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="sourceAWSS3" name="sources" value="AWS S3">
+              <label class="form-check-label" for="sourceAWSS3">AWS S3</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="sourceAzureStorage" name="sources" value="Azure Storage">
+              <label class="form-check-label" for="sourceAzureStorage">Azure Storage</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="sourceLocal" name="sources" value="Local">
+              <label class="form-check-label" for="sourceLocal">Local</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="sourceOracle" name="sources" value="Oracle">
+              <label class="form-check-label" for="sourceOracle">Oracle</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="sourceMySQL" name="sources" value="MySQL">
+              <label class="form-check-label" for="sourceMySQL">MySQL</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="sourceSAP" name="sources" value="SAP">
+              <label class="form-check-label" for="sourceSAP">SAP</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="sourceOtro" name="sources" value="Otro">
+              <label class="form-check-label" for="sourceOtro">Otro</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="readFromSAP">
+            <label class="form-check-label" for="readFromSAP">¿Se lee de SAP?</label>
+          </div>
+          
+          <div class="mb-3">
+            <label for="rangeVolumentria" class="form-label">Rango volumentrías</label>
+            <input type="text" class="form-control" id="rangeVolumentria">
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="sourceFormat" class="form-label">¿Qué formato de entrada tienen las fuentes?</label>
+          <select class="form-select" id="sourceFormat">
+            <option value="" selected>Seleccionar formato</option>
+            <option value="Tabla">Tabla</option>
+            <option value="Fichero formato delimitado">Fichero formato delimitado</option>
+            <option value="Semiestructurado">Semiestructurado</option>
+          </select>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Uso de</label>
+          <div class="border p-2 rounded" id="usageContainer">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="usageDataSharing" name="usage" value="Data Sharing">
+              <label class="form-check-label" for="usageDataSharing">Data Sharing</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="usageMarketPlace" name="usage" value="Market Place">
+              <label class="form-check-label" for="usageMarketPlace">Market Place</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="usageBulkLoad" name="usage" value="Bulk Load">
+              <label class="form-check-label" for="usageBulkLoad">Bulk Load</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="usageNinguna" name="usage" value="Ninguna">
+              <label class="form-check-label" for="usageNinguna">Ninguna</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label class="form-label d-flex align-items-center">
+            Uso de algún tipo específico de tablas
+            <i class="bi bi-question-circle ms-2" data-bs-toggle="tooltip" title="Secure Views, Views External Tables, Materialized Views, Temporary - Transient Tables, Iceberg Tables, Hybrid Tables, Event Tables"></i>
+          </label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="specificTableTypes" id="specificTableTypesYes" value="Sí">
+              <label class="form-check-label" for="specificTableTypesYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="specificTableTypes" id="specificTableTypesNo" value="No">
+              <label class="form-check-label" for="specificTableTypesNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="specificTableTypes" id="specificTableTypesUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="specificTableTypesUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Query Processing Section -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">Query Processing</h4>
+    </div>
+    <div class="content">
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">¿Podemos administrar la plataforma?</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="canAdminPlatform" id="canAdminPlatformYes" value="Sí">
+              <label class="form-check-label" for="canAdminPlatformYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="canAdminPlatform" id="canAdminPlatformNo" value="No">
+              <label class="form-check-label" for="canAdminPlatformNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="canAdminPlatform" id="canAdminPlatformUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="canAdminPlatformUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label class="form-label">¿Tiene un DWh por tipo procesamiento / capa?</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="hasDwhByProcessing" id="hasDwhByProcessingYes" value="Sí">
+              <label class="form-check-label" for="hasDwhByProcessingYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="hasDwhByProcessing" id="hasDwhByProcessingNo" value="No">
+              <label class="form-check-label" for="hasDwhByProcessingNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="hasDwhByProcessing" id="hasDwhByProcessingUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="hasDwhByProcessingUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Operaciones Pushdown</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pushdownOperations" id="pushdownOperationsYes" value="Sí">
+              <label class="form-check-label" for="pushdownOperationsYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pushdownOperations" id="pushdownOperationsNo" value="No">
+              <label class="form-check-label" for="pushdownOperationsNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="pushdownOperations" id="pushdownOperationsUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="pushdownOperationsUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Escalado Dinámico Activado</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="dynamicScaling" id="dynamicScalingYes" value="Sí">
+              <label class="form-check-label" for="dynamicScalingYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="dynamicScaling" id="dynamicScalingNo" value="No">
+              <label class="form-check-label" for="dynamicScalingNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="dynamicScaling" id="dynamicScalingUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="dynamicScalingUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Multiclustering</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="multiclustering" id="multiclusteringYes" value="Sí">
+              <label class="form-check-label" for="multiclusteringYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="multiclustering" id="multiclusteringNo" value="No">
+              <label class="form-check-label" for="multiclusteringNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="multiclustering" id="multiclusteringUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="multiclusteringUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ETL Section -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">ETL</h4>
+    </div>
+    <div class="content">
+      <div class="row mt-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Uso de Notebooks</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="notebooksUsage" id="notebooksUsageYes" value="Sí">
+              <label class="form-check-label" for="notebooksUsageYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="notebooksUsage" id="notebooksUsageNo" value="No">
+              <label class="form-check-label" for="notebooksUsageNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="notebooksUsage" id="notebooksUsageUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="notebooksUsageUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Uso de procedimientos almacenados</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="storedProcedures" id="storedProceduresYes" value="Sí">
+              <label class="form-check-label" for="storedProceduresYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="storedProcedures" id="storedProceduresNo" value="No">
+              <label class="form-check-label" for="storedProceduresNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="storedProcedures" id="storedProceduresUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="storedProceduresUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Uso de CTE</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cteUsage" id="cteUsageYes" value="Sí">
+              <label class="form-check-label" for="cteUsageYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cteUsage" id="cteUsageNo" value="No">
+              <label class="form-check-label" for="cteUsageNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cteUsage" id="cteUsageUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="cteUsageUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Snowflake API</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowflakeApi" id="snowflakeApiYes" value="Sí">
+              <label class="form-check-label" for="snowflakeApiYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowflakeApi" id="snowflakeApiNo" value="No">
+              <label class="form-check-label" for="snowflakeApiNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowflakeApi" id="snowflakeApiUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="snowflakeApiUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Snowpark</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowpark" id="snowparkYes" value="Sí">
+              <label class="form-check-label" for="snowparkYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowpark" id="snowparkNo" value="No">
+              <label class="form-check-label" for="snowparkNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowpark" id="snowparkUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="snowparkUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Data Pipelines Section -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">Data Pipelines</h4>
+    </div>
+    <div class="content">
+      <div class="row mt-3">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Snowflake como Orquestador</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowflakeOrchestrator" id="snowflakeOrchestratorYes" value="Sí">
+              <label class="form-check-label" for="snowflakeOrchestratorYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowflakeOrchestrator" id="snowflakeOrchestratorNo" value="No">
+              <label class="form-check-label" for="snowflakeOrchestratorNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowflakeOrchestrator" id="snowflakeOrchestratorUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="snowflakeOrchestratorUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Uso conector de Kafka</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="kafkaConnector" id="kafkaConnectorYes" value="Sí">
+              <label class="form-check-label" for="kafkaConnectorYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="kafkaConnector" id="kafkaConnectorNo" value="No">
+              <label class="form-check-label" for="kafkaConnectorNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="kafkaConnector" id="kafkaConnectorUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="kafkaConnectorUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Uso de Snowpipe / Snowpipe Streaming</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowpipe" id="snowpipeYes" value="Sí">
+              <label class="form-check-label" for="snowpipeYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowpipe" id="snowpipeNo" value="No">
+              <label class="form-check-label" for="snowpipeNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowpipe" id="snowpipeUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="snowpipeUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- AI - ML Section -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">AI - ML</h4>
+    </div>
+    <div class="content">
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Uso Cortex IA</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cortexIA" id="cortexIAYes" value="Sí">
+              <label class="form-check-label" for="cortexIAYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cortexIA" id="cortexIANo" value="No">
+              <label class="form-check-label" for="cortexIANo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="cortexIA" id="cortexIAUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="cortexIAUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="projectType" class="form-label">Tipo Proyecto</label>
+          <input type="text" class="form-control" id="projectType">
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Creación de Apps con Streamlit</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="streamlitApps" id="streamlitAppsYes" value="Sí">
+              <label class="form-check-label" for="streamlitAppsYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="streamlitApps" id="streamlitAppsNo" value="No">
+              <label class="form-check-label" for="streamlitAppsNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="streamlitApps" id="streamlitAppsUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="streamlitAppsUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Entrenamiento con Snowpark</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowparkTraining" id="snowparkTrainingYes" value="Sí">
+              <label class="form-check-label" for="snowparkTrainingYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowparkTraining" id="snowparkTrainingNo" value="No">
+              <label class="form-check-label" for="snowparkTrainingNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="snowparkTraining" id="snowparkTrainingUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="snowparkTrainingUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+          <label class="form-label">¿Potencial de desarrollo a medio - corto plazo?</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="developmentPotential" id="developmentPotentialYes" value="Sí">
+              <label class="form-check-label" for="developmentPotentialYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="developmentPotential" id="developmentPotentialNo" value="No">
+              <label class="form-check-label" for="developmentPotentialNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="developmentPotential" id="developmentPotentialUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="developmentPotentialUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Disaster Recovery Section -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">Disaster Recovery</h4>
+    </div>
+    <div class="content">
+      <div class="row mt-3">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">¿Se usa replicación de entornos para Alta Disponibilidad?</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="environmentReplication" id="environmentReplicationYes" value="Sí">
+              <label class="form-check-label" for="environmentReplicationYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="environmentReplication" id="environmentReplicationNo" value="No">
+              <label class="form-check-label" for="environmentReplicationNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="environmentReplication" id="environmentReplicationUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="environmentReplicationUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Uso de Zero Copy Cloning</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="zeroCopyCloning" id="zeroCopyCloningYes" value="Sí">
+              <label class="form-check-label" for="zeroCopyCloningYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="zeroCopyCloning" id="zeroCopyCloningNo" value="No">
+              <label class="form-check-label" for="zeroCopyCloningNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="zeroCopyCloning" id="zeroCopyCloningUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="zeroCopyCloningUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Uso del Time Travel</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="timeTravel" id="timeTravelYes" value="Sí">
+              <label class="form-check-label" for="timeTravelYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="timeTravel" id="timeTravelNo" value="No">
+              <label class="form-check-label" for="timeTravelNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="timeTravel" id="timeTravelUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="timeTravelUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label class="form-label">¿Existe alguna estrategia de copiado de datos entre entornos (clonning, customizado con masking etc.)?</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="dataCopyStrategy" id="dataCopyStrategyYes" value="Sí">
+              <label class="form-check-label" for="dataCopyStrategyYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="dataCopyStrategy" id="dataCopyStrategyNo" value="No">
+              <label class="form-check-label" for="dataCopyStrategyNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="dataCopyStrategy" id="dataCopyStrategyUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="dataCopyStrategyUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Security Section -->
+    <div class="section-header mt-4">
+      <h4 class="mb-3">Seguridad</h4>
+    </div>
+    <div class="content">
+      <div class="row mt-3">
+        <div class="col-12 mb-3">
+          <label class="form-label">¿Existe un equipo de Infra en cliente encargado de fijar política de seguridad en Snowflake?</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="infraTeamExists" id="infraTeamExistsYes" value="Sí">
+              <label class="form-check-label" for="infraTeamExistsYes">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="infraTeamExists" id="infraTeamExistsNo" value="No">
+              <label class="form-check-label" for="infraTeamExistsNo">No</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="infraTeamExists" id="infraTeamExistsUnknown" value="Lo desconozco">
+              <label class="form-check-label" for="infraTeamExistsUnknown">Lo desconozco</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card mb-3">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">Controles</h5>
+        </div>
+        <div class="card-body">
+          <!-- Red Category -->
+          <div class="mb-3">
+            <h6 class="mb-2">Red</h6>
+            <div class="ms-3">
+              <label class="form-label">¿Existe algún control a Nivel de Red: Conectividad privada, firewalls, políticas de red etc.?</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="networkControls" id="networkControlsYes" value="Sí">
+                  <label class="form-check-label" for="networkControlsYes">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="networkControls" id="networkControlsNo" value="No">
+                  <label class="form-check-label" for="networkControlsNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="networkControls" id="networkControlsUnknown" value="Lo desconozco">
+                  <label class="form-check-label" for="networkControlsUnknown">Lo desconozco</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Acceso Category -->
+          <div class="mb-3">
+            <h6 class="mb-2">Acceso</h6>
+            <div class="ms-3">
+              <div class="mb-3">
+                <label class="form-label">Se aplica gestión de roles</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rolesManagement" id="rolesManagementYes" value="Sí">
+                    <label class="form-check-label" for="rolesManagementYes">Sí</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rolesManagement" id="rolesManagementNo" value="No">
+                    <label class="form-check-label" for="rolesManagementNo">No</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rolesManagement" id="rolesManagementUnknown" value="Lo desconozco">
+                    <label class="form-check-label" for="rolesManagementUnknown">Lo desconozco</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Existe algún tipo de política de enmascaramiento, sesión o de acceso. Securización de objetos.</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="maskingPolicies" id="maskingPoliciesYes" value="Sí">
+                    <label class="form-check-label" for="maskingPoliciesYes">Sí</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="maskingPolicies" id="maskingPoliciesNo" value="No">
+                    <label class="form-check-label" for="maskingPoliciesNo">No</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="maskingPolicies" id="maskingPoliciesUnknown" value="Lo desconozco">
+                    <label class="form-check-label" for="maskingPoliciesUnknown">Lo desconozco</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">MFA activado</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="mfaActive" id="mfaActiveYes" value="Sí">
+                    <label class="form-check-label" for="mfaActiveYes">Sí</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="mfaActive" id="mfaActiveNo" value="No">
+                    <label class="form-check-label" for="mfaActiveNo">No</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="mfaActive" id="mfaActiveUnknown" value="Lo desconozco">
+                    <label class="form-check-label" for="mfaActiveUnknown">Lo desconozco</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Hay políticas de autenticación / de contraseñas</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="authPolicies" id="authPoliciesYes" value="Sí">
+                    <label class="form-check-label" for="authPoliciesYes">Sí</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="authPolicies" id="authPoliciesNo" value="No">
+                    <label class="form-check-label" for="authPoliciesNo">No</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="authPolicies" id="authPoliciesUnknown" value="Lo desconozco">
+                    <label class="form-check-label" for="authPoliciesUnknown">Lo desconozco</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-3">
+                <label class="form-label">Usuarios de servicio usan OAth, contraseña</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="serviceUsersAuth" id="serviceUsersAuthYes" value="Sí">
+                    <label class="form-check-label" for="serviceUsersAuthYes">Sí</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="serviceUsersAuth" id="serviceUsersAuthNo" value="No">
+                    <label class="form-check-label" for="serviceUsersAuthNo">No</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="serviceUsersAuth" id="serviceUsersAuthUnknown" value="Lo desconozco">
+                    <label class="form-check-label" for="serviceUsersAuthUnknown">Lo desconozco</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Encriptación Category -->
+          <div>
+            <h6 class="mb-2">Encriptación</h6>
+            <div class="ms-3">
+              <label class="form-label">Se aplica alguna medida</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="encryptionMeasures" id="encryptionMeasuresYes" value="Sí">
+                  <label class="form-check-label" for="encryptionMeasuresYes">Sí</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="encryptionMeasures" id="encryptionMeasuresNo" value="No">
+                  <label class="form-check-label" for="encryptionMeasuresNo">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="encryptionMeasures" id="encryptionMeasuresUnknown" value="Lo desconozco">
+                  <label class="form-check-label" for="encryptionMeasuresUnknown">Lo desconozco</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  });
+
+  // Function to collect form data
+  function collectFeaturesData() {
+    const data = {
+      // Data Integration section
+      sources: Array.from(document.querySelectorAll('input[name="sources"]:checked')).map(el => el.value),
+      readFromSAP: document.getElementById('readFromSAP').checked,
+      rangeVolumentria: document.getElementById('rangeVolumentria').value,
+      sourceFormat: document.getElementById('sourceFormat').value,
+      usage: Array.from(document.querySelectorAll('input[name="usage"]:checked')).map(el => el.value),
+      specificTableTypes: document.querySelector('input[name="specificTableTypes"]:checked')?.value || '',
+      
+      // Query Processing section
+      canAdminPlatform: document.querySelector('input[name="canAdminPlatform"]:checked')?.value || '',
+      hasDwhByProcessing: document.querySelector('input[name="hasDwhByProcessing"]:checked')?.value || '',
+      pushdownOperations: document.querySelector('input[name="pushdownOperations"]:checked')?.value || '',
+      dynamicScaling: document.querySelector('input[name="dynamicScaling"]:checked')?.value || '',
+      multiclustering: document.querySelector('input[name="multiclustering"]:checked')?.value || '',
+      
+      // ETL section
+      notebooksUsage: document.querySelector('input[name="notebooksUsage"]:checked')?.value || '',
+      storedProcedures: document.querySelector('input[name="storedProcedures"]:checked')?.value || '',
+      cteUsage: document.querySelector('input[name="cteUsage"]:checked')?.value || '',
+      snowflakeApi: document.querySelector('input[name="snowflakeApi"]:checked')?.value || '',
+      snowpark: document.querySelector('input[name="snowpark"]:checked')?.value || '',
+      
+      // Data Pipelines section
+      snowflakeOrchestrator: document.querySelector('input[name="snowflakeOrchestrator"]:checked')?.value || '',
+      kafkaConnector: document.querySelector('input[name="kafkaConnector"]:checked')?.value || '',
+      snowpipe: document.querySelector('input[name="snowpipe"]:checked')?.value || '',
+      
+      // AI - ML section
+      cortexIA: document.querySelector('input[name="cortexIA"]:checked')?.value || '',
+      projectType: document.getElementById('projectType').value,
+      streamlitApps: document.querySelector('input[name="streamlitApps"]:checked')?.value || '',
+      snowparkTraining: document.querySelector('input[name="snowparkTraining"]:checked')?.value || '',
+      developmentPotential: document.querySelector('input[name="developmentPotential"]:checked')?.value || '',
+      
+      // Disaster Recovery section
+      environmentReplication: document.querySelector('input[name="environmentReplication"]:checked')?.value || '',
+      zeroCopyCloning: document.querySelector('input[name="zeroCopyCloning"]:checked')?.value || '',
+      timeTravel: document.querySelector('input[name="timeTravel"]:checked')?.value || '',
+      dataCopyStrategy: document.querySelector('input[name="dataCopyStrategy"]:checked')?.value || '',
+      
+      // Security section
+      infraTeamExists: document.querySelector('input[name="infraTeamExists"]:checked')?.value || '',
+      // Controles - Red
+      networkControls: document.querySelector('input[name="networkControls"]:checked')?.value || '',
+      // Controles - Acceso
+      rolesManagement: document.querySelector('input[name="rolesManagement"]:checked')?.value || '',
+      maskingPolicies: document.querySelector('input[name="maskingPolicies"]:checked')?.value || '',
+      mfaActive: document.querySelector('input[name="mfaActive"]:checked')?.value || '',
+      authPolicies: document.querySelector('input[name="authPolicies"]:checked')?.value || '',
+      serviceUsersAuth: document.querySelector('input[name="serviceUsersAuth"]:checked')?.value || '',
+      // Controles - Encriptación
+      encryptionMeasures: document.querySelector('input[name="encryptionMeasures"]:checked')?.value || ''
+    };
+    
+    return data;
+  }
+</script>
+

@@ -1,16 +1,17 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { ChevronRight, Check, AlertCircle } from "lucide-react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { ChevronRight, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import ArquitecturaForm from "@/components/form-steps/ArquitecturaForm";
 import ContactInfoForm from "@/components/form-steps/ContactInfoForm";
 import AddressInfoForm from "@/components/form-steps/AddressInfoForm";
-import BusinessInfoForm from "@/components/form-steps/BusinessInfoForm";
 import PreferencesForm from "@/components/form-steps/PreferencesForm";
 import ReviewScreen from "@/components/form-steps/ReviewScreen";
+import AceleradoresForm from "@/components/form-steps/AceleradoresForm";
 
 interface CustomerFormProps {
   onCancel: () => void;
@@ -73,18 +74,6 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
     billingPostalCode: "",
     billingCountry: "",
     
-    // Business Info
-    companyName: "",
-    businessType: "",
-    industry: "",
-    annualRevenue: "",
-    numberOfEmployees: "",
-    taxIdNumber: "",
-    registrationNumber: "",
-    yearEstablished: "",
-    websiteUrl: "",
-    linkedInProfile: "",
-    
     // Preferences
     preferredLanguage: "",
     communicationFrequency: "",
@@ -96,13 +85,31 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
     timezone: "",
     accountType: "",
     tags: "",
+    
+    // Aceleradores
+    aceleradores: [
+      {
+        artefacto: "",
+        objetivo: "",
+        desarrollo: "",
+        technologyBase: [],
+        technology: [],
+        dataIngestion: false,
+        dataTransformation: false,
+        monitoring: false,
+        securitization: false,
+        dataModeling: false,
+        mlops: false,
+        cicd: false
+      }
+    ]
   });
 
   const steps = [
     { id: 1, name: "Arquitectura" },
     { id: 2, name: "Contact Info" },
     { id: 3, name: "Address" },
-    { id: 4, name: "Business Info" },
+    { id: 4, name: "Aceleradores" },
     { id: 5, name: "Preferences" },
     { id: 6, name: "Review" }
   ];
@@ -153,7 +160,7 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
       case 3:
         return <AddressInfoForm data={formData} onUpdate={handleFormUpdate} />;
       case 4:
-        return <BusinessInfoForm data={formData} onUpdate={handleFormUpdate} />;
+        return <AceleradoresForm data={formData} onUpdate={handleFormUpdate} />;
       case 5:
         return <PreferencesForm data={formData} onUpdate={handleFormUpdate} />;
       case 6:
@@ -164,7 +171,7 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto">
+    <div className="w-full mx-auto">
       <Card className="p-6 shadow-md bg-white">
         <Breadcrumb className="mb-8">
           <BreadcrumbList>
@@ -173,12 +180,12 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
                 <BreadcrumbLink 
                   onClick={() => currentStep > step.id ? setCurrentStep(step.id) : null}
                   className={`flex items-center ${
-                    currentStep >= step.id ? 'text-blue-600 cursor-pointer' : 'text-gray-400 cursor-not-allowed'
+                    currentStep >= step.id ? 'text-purple-600 cursor-pointer' : 'text-gray-400 cursor-not-allowed'
                   }`}
                 >
                   <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full mr-2 text-sm ${
                     currentStep > step.id ? 'bg-green-500 text-white' : 
-                    currentStep === step.id ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                    currentStep === step.id ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-600'
                   }`}>
                     {currentStep > step.id ? <Check size={14} /> : step.id}
                   </span>
@@ -210,7 +217,7 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
           </Button>
 
           <Button 
-            className="bg-blue-600 hover:bg-blue-700"
+            className="bg-purple-600 hover:bg-purple-700"
             onClick={currentStep === 6 ? handleSubmit : handleNext}
           >
             {currentStep === 6 ? "Submit" : "Next"}

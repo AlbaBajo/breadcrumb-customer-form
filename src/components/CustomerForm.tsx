@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,12 +6,9 @@ import { ChevronRight, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import ArquitecturaForm from "@/components/form-steps/ArquitecturaForm";
-import ContactInfoForm from "@/components/form-steps/ContactInfoForm";
-import AddressInfoForm from "@/components/form-steps/AddressInfoForm";
-import PreferencesForm from "@/components/form-steps/PreferencesForm";
+import FeaturesForm from "@/components/form-steps/FeaturesForm";
 import ReviewScreen from "@/components/form-steps/ReviewScreen";
 import AceleradoresForm from "@/components/form-steps/AceleradoresForm";
-import FeaturesForm from "@/components/form-steps/FeaturesForm";
 
 interface CustomerFormProps {
   onCancel: () => void;
@@ -155,12 +151,10 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
 
   const steps = [
     { id: 1, name: "Arquitectura" },
-    { id: 2, name: "Contact Info" },
-    { id: 3, name: "Address" },
-    { id: 4, name: "Features" },
-    { id: 5, name: "Aceleradores" },
-    { id: 6, name: "Preferences" },
-    { id: 7, name: "Review" }
+    { id: 2, name: "Features" },
+    { id: 3, name: "Aceleradores" },
+    { id: 4, name: "Contact Info" },
+    { id: 5, name: "Review" }
   ];
 
   const handleFormUpdate = (data: Partial<typeof formData>) => {
@@ -264,16 +258,12 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
       case 1:
         return <ArquitecturaForm data={formData} onUpdate={handleFormUpdate} />;
       case 2:
-        return <ContactInfoForm data={formData} onUpdate={handleFormUpdate} />;
-      case 3:
-        return <AddressInfoForm data={formData} onUpdate={handleFormUpdate} />;
-      case 4:
         return <FeaturesForm data={formData} onUpdate={handleFormUpdate} />;
-      case 5:
+      case 3:
         return <AceleradoresForm data={formData} onUpdate={handleFormUpdate} />;
-      case 6:
-        return <PreferencesForm data={formData} onUpdate={handleFormUpdate} />;
-      case 7:
+      case 4:
+        return <ContactInfoForm data={formData} onUpdate={handleFormUpdate} />;
+      case 5:
         return <ReviewScreen data={formData} />;
       default:
         return null;
@@ -312,7 +302,7 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
             {isEditing ? `Edit Customer: ${initialData?.customerName}` : steps[currentStep - 1].name}
           </h2>
           <p className="text-gray-500 text-sm mt-1">
-            {currentStep < 7 ? `Step ${currentStep} of ${steps.length - 1}` : "Review your information"}
+            {currentStep < 5 ? `Step ${currentStep} of ${steps.length - 1}` : "Review your information"}
           </p>
         </div>
 
@@ -328,9 +318,9 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
 
           <Button 
             className="bg-purple-600 hover:bg-purple-700"
-            onClick={currentStep === 7 ? handleSubmit : handleNext}
+            onClick={currentStep === 5 ? handleSubmit : handleNext}
           >
-            {currentStep === 7 ? (isEditing ? "Update" : "Submit") : "Next"}
+            {currentStep === 5 ? (isEditing ? "Update" : "Submit") : "Next"}
           </Button>
         </div>
       </Card>

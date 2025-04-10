@@ -3,10 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import ReviewSection from "@/components/review/ReviewSection";
 import ArquitecturaReview from "@/components/review/ArquitecturaReview";
 import ContactInfoReview from "@/components/review/ContactInfoReview";
-import AddressInfoReview from "@/components/review/AddressInfoReview";
-import PreferencesReview from "@/components/review/PreferencesReview";
-import AceleradoresReview from "@/components/review/AceleradoresReview";
 import FeaturesReview from "@/components/review/FeaturesReview";
+import AceleradoresReview from "@/components/review/AceleradoresReview";
 
 interface ReviewScreenProps {
   data: any;
@@ -28,18 +26,6 @@ const ReviewScreen = ({ data }: ReviewScreenProps) => {
 
       <Card className="border-purple-200">
         <CardContent className="pt-6">
-          <ContactInfoReview data={data} />
-        </CardContent>
-      </Card>
-
-      <Card className="border-purple-200">
-        <CardContent className="pt-6">
-          <AddressInfoReview data={data} />
-        </CardContent>
-      </Card>
-
-      <Card className="border-purple-200">
-        <CardContent className="pt-6">
           <FeaturesReview data={data} />
         </CardContent>
       </Card>
@@ -52,7 +38,7 @@ const ReviewScreen = ({ data }: ReviewScreenProps) => {
 
       <Card className="border-purple-200">
         <CardContent className="pt-6">
-          <PreferencesReview data={data} />
+          <ContactInfoReview data={data} />
         </CardContent>
       </Card>
     </div>

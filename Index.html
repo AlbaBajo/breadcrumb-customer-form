@@ -128,19 +128,16 @@
                   <button class="nav-link active" id="arquitectura-tab" data-bs-toggle="tab" data-bs-target="#arquitectura" type="button" role="tab" aria-controls="arquitectura" aria-selected="true">1. Arquitectura</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="contactinfo-tab" data-bs-toggle="tab" data-bs-target="#contactinfo" type="button" role="tab" aria-controls="contactinfo" aria-selected="false">2. Contact Info</button>
+                  <button class="nav-link" id="features-tab" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab" aria-controls="features" aria-selected="false">2. Features</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="address-tab" data-bs-toggle="tab" data-bs-target="#address" type="button" role="tab" aria-controls="address" aria-selected="false">3. Address</button>
+                  <button class="nav-link" id="aceleradores-tab" data-bs-toggle="tab" data-bs-target="#aceleradores" type="button" role="tab" aria-controls="aceleradores" aria-selected="false">3. Aceleradores</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="aceleradores-tab" data-bs-toggle="tab" data-bs-target="#aceleradores" type="button" role="tab" aria-controls="aceleradores" aria-selected="false">4. Aceleradores</button>
+                  <button class="nav-link" id="contactinfo-tab" data-bs-toggle="tab" data-bs-target="#contactinfo" type="button" role="tab" aria-controls="contactinfo" aria-selected="false">4. Contact Info</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="preferences-tab" data-bs-toggle="tab" data-bs-target="#preferences" type="button" role="tab" aria-controls="preferences" aria-selected="false">5. Preferences</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">6. Review</button>
+                  <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">5. Review</button>
                 </li>
               </ul>
 
@@ -150,51 +147,42 @@
                   <?!= include('ArquitecturaForm'); ?>
                   <div class="d-flex justify-content-between mt-4">
                     <button type="button" class="btn btn-outline-secondary" id="cancelArquitectura">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="nextToContactInfo">Next</button>
+                    <button type="button" class="btn btn-primary next-step" data-target="features">Next</button>
                   </div>
                 </div>
 
-                <!-- Step 2: Contact Info -->
-                <div class="tab-pane fade" id="contactinfo" role="tabpanel" aria-labelledby="contactinfo-tab">
-                  <?!= include('ContactInfoForm'); ?>
+                <!-- Step 2: Features -->
+                <div class="tab-pane fade" id="features" role="tabpanel" aria-labelledby="features-tab">
+                  <?!= include('FeaturesForm'); ?>
                   <div class="d-flex justify-content-between mt-4">
                     <button type="button" class="btn btn-outline-secondary prev-step" data-target="arquitectura">Previous</button>
-                    <button type="button" class="btn btn-primary next-step" data-target="address">Next</button>
-                  </div>
-                </div>
-
-                <!-- Step 3: Address -->
-                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
-                  <?!= include('AddressInfoForm'); ?>
-                  <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-outline-secondary prev-step" data-target="contactinfo">Previous</button>
                     <button type="button" class="btn btn-primary next-step" data-target="aceleradores">Next</button>
                   </div>
                 </div>
 
-                <!-- Step 4: Aceleradores -->
+                <!-- Step 3: Aceleradores -->
                 <div class="tab-pane fade" id="aceleradores" role="tabpanel" aria-labelledby="aceleradores-tab">
                   <?!= include('Aceleradores'); ?>
                   <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-outline-secondary prev-step" data-target="address">Previous</button>
-                    <button type="button" class="btn btn-primary next-step" data-target="preferences">Next</button>
+                    <button type="button" class="btn btn-outline-secondary prev-step" data-target="features">Previous</button>
+                    <button type="button" class="btn btn-primary next-step" data-target="contactinfo">Next</button>
                   </div>
                 </div>
 
-                <!-- Step 5: Preferences -->
-                <div class="tab-pane fade" id="preferences" role="tabpanel" aria-labelledby="preferences-tab">
-                  <?!= include('PreferencesForm'); ?>
+                <!-- Step 4: Contact Info -->
+                <div class="tab-pane fade" id="contactinfo" role="tabpanel" aria-labelledby="contactinfo-tab">
+                  <?!= include('ContactInfoForm'); ?>
                   <div class="d-flex justify-content-between mt-4">
                     <button type="button" class="btn btn-outline-secondary prev-step" data-target="aceleradores">Previous</button>
                     <button type="button" class="btn btn-primary next-step" data-target="review">Next</button>
                   </div>
                 </div>
 
-                <!-- Step 6: Review -->
+                <!-- Step 5: Review -->
                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                   <?!= include('ReviewScreen'); ?>
                   <div class="d-flex justify-content-between mt-4">
-                    <button type="button" class="btn btn-outline-secondary prev-step" data-target="preferences">Previous</button>
+                    <button type="button" class="btn btn-outline-secondary prev-step" data-target="contactinfo">Previous</button>
                     <button type="button" class="btn btn-success" id="submitForm">Submit</button>
                   </div>
                 </div>
@@ -269,15 +257,6 @@
 
   // Set up tab navigation
   function setupNavigation() {
-    // Handle "Next" buttons
-    document.getElementById('nextToContactInfo').addEventListener('click', function() {
-      if (validateArquitecturaForm()) {
-        collectStepData('arquitectura');
-        const contactTab = document.getElementById('contactinfo-tab');
-        bootstrap.Tab.getOrCreateInstance(contactTab).show();
-      }
-    });
-
     // Handle generic Previous/Next buttons
     document.querySelectorAll('.prev-step, .next-step').forEach(button => {
       button.addEventListener('click', function() {
@@ -302,17 +281,14 @@
       case 'arquitectura':
         Object.assign(formData, collectArquitecturaData());
         break;
-      case 'contactinfo':
-        Object.assign(formData, collectContactInfoData());
-        break;
-      case 'address':
-        Object.assign(formData, collectAddressData());
+      case 'features':
+        Object.assign(formData, collectFeaturesData());
         break;
       case 'aceleradores':
         formData.aceleradores = collectAceleradoresData();
         break;
-      case 'preferences':
-        Object.assign(formData, collectPreferencesData());
+      case 'contactinfo':
+        Object.assign(formData, collectContactInfoData());
         break;
     }
   }

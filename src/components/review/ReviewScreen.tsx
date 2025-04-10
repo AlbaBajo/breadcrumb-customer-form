@@ -28,18 +28,6 @@ const ReviewScreen = ({ data }: ReviewScreenProps) => {
 
       <Card className="border-purple-200">
         <CardContent className="pt-6">
-          <ContactInfoReview data={data} />
-        </CardContent>
-      </Card>
-
-      <Card className="border-purple-200">
-        <CardContent className="pt-6">
-          <AddressInfoReview data={data} />
-        </CardContent>
-      </Card>
-
-      <Card className="border-purple-200">
-        <CardContent className="pt-6">
           <FeaturesReview data={data} />
         </CardContent>
       </Card>
@@ -47,6 +35,18 @@ const ReviewScreen = ({ data }: ReviewScreenProps) => {
       <Card className="border-purple-200">
         <CardContent className="pt-6">
           <AceleradoresReview data={data} />
+        </CardContent>
+      </Card>
+
+      <Card className="border-purple-200">
+        <CardContent className="pt-6">
+          <ContactInfoReview data={data} />
+        </CardContent>
+      </Card>
+
+      <Card className="border-purple-200">
+        <CardContent className="pt-6">
+          <AddressInfoReview data={data} />
         </CardContent>
       </Card>
 

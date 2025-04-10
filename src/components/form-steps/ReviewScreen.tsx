@@ -1,6 +1,5 @@
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import ReviewSection from "@/components/review/ReviewSection";
 import ArquitecturaReview from "@/components/review/ArquitecturaReview";
 import ContactInfoReview from "@/components/review/ContactInfoReview";

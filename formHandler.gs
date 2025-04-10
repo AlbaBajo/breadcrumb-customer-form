@@ -1,6 +1,8 @@
-// Form data handling and saving
-
-// Process array fields to string
+/**
+ * Process array fields to string
+ * @param {Array|any} field - The field to process
+ * @returns {string} The processed field as a string
+ */
 function processArrayField(field) {
   if (Array.isArray(field) && field.length > 0) {
     return field.join(', ');
@@ -8,12 +10,20 @@ function processArrayField(field) {
   return '';
 }
 
-// Process boolean fields
+/**
+ * Process boolean fields to Yes/No string
+ * @param {boolean|any} field - The field to process
+ * @returns {string} "Yes" if true, "No" if false
+ */
 function processBooleanField(field) {
   return field ? 'Yes' : 'No';
 }
 
-// Process Aceleradores table data
+/**
+ * Process Aceleradores table data to JSON string
+ * @param {Array|any} aceleradores - The aceleradores data
+ * @returns {string} JSON string representation of the aceleradores
+ */
 function processAceleradores(aceleradores) {
   if (Array.isArray(aceleradores) && aceleradores.length > 0) {
     return JSON.stringify(aceleradores);
@@ -21,8 +31,14 @@ function processAceleradores(aceleradores) {
   return '[]';
 }
 
-// Save form data to spreadsheet
-function saveCustomerData(formData, isEditing = false) {
+/**
+ * Save customer data to spreadsheet
+ * Main entry point for saving form data
+ * @param {Object} formData - The form data to save
+ * @param {boolean} isEditing - Whether this is an edit of an existing customer
+ * @returns {Object} Response object with success status and message
+ */
+function saveCustomerDataToSheets(formData, isEditing = false) {
   try {
     // Main customer sheet data
     const mainSheetData = saveMainCustomerData(formData, isEditing);
@@ -45,7 +61,12 @@ function saveCustomerData(formData, isEditing = false) {
   }
 }
 
-// Save to main CustomerData sheet
+/**
+ * Save to main CustomerData sheet
+ * @param {Object} formData - The form data to save
+ * @param {boolean} isEditing - Whether this is an edit of an existing customer
+ * @returns {Array} The row data that was saved
+ */
 function saveMainCustomerData(formData, isEditing) {
   const sheet = getSheet('CustomerData');
   const customerName = formData.customerName || '';
@@ -98,7 +119,12 @@ function saveMainCustomerData(formData, isEditing) {
   }
 }
 
-// Save Arquitectura data to ArquitecturaData sheet
+/**
+ * Save Arquitectura data to ArquitecturaData sheet
+ * @param {Object} formData - The form data to save
+ * @param {boolean} isEditing - Whether this is an edit of an existing customer
+ * @returns {Array} The row data that was saved
+ */
 function saveArquitecturaData(formData, isEditing) {
   const sheet = getSheet('ArquitecturaData');
   const customerName = formData.customerName || '';
@@ -139,7 +165,12 @@ function saveArquitecturaData(formData, isEditing) {
   return saveOrUpdateRow(sheet, 0, customerName, rowData, isEditing);
 }
 
-// Save Features data to FeaturesData sheet
+/**
+ * Save Features data to FeaturesData sheet
+ * @param {Object} formData - The form data to save
+ * @param {boolean} isEditing - Whether this is an edit of an existing customer
+ * @returns {Array} The row data that was saved
+ */
 function saveFeaturesData(formData, isEditing) {
   const sheet = getSheet('FeaturesData');
   const customerName = formData.customerName || '';
@@ -196,7 +227,12 @@ function saveFeaturesData(formData, isEditing) {
   return saveOrUpdateRow(sheet, 0, customerName, rowData, isEditing);
 }
 
-// Save Contact data to ContactData sheet
+/**
+ * Save Contact data to ContactData sheet
+ * @param {Object} formData - The form data to save
+ * @param {boolean} isEditing - Whether this is an edit of an existing customer
+ * @returns {Array} The row data that was saved
+ */
 function saveContactData(formData, isEditing) {
   const sheet = getSheet('ContactData');
   const customerName = formData.customerName || '';
@@ -239,7 +275,12 @@ function saveContactData(formData, isEditing) {
   return saveOrUpdateRow(sheet, 0, customerName, rowData, isEditing);
 }
 
-// Save Aceleradores data to AceleradoresData sheet
+/**
+ * Save Aceleradores data to AceleradoresData sheet
+ * @param {Object} formData - The form data to save
+ * @param {boolean} isEditing - Whether this is an edit of an existing customer
+ * @returns {Array} The row data that was saved
+ */
 function saveAceleradoresData(formData, isEditing) {
   // First, if editing, delete any existing rows for this customer
   if (isEditing) {
@@ -248,11 +289,12 @@ function saveAceleradoresData(formData, isEditing) {
   
   // If no aceleradores, return early
   if (!formData.aceleradores || !Array.isArray(formData.aceleradores) || formData.aceleradores.length === 0) {
-    return;
+    return [];
   }
   
   const sheet = getSheet('AceleradoresData');
   const customerName = formData.customerName || '';
+  const rowsData = [];
   
   // Add each acelerador as a separate row
   formData.aceleradores.forEach(function(acelerador) {
@@ -274,10 +316,17 @@ function saveAceleradoresData(formData, isEditing) {
     
     // Always append as we already deleted the existing ones
     sheet.appendRow(rowData);
+    rowsData.push(rowData);
   });
+  
+  return rowsData;
 }
 
-// Delete all aceleradores for a customer
+/**
+ * Delete all aceleradores for a customer
+ * @param {string} customerName - The name of the customer
+ * @returns {boolean} True if any rows were deleted
+ */
 function deleteCustomerAceleradores(customerName) {
   const sheet = getSheet('AceleradoresData');
   const dataRange = sheet.getDataRange();
@@ -295,9 +344,19 @@ function deleteCustomerAceleradores(customerName) {
   rowsToDelete.forEach(function(rowIndex) {
     sheet.deleteRow(rowIndex);
   });
+  
+  return rowsToDelete.length > 0;
 }
 
-// Helper function to save or update a row based on a key column
+/**
+ * Helper function to save or update a row based on a key column
+ * @param {Sheet} sheet - The spreadsheet sheet
+ * @param {number} keyColumnIndex - The index of the key column
+ * @param {string} keyValue - The key value to match
+ * @param {Array} rowData - The row data to save
+ * @param {boolean} isEditing - Whether this is an edit operation
+ * @returns {Array} The row data that was saved
+ */
 function saveOrUpdateRow(sheet, keyColumnIndex, keyValue, rowData, isEditing) {
   if (isEditing) {
     const dataRange = sheet.getDataRange();

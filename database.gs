@@ -1,4 +1,9 @@
-// Database interaction functions
+
+/**
+ * Get a spreadsheet sheet by name, creating it if it doesn't exist
+ * @param {string} sheetName - The name of the sheet to get
+ * @returns {Sheet} The spreadsheet sheet
+ */
 function getSheet(sheetName = 'CustomerData') {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName(sheetName);
@@ -61,7 +66,11 @@ function getSheet(sheetName = 'CustomerData') {
   return sheet;
 }
 
-function getAllCustomers() {
+/**
+ * Get all customers from the database
+ * @returns {Array<Object>} Array of customer data objects
+ */
+function getAllCustomersFromDatabase() {
   const sheet = getSheet('CustomerData');
   const dataRange = sheet.getDataRange();
   const values = dataRange.getValues();
@@ -100,6 +109,12 @@ function getAllCustomers() {
   return data;
 }
 
+/**
+ * Get customer data from a specific sheet
+ * @param {string} sheetName - The name of the sheet
+ * @param {string} customerName - The name of the customer
+ * @returns {Object} Customer data from the sheet
+ */
 function getCustomerDataFromSheet(sheetName, customerName) {
   const sheet = getSheet(sheetName);
   const dataRange = sheet.getDataRange();
@@ -123,7 +138,12 @@ function getCustomerDataFromSheet(sheetName, customerName) {
   return {};
 }
 
+/**
+ * Get a customer by name
+ * @param {string} customerName - The name of the customer
+ * @returns {Object|null} The customer data or null if not found
+ */
 function getCustomerByName(customerName) {
-  const customers = getAllCustomers();
+  const customers = getAllCustomersFromDatabase();
   return customers.find(customer => customer['Customer Name'] === customerName) || null;
 }

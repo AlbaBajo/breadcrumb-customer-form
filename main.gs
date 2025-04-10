@@ -1,5 +1,8 @@
 
-// Main entry point for the web app
+/**
+ * Main entry point for the web app
+ * @returns {HtmlOutput} The rendered HTML output
+ */
 function doGet() {
   return HtmlService.createTemplateFromFile('Index')
     .evaluate()
@@ -7,17 +10,49 @@ function doGet() {
     .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
 
-// Include HTML files
+/**
+ * Include HTML files in the main template
+ * @param {string} filename - The name of the file to include
+ * @returns {string} The content of the file
+ */
 function include(filename) {
   return HtmlService.createHtmlOutputFromFile(filename).getContent();
 }
 
-// Get customer by name - wrapper for the database function
+/**
+ * Get customer by name - wrapper for the database function
+ * @param {string} name - The name of the customer to retrieve
+ * @returns {Object} Customer data object
+ */
 function getCustomer(name) {
   return getCustomerByName(name);
 }
 
-// Delete a customer by name
+/**
+ * Get all customers - wrapper for the database function
+ * @returns {Array<Object>} Array of customer data objects
+ */
+function getAllCustomers() {
+  // This function is implemented in database.gs
+  return getAllCustomersFromDatabase();
+}
+
+/**
+ * Save customer data - wrapper for formHandler functions
+ * @param {Object} formData - The customer data to save
+ * @param {boolean} isEditing - Whether this is an edit or a new customer
+ * @returns {Object} Response object with success status and message
+ */
+function saveCustomerData(formData, isEditing) {
+  // This function is implemented in formHandler.gs
+  return saveCustomerDataToSheets(formData, isEditing);
+}
+
+/**
+ * Delete a customer by name
+ * @param {string} name - The name of the customer to delete
+ * @returns {Object} Response object with success status and message
+ */
 function deleteCustomer(name) {
   try {
     // Delete from all sheets
@@ -39,7 +74,13 @@ function deleteCustomer(name) {
   }
 }
 
-// Helper function to delete a row from a sheet based on a value in a column
+/**
+ * Helper function to delete a row from a sheet based on a value in a column
+ * @param {string} sheetName - The name of the sheet
+ * @param {number} columnIndex - The index of the column to check
+ * @param {string} value - The value to search for
+ * @returns {boolean} True if a row was deleted, false otherwise
+ */
 function deleteFromSheet(sheetName, columnIndex, value) {
   const sheet = getSheet(sheetName);
   const dataRange = sheet.getDataRange();
@@ -54,4 +95,13 @@ function deleteFromSheet(sheetName, columnIndex, value) {
   }
   
   return false; // Not found
+}
+
+/**
+ * Generate reports from the customer data
+ * @returns {Object} Object containing report data
+ */
+function generateReports() {
+  // This function is implemented in reporting.gs
+  return generateCustomerReports();
 }

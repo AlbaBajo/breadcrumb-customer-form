@@ -35,8 +35,10 @@ const CustomerList = ({ onEditCustomer }: CustomerListProps) => {
         
         // For App Script, we'll use the server function instead
         // This code will be activated when running in App Script environment
-        if (typeof google !== 'undefined' && google.script) {
-          google.script.run
+        if (typeof window !== 'undefined' && 
+            typeof (window as any).google !== 'undefined' && 
+            (window as any).google.script) {
+          (window as any).google.script.run
             .withSuccessHandler((data: any[]) => {
               setCustomers(data);
             })

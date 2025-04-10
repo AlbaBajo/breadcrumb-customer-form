@@ -172,14 +172,16 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
       });
       
       // For App Script environment
-      if (typeof google !== 'undefined' && google.script) {
+      if (typeof window !== 'undefined' && 
+          typeof (window as any).google !== 'undefined' && 
+          (window as any).google.script) {
         // Show loading state
         toast({
           title: "Saving data...",
           description: "Please wait while we save your data.",
         });
         
-        google.script.run
+        (window as any).google.script.run
           .withSuccessHandler((response: any) => {
             if (response.success) {
               toast({

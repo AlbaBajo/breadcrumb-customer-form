@@ -12,6 +12,7 @@ import AddressInfoForm from "@/components/form-steps/AddressInfoForm";
 import PreferencesForm from "@/components/form-steps/PreferencesForm";
 import ReviewScreen from "@/components/form-steps/ReviewScreen";
 import AceleradoresForm from "@/components/form-steps/AceleradoresForm";
+import FeaturesForm from "@/components/form-steps/FeaturesForm";
 
 interface CustomerFormProps {
   onCancel: () => void;
@@ -76,6 +77,44 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
     billingPostalCode: "",
     billingCountry: "",
     
+    // Features Info
+    sources: [],
+    readFromSAP: false,
+    rangeVolumentria: "",
+    sourceFormat: "",
+    usage: [],
+    specificTableTypes: "",
+    canAdminPlatform: "",
+    hasDwhByProcessing: "",
+    pushdownOperations: "",
+    dynamicScaling: "",
+    multiclustering: "",
+    notebooksUsage: "",
+    storedProcedures: "",
+    cteUsage: "",
+    snowflakeApi: "",
+    snowpark: "",
+    snowflakeOrchestrator: "",
+    kafkaConnector: "",
+    snowpipe: "",
+    cortexIA: "",
+    projectType: "",
+    streamlitApps: "",
+    snowparkTraining: "",
+    developmentPotential: "",
+    environmentReplication: "",
+    zeroCopyCloning: "",
+    timeTravel: "",
+    dataCopyStrategy: "",
+    infraTeamExists: "",
+    networkControls: "",
+    rolesManagement: "",
+    maskingPolicies: "",
+    mfaActive: "",
+    authPolicies: "",
+    serviceUsersAuth: "",
+    encryptionMeasures: "",
+    
     // Preferences
     preferredLanguage: "",
     communicationFrequency: "",
@@ -118,9 +157,10 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
     { id: 1, name: "Arquitectura" },
     { id: 2, name: "Contact Info" },
     { id: 3, name: "Address" },
-    { id: 4, name: "Aceleradores" },
-    { id: 5, name: "Preferences" },
-    { id: 6, name: "Review" }
+    { id: 4, name: "Features" },
+    { id: 5, name: "Aceleradores" },
+    { id: 6, name: "Preferences" },
+    { id: 7, name: "Review" }
   ];
 
   const handleFormUpdate = (data: Partial<typeof formData>) => {
@@ -228,10 +268,12 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
       case 3:
         return <AddressInfoForm data={formData} onUpdate={handleFormUpdate} />;
       case 4:
-        return <AceleradoresForm data={formData} onUpdate={handleFormUpdate} />;
+        return <FeaturesForm data={formData} onUpdate={handleFormUpdate} />;
       case 5:
-        return <PreferencesForm data={formData} onUpdate={handleFormUpdate} />;
+        return <AceleradoresForm data={formData} onUpdate={handleFormUpdate} />;
       case 6:
+        return <PreferencesForm data={formData} onUpdate={handleFormUpdate} />;
+      case 7:
         return <ReviewScreen data={formData} />;
       default:
         return null;
@@ -270,7 +312,7 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
             {isEditing ? `Edit Customer: ${initialData?.customerName}` : steps[currentStep - 1].name}
           </h2>
           <p className="text-gray-500 text-sm mt-1">
-            {currentStep < 6 ? `Step ${currentStep} of ${steps.length - 1}` : "Review your information"}
+            {currentStep < 7 ? `Step ${currentStep} of ${steps.length - 1}` : "Review your information"}
           </p>
         </div>
 
@@ -286,9 +328,9 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
 
           <Button 
             className="bg-purple-600 hover:bg-purple-700"
-            onClick={currentStep === 6 ? handleSubmit : handleNext}
+            onClick={currentStep === 7 ? handleSubmit : handleNext}
           >
-            {currentStep === 6 ? (isEditing ? "Update" : "Submit") : "Next"}
+            {currentStep === 7 ? (isEditing ? "Update" : "Submit") : "Next"}
           </Button>
         </div>
       </Card>

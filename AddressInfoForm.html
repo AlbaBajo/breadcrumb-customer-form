@@ -1,0 +1,137 @@
+
+<div class="form-section">
+  <h3 class="mb-3">Address Information</h3>
+  <p class="text-muted mb-4">Enter the customer's address details</p>
+  
+  <form id="addressInfoForm">
+    <div class="section-container">
+      <h4 class="mb-3">Physical Address</h4>
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label for="streetAddress" class="form-label">Street Address</label>
+          <input type="text" class="form-control" id="streetAddress" placeholder="e.g., 123 Main St, Apt 4B">
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="city" class="form-label">City</label>
+          <input type="text" class="form-control" id="city" placeholder="e.g., New York">
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="state" class="form-label">State/Province</label>
+          <input type="text" class="form-control" id="state" placeholder="e.g., NY">
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="postalCode" class="form-label">Postal Code</label>
+          <input type="text" class="form-control" id="postalCode" placeholder="e.g., 10001">
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="country" class="form-label">Country</label>
+          <input type="text" class="form-control" id="country" placeholder="e.g., USA">
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="addressType" class="form-label">Address Type</label>
+          <select class="form-select" id="addressType">
+            <option value="" selected>Select address type</option>
+            <option value="residential">Residential</option>
+            <option value="business">Business</option>
+            <option value="shipping">Shipping</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4 mb-4">
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="billingAddressSame" checked>
+          <label class="form-check-label" for="billingAddressSame">
+            Billing address is the same as physical address
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div id="billingAddressSection" class="section-container" style="display: none;">
+      <h4 class="mb-3">Billing Address</h4>
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label for="billingStreet" class="form-label">Street Address</label>
+          <input type="text" class="form-control" id="billingStreet" placeholder="e.g., 456 Business Ave">
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="billingCity" class="form-label">City</label>
+          <input type="text" class="form-control" id="billingCity" placeholder="e.g., Chicago">
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="billingState" class="form-label">State/Province</label>
+          <input type="text" class="form-control" id="billingState" placeholder="e.g., IL">
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="billingPostalCode" class="form-label">Postal Code</label>
+          <input type="text" class="form-control" id="billingPostalCode" placeholder="e.g., 60601">
+        </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="billingCountry" class="form-label">Country</label>
+          <input type="text" class="form-control" id="billingCountry" placeholder="e.g., USA">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Handle billing address checkbox
+    const billingAddressSameCheckbox = document.getElementById('billingAddressSame');
+    const billingAddressSection = document.getElementById('billingAddressSection');
+    
+    billingAddressSameCheckbox.addEventListener('change', function() {
+      billingAddressSection.style.display = this.checked ? 'none' : 'block';
+    });
+  });
+  
+  // Function to collect address data
+  function collectAddressData() {
+    const billingAddressSame = document.getElementById('billingAddressSame').checked;
+    const streetAddress = document.getElementById('streetAddress').value;
+    const city = document.getElementById('city').value;
+    const state = document.getElementById('state').value;
+    const postalCode = document.getElementById('postalCode').value;
+    const country = document.getElementById('country').value;
+    
+    const data = {
+      streetAddress: streetAddress,
+      city: city,
+      state: state,
+      postalCode: postalCode,
+      country: country,
+      addressType: document.getElementById('addressType').value,
+      billingAddressSame: billingAddressSame
+    };
+    
+    if (!billingAddressSame) {
+      data.billingStreet = document.getElementById('billingStreet').value;
+      data.billingCity = document.getElementById('billingCity').value;
+      data.billingState = document.getElementById('billingState').value;
+      data.billingPostalCode = document.getElementById('billingPostalCode').value;
+      data.billingCountry = document.getElementById('billingCountry').value;
+    } else {
+      data.billingStreet = streetAddress;
+      data.billingCity = city;
+      data.billingState = state;
+      data.billingPostalCode = postalCode;
+      data.billingCountry = country;
+    }
+    
+    return data;
+  }
+</script>

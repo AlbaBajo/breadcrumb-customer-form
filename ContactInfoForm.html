@@ -38,3 +38,16 @@
     </div>
   </form>
 </div>
+
+<script>
+  // Function to collect contact info data
+  function collectContactInfoData() {
+    return {
+      phoneNumber: document.getElementById('phoneNumber').value,
+      mobileNumber: document.getElementById('mobileNumber').value,
+      workPhone: document.getElementById('workPhone').value,
+      alternativeEmail: document.getElementById('alternativeEmail').value,
+      preferredContactMethod: document.getElementById('preferredContactMethod').value
+    };
+  }
+</script>

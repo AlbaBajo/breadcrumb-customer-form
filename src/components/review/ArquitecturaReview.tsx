@@ -1,8 +1,5 @@
 
-import { User, Calendar, List, Cloud, Radio, MessageSquare } from "lucide-react";
 import ReviewSection from "./ReviewSection";
-import ReviewItem from "./ReviewItem";
-import { Separator } from "@/components/ui/separator";
 
 interface ArquitecturaReviewProps {
   data: any;
@@ -10,46 +7,42 @@ interface ArquitecturaReviewProps {
 
 const ArquitecturaReview = ({ data }: ArquitecturaReviewProps) => {
   return (
-    <>
-      <ReviewSection title="Arquitectura">
-        <ReviewItem 
-          label="Customer Name" 
-          value={data.customerName} 
-          icon={<User size={16} />} 
-        />
-        <ReviewItem 
-          label="Antiguedad" 
-          value={data.antiguedad} 
-          icon={<Calendar size={16} />}
-        />
-      </ReviewSection>
+    <ReviewSection title="Arquitectura">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-500">Customer Name</span>
+          <span className="font-medium">{data.customerName || "N/A"}</span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-500">Antiguedad</span>
+          <span className="font-medium">{data.antiguedad || "N/A"}</span>
+        </div>
+      </div>
 
-      <Separator className="my-4" />
-      
-      <ReviewSection title="Edition Snowflake">
-        <ReviewItem 
-          label="Tipo Licencia" 
-          value={data.tipoLicencia} 
-          icon={<List size={16} />}
-        />
-        <ReviewItem 
-          label="Cloud" 
-          value={data.cloud} 
-          icon={<Cloud size={16} />}
-        />
-        <ReviewItem 
-          label="Tallaje" 
-          value={data.tallaje} 
-          icon={<Radio size={16} />}
-        />
-        <ReviewItem 
-          label="Comments" 
-          value={data.comments} 
-          icon={<MessageSquare size={16} />}
-          fullWidth
-        />
-      </ReviewSection>
-    </>
+      <div className="mt-4 pt-4 border-t border-gray-200">
+        <h5 className="font-medium text-purple-700 mb-3">Edition Snowflake</h5>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="flex flex-col">
+            <span className="text-sm text-gray-500">Tipo Licencia</span>
+            <span className="font-medium">{data.tipoLicencia || "N/A"}</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm text-gray-500">Cloud</span>
+            <span className="font-medium">{data.cloud || "N/A"}</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm text-gray-500">Tallaje</span>
+            <span className="font-medium">{data.tallaje || "N/A"}</span>
+          </div>
+        </div>
+        <div className="mt-3 flex flex-col">
+          <span className="text-sm text-gray-500">Comments</span>
+          <span className="font-medium">{data.comments || "N/A"}</span>
+        </div>
+      </div>
+
+      {/* Additional sections from ArquitecturaForm could be added here */}
+    </ReviewSection>
   );
 };
 

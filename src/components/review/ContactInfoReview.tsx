@@ -1,7 +1,5 @@
 
-import { Phone, Smartphone, Briefcase, Mail, MessageSquare } from "lucide-react";
 import ReviewSection from "./ReviewSection";
-import ReviewItem from "./ReviewItem";
 
 interface ContactInfoReviewProps {
   data: any;
@@ -10,46 +8,28 @@ interface ContactInfoReviewProps {
 const ContactInfoReview = ({ data }: ContactInfoReviewProps) => {
   return (
     <ReviewSection title="Contact Information">
-      <ReviewItem 
-        label="Phone Number" 
-        value={data.phoneNumber} 
-        icon={<Phone size={16} />}
-      />
-      <ReviewItem 
-        label="Mobile Number" 
-        value={data.mobileNumber} 
-        icon={<Smartphone size={16} />}
-      />
-      <ReviewItem 
-        label="Work Phone" 
-        value={data.workPhone} 
-        icon={<Briefcase size={16} />}
-      />
-      <ReviewItem 
-        label="Alternative Email" 
-        value={data.alternativeEmail} 
-        icon={<Mail size={16} />}
-      />
-      <ReviewItem 
-        label="Preferred Contact" 
-        value={data.preferredContactMethod} 
-        icon={<MessageSquare size={16} />}
-      />
-      {data.socialMedia1 && (
-        <ReviewItem label="Social Media 1" value={data.socialMedia1} />
-      )}
-      {data.socialMedia2 && (
-        <ReviewItem label="Social Media 2" value={data.socialMedia2} />
-      )}
-      {data.website && (
-        <ReviewItem label="Website" value={data.website} />
-      )}
-      {data.faxNumber && (
-        <ReviewItem label="Fax Number" value={data.faxNumber} />
-      )}
-      {data.emergencyContact && (
-        <ReviewItem label="Emergency Contact" value={data.emergencyContact} />
-      )}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-500">Phone Number</span>
+          <span className="font-medium">{data.phoneNumber || "N/A"}</span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-500">Mobile Number</span>
+          <span className="font-medium">{data.mobileNumber || "N/A"}</span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-500">Work Phone</span>
+          <span className="font-medium">{data.workPhone || "N/A"}</span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-500">Alternative Email</span>
+          <span className="font-medium">{data.alternativeEmail || "N/A"}</span>
+        </div>
+        <div className="flex flex-col">
+          <span className="text-sm text-gray-500">Preferred Contact Method</span>
+          <span className="font-medium">{data.preferredContactMethod || "N/A"}</span>
+        </div>
+      </div>
     </ReviewSection>
   );
 };

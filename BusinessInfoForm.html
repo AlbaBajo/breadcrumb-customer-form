@@ -39,3 +39,16 @@
     </div>
   </form>
 </div>
+
+<script>
+  // Function to collect business info data
+  function collectBusinessInfoData() {
+    return {
+      companyName: document.getElementById('companyName').value,
+      businessType: document.getElementById('businessType').value,
+      industry: document.getElementById('industry').value,
+      annualRevenue: document.getElementById('annualRevenue').value,
+      numberOfEmployees: document.getElementById('numberOfEmployees').value
+    };
+  }
+</script>

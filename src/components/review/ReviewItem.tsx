@@ -19,11 +19,11 @@ const formatValue = (value: string | number | boolean | ReactNode): ReactNode =>
 const ReviewItem = ({ label, value, icon, fullWidth = false }: ReviewItemProps) => {
   return (
     <div className={`flex justify-between py-1 ${fullWidth ? "col-span-2" : ""}`}>
-      <span className="font-medium flex items-center">
-        {icon && <span className="mr-2">{icon}</span>}
+      <span className="font-medium flex items-center gap-1.5 text-gray-800">
+        {icon && <span className="text-purple-600">{icon}</span>}
         {label}:
       </span>
-      <span className="text-gray-600">{formatValue(value)}</span>
+      <span className="text-gray-600 font-medium">{formatValue(value)}</span>
     </div>
   );
 };

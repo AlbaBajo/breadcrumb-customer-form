@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
@@ -15,9 +15,11 @@ import AceleradoresForm from "@/components/form-steps/AceleradoresForm";
 
 interface CustomerFormProps {
   onCancel: () => void;
+  initialData?: any;
+  isEditing?: boolean;
 }
 
-const CustomerForm = ({ onCancel }: CustomerFormProps) => {
+const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: CustomerFormProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
@@ -105,6 +107,13 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
     ]
   });
 
+  // Populate form with initialData if editing
+  useEffect(() => {
+    if (initialData && isEditing) {
+      setFormData(initialData);
+    }
+  }, [initialData, isEditing]);
+
   const steps = [
     { id: 1, name: "Arquitectura" },
     { id: 2, name: "Contact Info" },
@@ -135,20 +144,77 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
   const handleSubmit = () => {
     console.log("Submitting customer data:", formData);
     
-    const existingCustomers = localStorage.getItem("customers") 
-      ? JSON.parse(localStorage.getItem("customers") as string) 
-      : [];
-    
-    const updatedCustomers = [...existingCustomers, formData];
-    localStorage.setItem("customers", JSON.stringify(updatedCustomers));
-    
-    toast({
-      title: "Customer added successfully!",
-      description: `${formData.customerName || "Customer"} has been added to the database.`,
-      variant: "default",
-    });
-    
-    navigate("/customers");
+    // For web app, store in localStorage
+    try {
+      const existingCustomers = localStorage.getItem("customers") 
+        ? JSON.parse(localStorage.getItem("customers") as string) 
+        : [];
+      
+      // If editing, replace the existing customer
+      if (isEditing) {
+        const updatedCustomers = existingCustomers.map((customer: any) => {
+          if (customer.customerName === initialData.customerName) {
+            return formData;
+          }
+          return customer;
+        });
+        localStorage.setItem("customers", JSON.stringify(updatedCustomers));
+      } else {
+        // If adding new customer
+        const updatedCustomers = [...existingCustomers, formData];
+        localStorage.setItem("customers", JSON.stringify(updatedCustomers));
+      }
+      
+      toast({
+        title: isEditing ? "Customer updated successfully!" : "Customer added successfully!",
+        description: `${formData.customerName || "Customer"} has been ${isEditing ? 'updated in' : 'added to'} the database.`,
+        variant: "default",
+      });
+      
+      // For App Script environment
+      if (typeof google !== 'undefined' && google.script) {
+        // Show loading state
+        toast({
+          title: "Saving data...",
+          description: "Please wait while we save your data.",
+        });
+        
+        google.script.run
+          .withSuccessHandler((response: any) => {
+            if (response.success) {
+              toast({
+                title: isEditing ? "Customer updated successfully!" : "Customer added successfully!",
+                description: response.message,
+                variant: "default",
+              });
+              onCancel();
+            } else {
+              toast({
+                title: "Error",
+                description: response.message,
+                variant: "destructive",
+              });
+            }
+          })
+          .withFailureHandler((error: Error) => {
+            toast({
+              title: "Error saving customer data",
+              description: error.message,
+              variant: "destructive",
+            });
+          })
+          .saveCustomerData(formData, isEditing);
+      } else {
+        onCancel();
+      }
+    } catch (error) {
+      console.error("Error saving data:", error);
+      toast({
+        title: "Error",
+        description: "Failed to save customer data",
+        variant: "destructive",
+      });
+    }
   };
 
   const renderStepContent = () => {
@@ -199,7 +265,7 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
 
         <div className="mt-4 mb-6">
           <h2 className="text-xl font-semibold text-gray-800">
-            {steps[currentStep - 1].name}
+            {isEditing ? `Edit Customer: ${initialData?.customerName}` : steps[currentStep - 1].name}
           </h2>
           <p className="text-gray-500 text-sm mt-1">
             {currentStep < 6 ? `Step ${currentStep} of ${steps.length - 1}` : "Review your information"}
@@ -220,7 +286,7 @@ const CustomerForm = ({ onCancel }: CustomerFormProps) => {
             className="bg-purple-600 hover:bg-purple-700"
             onClick={currentStep === 6 ? handleSubmit : handleNext}
           >
-            {currentStep === 6 ? "Submit" : "Next"}
+            {currentStep === 6 ? (isEditing ? "Update" : "Submit") : "Next"}
           </Button>
         </div>
       </Card>

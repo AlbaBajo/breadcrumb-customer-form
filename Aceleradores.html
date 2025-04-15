@@ -13,33 +13,32 @@
         <table class="table table-bordered table-striped" id="aceleradoresTable">
           <thead class="table-primary">
             <tr>
-              <th>Artefacto</th>
-              <th>Objetivo</th>
-              <th>
+              <th style="min-width: 150px">Artefacto</th>
+              <th style="min-width: 200px">Objetivo</th>
+              <th style="min-width: 180px">
                 ¿Desarrollado de cero o adaptado?
               </th>
-              <th>
+              <th style="min-width: 200px">
                 Main Technology del prototipo base
                 <i class="bi bi-question-circle ms-1" data-bs-toggle="tooltip" 
                    title="Si estamos partiendo de un artefactado de Data Tech, la tecnología sobre la que está diseñado."></i>
               </th>
-              <th>
+              <th style="min-width: 200px">
                 Main Technology del prototipo
                 <i class="bi bi-question-circle ms-1" data-bs-toggle="tooltip" 
                    title="Puede que el artefacto adaptado esté diseñado en una tecnologia, pero en nuestro proyecto se haya cambiado a otra"></i>
               </th>
-              <th>Data Ingestion</th>
-              <th>Data Transformation DQ</th>
-              <th>Monitoring</th>
-              <th>Securitization</th>
-              <th>Data Modeling</th>
-              <th>MLOps</th>
-              <th>CICD</th>
-              <th>Acciones</th>
+              <th class="text-center" style="width: 100px">Data Ingestion</th>
+              <th class="text-center" style="width: 100px">Data Transformation</th>
+              <th class="text-center" style="width: 100px">Monitoring</th>
+              <th class="text-center" style="width: 100px">Securitization</th>
+              <th class="text-center" style="width: 100px">Data Modeling</th>
+              <th class="text-center" style="width: 100px">MLOps</th>
+              <th class="text-center" style="width: 100px">CICD</th>
+              <th class="text-center" style="width: 80px">Acciones</th>
             </tr>
           </thead>
           <tbody id="aceleradoresTableBody">
-            <!-- Rows will be added dynamically -->
             <tr id="aceleradorTemplate" style="display:none">
               <td>
                 <input type="text" class="form-control acelerador-artefacto" placeholder="Nombre del artefacto">
@@ -55,30 +54,10 @@
                 </select>
               </td>
               <td>
-                <select class="form-select acelerador-technology-base" multiple>
-                  <option value="SP de Snowflake">SP de Snowflake</option>
-                  <option value="Postgre">Postgre</option>
-                  <option value="Azure Data Factory">Azure Data Factory</option>
-                  <option value="Jenkins">Jenkins</option>
-                  <option value="Liquibase">Liquibase</option>
-                  <option value="Snowflake">Snowflake</option>
-                  <option value="Talend">Talend</option>
-                  <option value="DBT">DBT</option>
-                  <option value="Otro">Otro</option>
-                </select>
+                <input type="text" class="form-control acelerador-technology-base" placeholder="Ingrese la tecnología base">
               </td>
               <td>
-                <select class="form-select acelerador-technology" multiple>
-                  <option value="SP de Snowflake">SP de Snowflake</option>
-                  <option value="Postgre">Postgre</option>
-                  <option value="Azure Data Factory">Azure Data Factory</option>
-                  <option value="Jenkins">Jenkins</option>
-                  <option value="Liquibase">Liquibase</option>
-                  <option value="Snowflake">Snowflake</option>
-                  <option value="Talend">Talend</option>
-                  <option value="DBT">DBT</option>
-                  <option value="Otro">Otro</option>
-                </select>
+                <input type="text" class="form-control acelerador-technology" placeholder="Ingrese la tecnología">
               </td>
               <td class="text-center">
                 <input type="checkbox" class="form-check-input acelerador-data-ingestion">
@@ -101,7 +80,7 @@
               <td class="text-center">
                 <input type="checkbox" class="form-check-input acelerador-cicd">
               </td>
-              <td>
+              <td class="text-center">
                 <button type="button" class="btn btn-outline-danger btn-sm delete-acelerador">
                   <i class="bi bi-trash"></i>
                 </button>
@@ -121,7 +100,6 @@
 <script>
   let aceleradorCounter = 0;
 
-  // Function to add a new acelerador row
   function addAceleradorRow() {
     aceleradorCounter++;
     
@@ -130,7 +108,6 @@
     newRow.id = 'acelerador-' + aceleradorCounter;
     newRow.style.display = '';
     
-    // Add delete button functionality
     const deleteBtn = newRow.querySelector('.delete-acelerador');
     deleteBtn.onclick = function() {
       document.getElementById('aceleradoresTableBody').removeChild(newRow);
@@ -139,7 +116,6 @@
     document.getElementById('aceleradoresTableBody').appendChild(newRow);
   }
 
-  // Function to collect data from the aceleradores table
   function collectAceleradoresData() {
     const aceleradores = [];
     const rows = document.querySelectorAll('#aceleradoresTableBody tr:not([style*="display:none"])');
@@ -147,23 +123,12 @@
     rows.forEach(row => {
       if (row.id === 'aceleradorTemplate') return;
       
-      // Get multiselect values as arrays
-      const getTechnologyValues = (selector) => {
-        const select = row.querySelector(selector);
-        const options = select.selectedOptions;
-        const values = [];
-        for (let i = 0; i < options.length; i++) {
-          values.push(options[i].value);
-        }
-        return values;
-      };
-      
       const acelerador = {
         artefacto: row.querySelector('.acelerador-artefacto').value,
         objetivo: row.querySelector('.acelerador-objetivo').value,
         desarrollo: row.querySelector('.acelerador-desarrollo').value,
-        technologyBase: getTechnologyValues('.acelerador-technology-base'),
-        technology: getTechnologyValues('.acelerador-technology'),
+        technologyBase: row.querySelector('.acelerador-technology-base').value,
+        technology: row.querySelector('.acelerador-technology').value,
         dataIngestion: row.querySelector('.acelerador-data-ingestion').checked,
         dataTransformation: row.querySelector('.acelerador-data-transformation').checked,
         monitoring: row.querySelector('.acelerador-monitoring').checked,
@@ -179,17 +144,13 @@
     return aceleradores;
   }
 
-  // Initialize tooltips
   document.addEventListener('DOMContentLoaded', function() {
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function(tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
     
-    // Add event listener to the add button
     document.getElementById('addAceleradorBtn').addEventListener('click', addAceleradorRow);
-    
-    // Add one row by default
     addAceleradorRow();
   });
 </script>

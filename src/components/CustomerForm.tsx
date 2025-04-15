@@ -1,9 +1,11 @@
+
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import FormNavigation from "@/components/form/FormNavigation";
 import FormActions from "@/components/form/FormActions";
 import StepContent from "@/components/form/StepContent";
+import { formSteps } from "@/utils/formSteps";
 
 interface CustomerFormProps {
   onCancel: () => void;

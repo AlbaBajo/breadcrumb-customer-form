@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import React, { useState } from 'react';
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -97,7 +96,7 @@ const AceleradoresForm = ({ data, onUpdate }: AceleradoresFormProps) => {
           onClick={handleAddRow}
           className="bg-purple-700 hover:bg-purple-800"
         >
-          Agregar Acelerador
+          Agregar Artefacto
         </Button>
       </div>
 

@@ -1,0 +1,83 @@
+
+<div class="form-section">
+  <h3 class="mb-3">Contact Information</h3>
+  <p class="text-muted mb-4">Enter the customer's contact details</p>
+  
+  <form id="contactInfoForm">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="phoneNumber" class="form-label">Phone Number</label>
+        <input type="tel" class="form-control" id="phoneNumber" placeholder="e.g., +1 (555) 123-4567">
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="mobileNumber" class="form-label">Mobile Number</label>
+        <input type="tel" class="form-control" id="mobileNumber" placeholder="e.g., +1 (555) 987-6543">
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="workPhone" class="form-label">Work Phone</label>
+        <input type="tel" class="form-control" id="workPhone" placeholder="e.g., +1 (555) 456-7890">
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="alternativeEmail" class="form-label">Alternative Email</label>
+        <input type="email" class="form-control" id="alternativeEmail" placeholder="e.g., john.work@example.com">
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="preferredContactMethod" class="form-label">Preferred Contact Method</label>
+        <select class="form-select" id="preferredContactMethod">
+          <option value="" selected>Select contact method</option>
+          <option value="email">Email</option>
+          <option value="phone">Phone</option>
+          <option value="mobile">Mobile</option>
+          <option value="mail">Mail</option>
+        </select>
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="socialMedia1" class="form-label">Social Media 1</label>
+        <input type="text" class="form-control" id="socialMedia1" placeholder="e.g., Twitter: @johndoe">
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="socialMedia2" class="form-label">Social Media 2</label>
+        <input type="text" class="form-control" id="socialMedia2" placeholder="e.g., Instagram: @johndoe">
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="website" class="form-label">Website</label>
+        <input type="url" class="form-control" id="website" placeholder="e.g., www.johndoe.com">
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="faxNumber" class="form-label">Fax Number</label>
+        <input type="tel" class="form-control" id="faxNumber" placeholder="e.g., +1 (555) 123-4560">
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="emergencyContact" class="form-label">Emergency Contact</label>
+        <input type="text" class="form-control" id="emergencyContact" placeholder="Name and phone number">
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Function to collect contact info data
+  function collectContactInfoData() {
+    return {
+      phoneNumber: document.getElementById('phoneNumber').value,
+      mobileNumber: document.getElementById('mobileNumber').value,
+      workPhone: document.getElementById('workPhone').value,
+      alternativeEmail: document.getElementById('alternativeEmail').value,
+      preferredContactMethod: document.getElementById('preferredContactMethod').value,
+      socialMedia1: document.getElementById('socialMedia1').value,
+      socialMedia2: document.getElementById('socialMedia2').value,
+      website: document.getElementById('website').value,
+      faxNumber: document.getElementById('faxNumber').value,
+      emergencyContact: document.getElementById('emergencyContact').value
+    };
+  }
+</script>

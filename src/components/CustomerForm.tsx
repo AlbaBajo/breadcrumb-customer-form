@@ -9,6 +9,7 @@ import ArquitecturaForm from "@/components/form-steps/ArquitecturaForm";
 import FeaturesForm from "@/components/form-steps/FeaturesForm";
 import ReviewScreen from "@/components/form-steps/ReviewScreen";
 import AceleradoresForm from "@/components/form-steps/AceleradoresForm";
+import ContactInfoForm from "@/components/form-steps/ContactInfoForm";
 
 interface CustomerFormProps {
   onCancel: () => void;
@@ -142,7 +143,6 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
     ]
   });
 
-  // Populate form with initialData if editing
   useEffect(() => {
     if (initialData && isEditing) {
       setFormData(initialData);
@@ -178,13 +178,11 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
   const handleSubmit = () => {
     console.log("Submitting customer data:", formData);
     
-    // For web app, store in localStorage
     try {
       const existingCustomers = localStorage.getItem("customers") 
         ? JSON.parse(localStorage.getItem("customers") as string) 
         : [];
       
-      // If editing, replace the existing customer
       if (isEditing) {
         const updatedCustomers = existingCustomers.map((customer: any) => {
           if (customer.customerName === initialData.customerName) {
@@ -194,7 +192,6 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
         });
         localStorage.setItem("customers", JSON.stringify(updatedCustomers));
       } else {
-        // If adding new customer
         const updatedCustomers = [...existingCustomers, formData];
         localStorage.setItem("customers", JSON.stringify(updatedCustomers));
       }
@@ -205,11 +202,9 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
         variant: "default",
       });
       
-      // For App Script environment
       if (typeof window !== 'undefined' && 
           typeof (window as any).google !== 'undefined' && 
           (window as any).google.script) {
-        // Show loading state
         toast({
           title: "Saving data...",
           description: "Please wait while we save your data.",

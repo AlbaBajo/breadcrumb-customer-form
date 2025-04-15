@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { ChevronRight, Check } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
-import ArquitecturaForm from "@/components/form-steps/ArquitecturaForm";
-import FeaturesForm from "@/components/form-steps/FeaturesForm";
-import ReviewScreen from "@/components/form-steps/ReviewScreen";
-import AceleradoresForm from "@/components/form-steps/AceleradoresForm";
-import ContactInfoForm from "@/components/form-steps/ContactInfoForm";
+import FormNavigation from "@/components/form/FormNavigation";
+import FormActions from "@/components/form/FormActions";
+import StepContent from "@/components/form/StepContent";
 
 interface CustomerFormProps {
   onCancel: () => void;
@@ -19,7 +13,6 @@ interface CustomerFormProps {
 
 const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: CustomerFormProps) => {
   const { toast } = useToast();
-  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     // Arquitectura Info
@@ -149,22 +142,16 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
     }
   }, [initialData, isEditing]);
 
-  const steps = [
-    { id: 1, name: "Arquitectura" },
-    { id: 2, name: "Features" },
-    { id: 3, name: "Aceleradores" },
-    { id: 4, name: "Contact Info" },
-    { id: 5, name: "Review" }
-  ];
-
   const handleFormUpdate = (data: Partial<typeof formData>) => {
     setFormData({ ...formData, ...data });
   };
 
   const handleNext = () => {
-    if (currentStep < steps.length) {
+    if (currentStep < 5) {
       setCurrentStep(currentStep + 1);
       window.scrollTo(0, 0);
+    } else {
+      handleSubmit();
     }
   };
 
@@ -248,76 +235,36 @@ const CustomerForm = ({ onCancel, initialData = null, isEditing = false }: Custo
     }
   };
 
-  const renderStepContent = () => {
-    switch (currentStep) {
-      case 1:
-        return <ArquitecturaForm data={formData} onUpdate={handleFormUpdate} />;
-      case 2:
-        return <FeaturesForm data={formData} onUpdate={handleFormUpdate} />;
-      case 3:
-        return <AceleradoresForm data={formData} onUpdate={handleFormUpdate} />;
-      case 4:
-        return <ContactInfoForm data={formData} onUpdate={handleFormUpdate} />;
-      case 5:
-        return <ReviewScreen data={formData} />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="w-full mx-auto">
       <Card className="p-6 shadow-md bg-white">
-        <Breadcrumb className="mb-8">
-          <BreadcrumbList>
-            {steps.map((step, index) => (
-              <BreadcrumbItem key={step.id} className="flex items-center">
-                <BreadcrumbLink 
-                  onClick={() => currentStep > step.id ? setCurrentStep(step.id) : null}
-                  className={`flex items-center ${
-                    currentStep >= step.id ? 'text-purple-600 cursor-pointer' : 'text-gray-400 cursor-not-allowed'
-                  }`}
-                >
-                  <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full mr-2 text-sm ${
-                    currentStep > step.id ? 'bg-green-500 text-white' : 
-                    currentStep === step.id ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-600'
-                  }`}>
-                    {currentStep > step.id ? <Check size={14} /> : step.id}
-                  </span>
-                  {step.name}
-                </BreadcrumbLink>
-                {index < steps.length - 1 && <BreadcrumbSeparator><ChevronRight className="h-4 w-4" /></BreadcrumbSeparator>}
-              </BreadcrumbItem>
-            ))}
-          </BreadcrumbList>
-        </Breadcrumb>
+        <FormNavigation 
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+        />
 
         <div className="mt-4 mb-6">
           <h2 className="text-xl font-semibold text-gray-800">
-            {isEditing ? `Edit Customer: ${initialData?.customerName}` : steps[currentStep - 1].name}
+            {isEditing ? `Edit Customer: ${initialData?.customerName}` : formSteps[currentStep - 1].name}
           </h2>
           <p className="text-gray-500 text-sm mt-1">
-            {currentStep < 5 ? `Step ${currentStep} of ${steps.length - 1}` : "Review your information"}
+            {currentStep < 5 ? `Step ${currentStep} of 4` : "Review your information"}
           </p>
         </div>
 
-        {renderStepContent()}
+        <StepContent 
+          currentStep={currentStep}
+          formData={formData}
+          onUpdate={handleFormUpdate}
+        />
 
-        <div className="mt-8 flex justify-between">
-          <Button 
-            variant="outline" 
-            onClick={currentStep === 1 ? onCancel : handlePrevious}
-          >
-            {currentStep === 1 ? "Cancel" : "Previous"}
-          </Button>
-
-          <Button 
-            className="bg-purple-600 hover:bg-purple-700"
-            onClick={currentStep === 5 ? handleSubmit : handleNext}
-          >
-            {currentStep === 5 ? (isEditing ? "Update" : "Submit") : "Next"}
-          </Button>
-        </div>
+        <FormActions 
+          currentStep={currentStep}
+          isEditing={isEditing}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+          onCancel={onCancel}
+        />
       </Card>
     </div>
   );

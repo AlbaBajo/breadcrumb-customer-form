@@ -1,10 +1,18 @@
+
 <div class="form-section">
-  <h3 class="mb-3">Review Information</h3>
-  <p class="text-muted mb-4">Please review the entered information before submission</p>
+  <h3 class="text-primary mb-3">Review Information</h3>
+  <p class="text-muted mb-4">Please review all entered information before submission</p>
+  
+  <!-- Banner -->
+  <div class="banner-container mb-4">
+    <img src="<?= getScriptUrl() ?>?file=lovable-uploads/84f140f9-cccb-44da-b539-1cfe1189aa89.png" 
+         alt="SDG Radar de Alianzas"
+         class="img-fluid" />
+  </div>
   
   <!-- Arquitectura Section -->
   <div class="card mb-4">
-    <div class="card-header bg-light">
+    <div class="card-header bg-dark text-white">
       <h4 class="mb-0">Arquitectura</h4>
     </div>
     <div class="card-body">
@@ -39,15 +47,156 @@
           <span id="review-comments" class="ms-2">-</span>
         </div>
       </div>
+      
+      <hr>
+      <h5 class="mb-3">Data Ingestion</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>Sources to DL SDG:</strong>
+          <span id="review-sourcesToDLSDG" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Sources to DL Tech ETL:</strong>
+          <span id="review-sourcesToDLTechETL" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Storage DL:</strong>
+          <span id="review-storageDL" class="ms-2">-</span>
+        </div>
+        <div class="col-md-12 mb-2">
+          <strong>Comments:</strong>
+          <span id="review-sourcesToDLComments" class="ms-2">-</span>
+        </div>
+      </div>
 
-      <!-- Additional sections from ArquitecturaForm -->
-      <!-- ... keep existing code (Data Ingestion, Explotación del Dato, Orquestación, Visualization, Advanced Analytics, Government sections) -->
+      <hr>
+      <h5 class="mb-3">Data Warehouse</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>DL to DWH SDG:</strong>
+          <span id="review-dlToDWHSDG" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Data Model:</strong>
+          <span id="review-dataModel" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>DL to DWH Tech ETL:</strong>
+          <span id="review-dlToDWHTechETL" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Storage DWH:</strong>
+          <span id="review-storageDWH" class="ms-2">-</span>
+        </div>
+        <div class="col-md-12 mb-2">
+          <strong>Comments:</strong>
+          <span id="review-dlToDWHComments" class="ms-2">-</span>
+        </div>
+      </div>
     </div>
   </div>
   
+  <!-- Features Section -->
+  <div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+      <h4 class="mb-0">Features</h4>
+    </div>
+    <div class="card-body">
+      <h5 class="mb-3">Data Integration</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>Sources:</strong>
+          <span id="review-sources" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Read From SAP:</strong>
+          <span id="review-readFromSAP" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Range Volumentría:</strong>
+          <span id="review-rangeVolumentria" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Source Format:</strong>
+          <span id="review-sourceFormat" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Usage:</strong>
+          <span id="review-usage" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Specific Table Types:</strong>
+          <span id="review-specificTableTypes" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <h5 class="mb-3">Query Processing</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>Admin Platform:</strong>
+          <span id="review-canAdminPlatform" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>DWH by Processing:</strong>
+          <span id="review-hasDwhByProcessing" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Pushdown Operations:</strong>
+          <span id="review-pushdownOperations" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Dynamic Scaling:</strong>
+          <span id="review-dynamicScaling" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Multiclustering:</strong>
+          <span id="review-multiclustering" class="ms-2">-</span>
+        </div>
+      </div>
+
+      <hr>
+      <h5 class="mb-3">ETL & Data Pipeline</h5>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <strong>Notebooks Usage:</strong>
+          <span id="review-notebooksUsage" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Stored Procedures:</strong>
+          <span id="review-storedProcedures" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>CTE Usage:</strong>
+          <span id="review-cteUsage" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Snowflake API:</strong>
+          <span id="review-snowflakeApi" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Snowpark:</strong>
+          <span id="review-snowpark" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Snowflake Orchestrator:</strong>
+          <span id="review-snowflakeOrchestrator" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Kafka Connector:</strong>
+          <span id="review-kafkaConnector" class="ms-2">-</span>
+        </div>
+        <div class="col-md-6 mb-2">
+          <strong>Snowpipe:</strong>
+          <span id="review-snowpipe" class="ms-2">-</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Aceleradores Section -->
   <div class="card mb-4">
-    <div class="card-header bg-light">
+    <div class="card-header bg-dark text-white">
       <h4 class="mb-0">Aceleradores</h4>
     </div>
     <div class="card-body">
@@ -56,20 +205,10 @@
       </div>
     </div>
   </div>
-  
-  <!-- Features Section -->
-  <div class="card mb-4">
-    <div class="card-header bg-light">
-      <h4 class="mb-0">Features</h4>
-    </div>
-    <div class="card-body">
-      <!-- ... keep existing code (Data Integration, Query Processing, ETL, Data Pipelines, AI-ML, Disaster Recovery, Security sections) -->
-    </div>
-  </div>
-  
+
   <!-- Contact Information Section -->
   <div class="card mb-4">
-    <div class="card-header bg-light">
+    <div class="card-header bg-dark text-white">
       <h4 class="mb-0">Contact Information</h4>
     </div>
     <div class="card-body">
@@ -98,9 +237,9 @@
     </div>
   </div>
 
-  <!-- Address Section -->
+  <!-- Address Information Section -->
   <div class="card mb-4">
-    <div class="card-header bg-light">
+    <div class="card-header bg-dark text-white">
       <h4 class="mb-0">Address Information</h4>
     </div>
     <div class="card-body">
@@ -163,7 +302,7 @@
 
   <!-- Preferences Section -->
   <div class="card mb-4">
-    <div class="card-header bg-light">
+    <div class="card-header bg-dark text-white">
       <h4 class="mb-0">Preferences</h4>
     </div>
     <div class="card-body">
@@ -237,6 +376,44 @@
     document.getElementById('review-tallaje').textContent = formData.tallaje || 'N/A';
     document.getElementById('review-comments').textContent = formData.comments || 'N/A';
     
+    // Data Ingestion
+    document.getElementById('review-sourcesToDLSDG').textContent = formData.sourcesToDLSDG ? 'Yes' : 'No';
+    document.getElementById('review-sourcesToDLTechETL').textContent = Array.isArray(formData.sourcesToDLTechETL) ? formData.sourcesToDLTechETL.join(', ') : 'N/A';
+    document.getElementById('review-storageDL').textContent = formData.storageDL || 'N/A';
+    document.getElementById('review-sourcesToDLComments').textContent = formData.sourcesToDLComments || 'N/A';
+    
+    // Data Warehouse
+    document.getElementById('review-dlToDWHSDG').textContent = formData.dlToDWHSDG ? 'Yes' : 'No';
+    document.getElementById('review-dataModel').textContent = formData.dataModel || 'N/A';
+    document.getElementById('review-dlToDWHTechETL').textContent = Array.isArray(formData.dlToDWHTechETL) ? formData.dlToDWHTechETL.join(', ') : 'N/A';
+    document.getElementById('review-storageDWH').textContent = formData.storageDWH || 'N/A';
+    document.getElementById('review-dlToDWHComments').textContent = formData.dlToDWHComments || 'N/A';
+    
+    // Features
+    document.getElementById('review-sources').textContent = Array.isArray(formData.sources) ? formData.sources.join(', ') : 'N/A';
+    document.getElementById('review-readFromSAP').textContent = formData.readFromSAP ? 'Yes' : 'No';
+    document.getElementById('review-rangeVolumentria').textContent = formData.rangeVolumentria || 'N/A';
+    document.getElementById('review-sourceFormat').textContent = formData.sourceFormat || 'N/A';
+    document.getElementById('review-usage').textContent = Array.isArray(formData.usage) ? formData.usage.join(', ') : 'N/A';
+    document.getElementById('review-specificTableTypes').textContent = formData.specificTableTypes || 'N/A';
+    
+    // Query Processing
+    document.getElementById('review-canAdminPlatform').textContent = formData.canAdminPlatform || 'N/A';
+    document.getElementById('review-hasDwhByProcessing').textContent = formData.hasDwhByProcessing || 'N/A';
+    document.getElementById('review-pushdownOperations').textContent = formData.pushdownOperations || 'N/A';
+    document.getElementById('review-dynamicScaling').textContent = formData.dynamicScaling || 'N/A';
+    document.getElementById('review-multiclustering').textContent = formData.multiclustering || 'N/A';
+    
+    // ETL & Data Pipeline
+    document.getElementById('review-notebooksUsage').textContent = formData.notebooksUsage || 'N/A';
+    document.getElementById('review-storedProcedures').textContent = formData.storedProcedures || 'N/A';
+    document.getElementById('review-cteUsage').textContent = formData.cteUsage || 'N/A';
+    document.getElementById('review-snowflakeApi').textContent = formData.snowflakeApi || 'N/A';
+    document.getElementById('review-snowpark').textContent = formData.snowpark || 'N/A';
+    document.getElementById('review-snowflakeOrchestrator').textContent = formData.snowflakeOrchestrator || 'N/A';
+    document.getElementById('review-kafkaConnector').textContent = formData.kafkaConnector || 'N/A';
+    document.getElementById('review-snowpipe').textContent = formData.snowpipe || 'N/A';
+    
     // Contact Information
     document.getElementById('review-phoneNumber').textContent = formData.phoneNumber || 'N/A';
     document.getElementById('review-mobileNumber').textContent = formData.mobileNumber || 'N/A';
@@ -286,6 +463,7 @@
       
       // Create table header
       const thead = document.createElement('thead');
+      thead.className = 'bg-dark text-white';
       thead.innerHTML = `
         <tr>
           <th>Artefacto</th>
@@ -314,13 +492,13 @@
           <td>${acelerador.desarrollo || 'N/A'}</td>
           <td>${acelerador.technologyBase?.join(', ') || 'N/A'}</td>
           <td>${acelerador.technology?.join(', ') || 'N/A'}</td>
-          <td>${acelerador.dataIngestion ? 'Yes' : 'No'}</td>
-          <td>${acelerador.dataTransformation ? 'Yes' : 'No'}</td>
-          <td>${acelerador.monitoring ? 'Yes' : 'No'}</td>
-          <td>${acelerador.securitization ? 'Yes' : 'No'}</td>
-          <td>${acelerador.dataModeling ? 'Yes' : 'No'}</td>
-          <td>${acelerador.mlops ? 'Yes' : 'No'}</td>
-          <td>${acelerador.cicd ? 'Yes' : 'No'}</td>
+          <td class="text-center">${acelerador.dataIngestion ? 'Yes' : 'No'}</td>
+          <td class="text-center">${acelerador.dataTransformation ? 'Yes' : 'No'}</td>
+          <td class="text-center">${acelerador.monitoring ? 'Yes' : 'No'}</td>
+          <td class="text-center">${acelerador.securitization ? 'Yes' : 'No'}</td>
+          <td class="text-center">${acelerador.dataModeling ? 'Yes' : 'No'}</td>
+          <td class="text-center">${acelerador.mlops ? 'Yes' : 'No'}</td>
+          <td class="text-center">${acelerador.cicd ? 'Yes' : 'No'}</td>
         `;
         tbody.appendChild(row);
       });
@@ -330,7 +508,6 @@
     } else {
       aceleradoresContainer.innerHTML = '<p class="text-muted">No se han agregado aceleradores</p>';
     }
-    
-    // Add more sections as needed
   }
 </script>
+

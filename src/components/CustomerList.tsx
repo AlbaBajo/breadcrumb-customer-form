@@ -34,7 +34,6 @@ const CustomerList = ({ onEditCustomer }: CustomerListProps) => {
         setCustomers(storedCustomers);
         
         // For App Script, we'll use the server function instead
-        // This code will be activated when running in App Script environment
         if (typeof window !== 'undefined' && 
             typeof (window as any).google !== 'undefined' && 
             (window as any).google.script) {
@@ -92,10 +91,20 @@ const CustomerList = ({ onEditCustomer }: CustomerListProps) => {
     setSelectedCustomer(null);
   };
 
+  // Get formatted date string
+  const getFormattedDate = (timestamp: string | undefined) => {
+    if (!timestamp) return "N/A";
+    try {
+      return new Date(timestamp).toLocaleDateString();
+    } catch (error) {
+      return "N/A";
+    }
+  };
+
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle className="text-xl text-purple-700 flex items-center gap-2">
+        <CardTitle className="text-xl text-cyan-500 flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           Customer List
         </CardTitle>
@@ -131,8 +140,8 @@ const CustomerList = ({ onEditCustomer }: CustomerListProps) => {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Customer Name</TableHead>
-                      <TableHead>License Type</TableHead>
-                      <TableHead>Cloud</TableHead>
+                      <TableHead>Update Date</TableHead>
+                      <TableHead>Contact Email</TableHead>
                       <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -140,8 +149,8 @@ const CustomerList = ({ onEditCustomer }: CustomerListProps) => {
                     {displayedCustomers.map((customer, index) => (
                       <TableRow key={index}>
                         <TableCell className="font-medium">{customer.customerName || 'N/A'}</TableCell>
-                        <TableCell>{customer.tipoLicencia || 'N/A'}</TableCell>
-                        <TableCell>{customer.cloud || 'N/A'}</TableCell>
+                        <TableCell>{getFormattedDate(customer.updateDate || customer.timestamp)}</TableCell>
+                        <TableCell>{customer.email || customer.contactEmail || 'N/A'}</TableCell>
                         <TableCell className="text-right space-x-2">
                           <Button 
                             variant="outline" 

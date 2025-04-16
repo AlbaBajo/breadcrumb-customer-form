@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -26,61 +25,53 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
-      <header className="bg-white shadow-sm py-6 w-full">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-purple-700 flex items-center">
+    <div className="min-h-screen flex flex-col bg-background">
+      <div className="banner">
+        <div className="banner-content">
+          <h1 className="text-3xl font-bold text-white mb-2 flex items-center">
             <BookUser className="mr-2" />
-            Customer Database
+            Radar de Alianzas
           </h1>
-          {!showForm && (
-            <Button 
-              variant="outline" 
-              className="flex items-center"
-              onClick={() => {
-                setShowForm(true);
-                setActiveTab("form");
-              }}
-            >
-              <Plus className="mr-2" size={16} />
-              Add New Customer
-            </Button>
-          )}
+          <p className="text-cyan-300">Sistema de Gestión de Información de Clientes</p>
         </div>
-      </header>
-      
+      </div>
+
       <main className="container mx-auto px-4 py-8 flex-grow">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-2 mb-4">
-            <TabsTrigger value="list" className="flex items-center gap-2">
+          <TabsList className="grid grid-cols-2 mb-4 bg-muted">
+            <TabsTrigger value="list" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <Users size={16} />
               Customer List
             </TabsTrigger>
-            <TabsTrigger value="form" className="flex items-center gap-2">
+            <TabsTrigger value="form" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <FileSpreadsheet size={16} />
               {customerToEdit ? "Edit Customer" : "New Customer"}
             </TabsTrigger>
           </TabsList>
           
           <TabsContent value="list">
-            <CustomerList onEditCustomer={handleEditCustomer} />
+            <Card className="bg-card/50 backdrop-blur border-border">
+              <CustomerList onEditCustomer={handleEditCustomer} />
+            </Card>
           </TabsContent>
           
           <TabsContent value="form">
             {(showForm || activeTab === "form") && (
-              <CustomerForm 
-                onCancel={handleFormCancel} 
-                initialData={customerToEdit} 
-                isEditing={!!customerToEdit}
-              />
+              <Card className="bg-card/50 backdrop-blur border-border">
+                <CustomerForm 
+                  onCancel={handleFormCancel} 
+                  initialData={customerToEdit} 
+                  isEditing={!!customerToEdit}
+                />
+              </Card>
             )}
           </TabsContent>
         </Tabs>
       </main>
       
-      <footer className="bg-white shadow-sm py-4 mt-auto w-full">
-        <div className="container mx-auto px-4 text-center text-gray-500 text-sm">
-          &copy; {new Date().getFullYear()} Customer Database System
+      <footer className="bg-muted py-4 mt-auto w-full">
+        <div className="container mx-auto px-4 text-center text-muted-foreground text-sm">
+          &copy; {new Date().getFullYear()} SDG Group - Radar de Alianzas
         </div>
       </footer>
     </div>

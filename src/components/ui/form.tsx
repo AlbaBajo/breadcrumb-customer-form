@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
@@ -93,7 +94,12 @@ const FormLabel = React.forwardRef<
   return (
     <Label
       ref={ref}
-      className={cn(error && "text-destructive", className)}
+      className={cn(
+        "text-foreground font-medium", // Improved default text color
+        error && "text-destructive", 
+        "hover:text-primary transition-colors duration-200", // Added hover effect
+        className
+      )}
       htmlFor={formItemId}
       {...props}
     />
@@ -174,3 +180,4 @@ export {
   FormMessage,
   FormField,
 }
+

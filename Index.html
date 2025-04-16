@@ -19,11 +19,11 @@
     
     .navbar-brand {
       font-weight: 700;
-      color: #6f42c1;
+      color: #33C3F0;
     }
     
     .nav-pills .nav-link.active {
-      background-color: #6f42c1;
+      background-color: #33C3F0;
     }
     
     .content-wrapper {
@@ -42,20 +42,20 @@
     .section-header {
       font-size: 1.2rem;
       font-weight: 600;
-      color: #6f42c1;
+      color: #33C3F0;
       margin-bottom: 1rem;
       border-bottom: 1px solid #e9ecef;
       padding-bottom: 0.75rem;
     }
     
     .btn-primary {
-      background-color: #6f42c1;
-      border-color: #6f42c1;
+      background-color: #33C3F0;
+      border-color: #33C3F0;
     }
     
     .btn-primary:hover {
-      background-color: #5a32a3;
-      border-color: #5a32a3;
+      background-color: #2da8d8;
+      border-color: #2da8d8;
     }
     
     .tab-content {
@@ -77,7 +77,8 @@
     }
     
     table.table-bordered th {
-      background-color: #e9ecef;
+      background-color: #221F26;
+      color: white;
     }
     
     .action-btns {
@@ -89,16 +90,52 @@
       padding: 0.25rem 0.5rem;
       font-size: 0.75rem;
     }
+
+    .app-header {
+      background-color: #221F26;
+      color: white;
+      padding: 2rem 0;
+    }
+
+    .banner-container {
+      width: 100%;
+      background: #221F26;
+      position: relative;
+      overflow: hidden;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .banner-container img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .form-label {
+      color: #333;
+      font-weight: 500;
+    }
+
+    .form-control:focus {
+      border-color: #33C3F0;
+      box-shadow: 0 0 0 0.2rem rgba(51, 195, 240, 0.25);
+    }
   </style>
 </head>
 <body>
 
 <div class="container-fluid">
-  <header class="py-3 mb-4 border-bottom">
-    <div class="container d-flex align-items-center">
-      <span class="navbar-brand mb-0 h1">
-        <i class="bi bi-building"></i> Customer Information System
-      </span>
+  <header class="app-header mb-4">
+    <div class="container">
+      <!-- Banner with SDG logo and Radar de Alianzas text -->
+      <div class="banner-container">
+        <img 
+          src="<?= getScriptUrl() ?>?file=lovable-uploads/84f140f9-cccb-44da-b539-1cfe1189aa89.png"
+          alt="SDG Radar de Alianzas" 
+        />
+      </div>
     </div>
   </header>
 
@@ -206,10 +243,7 @@
               <thead class="table-primary">
                 <tr>
                   <th>Customer Name</th>
-                  <th>Antigüedad</th>
-                  <th>Tipo Licencia</th>
-                  <th>Cloud</th>
-                  <th>Phone</th>
+                  <th>Last Modified Date</th>
                   <th>Email</th>
                   <th>Actions</th>
                 </tr>

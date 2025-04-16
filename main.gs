@@ -33,7 +33,6 @@ function getCustomer(name) {
  * @returns {Array<Object>} Array of customer data objects
  */
 function getAllCustomers() {
-  // This function is implemented in database.gs
   return getAllCustomersFromDatabase();
 }
 
@@ -104,4 +103,12 @@ function deleteFromSheet(sheetName, columnIndex, value) {
 function generateReports() {
   // This function is implemented in reporting.gs
   return generateCustomerReports();
+}
+
+/**
+ * Helper function to get the script URL for serving static files
+ * @returns {string} The script URL
+ */
+function getScriptUrl() {
+  return ScriptApp.getService().getUrl();
 }
